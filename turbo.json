@@ -1,10 +1,22 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": [".next/**", "!.next/cache/**", "dist/**"] },
-    "dev": { "cache": false, "persistent": true },
-    "typecheck": { "dependsOn": ["^typecheck"] },
-    "test": { "dependsOn": ["^build"] },
-    "registry:build": { "outputs": ["public/r/**"] }
+    "build": {
+      "dependsOn": ["^build", "@zuri/registry#registry:build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck", "@zuri/registry#registry:build"]
+    },
+    "test": {
+      "dependsOn": ["^build", "@zuri/registry#registry:build"]
+    },
+    "registry:build": {
+      "outputs": ["../../apps/web/.registry/**"]
+    }
   }
 }
