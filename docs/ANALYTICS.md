@@ -56,7 +56,7 @@ If a `npx zuri add` wrapper is built: anonymous, opt-out telemetry (`ZURI_TELEME
 - Back up the database daily.
 
 ## 10. Acceptance tests
-- Installing a component into a fresh app via the CLI creates exactly one `install_events` row.
+- Installing a component into a fresh app via the CLI creates exactly one *unique* install per component. (Measured: the CLI fetches an item several times, so raw `install_events` rows are about 3x higher; see ADR 0002.)
 - Same visitor installing twice in a day increments raw but not unique.
 - Bot user-agents and docs previews are excluded from the headline number.
 - Endpoint still returns valid JSON if the database is down (fail open).
