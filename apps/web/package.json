@@ -12,17 +12,21 @@
   "dependencies": {
     "@zuri/tokens": "workspace:*",
     "@zuri/utils": "workspace:*",
+    "drizzle-orm": "0.45.4",
     "next": "16.4.6",
+    "postgres": "4.1.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.16",
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^22",
     "@types/react": "19.3.0",
     "@types/react-dom": "^19",
     "@zuri/config": "workspace:*",
+    "drizzle-kit": "0.31.11",
     "tailwindcss": "4.3.5",
     "typescript": "5.9.3",
     "vitest": "5.1.0"
