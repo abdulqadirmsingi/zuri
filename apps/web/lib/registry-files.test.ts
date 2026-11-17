@@ -13,10 +13,18 @@ describe("parseItemName", () => {
 });
 
 describe("readRegistryItem", () => {
-  const loaders = { button: async () => ({ default: { name: "button" } }) };
+  const loaders = {
+    button: async () => ({ default: { name: "button", meta: { version: "0.1.0", tier: "pro" } } }),
+    bare: async () => ({ default: { name: "bare" } }),
+  };
 
-  it("returns the item JSON", async () => {
-    expect(await readRegistryItem("button", loaders)).toBe('{"name":"button"}');
+  it("returns the item JSON with version and tier", async () => {
+    const item = await readRegistryItem("button", loaders);
+    expect(JSON.parse(item?.body ?? "{}").name).toBe("button");
+    expect(item).toMatchObject({ version: "0.1.0", tier: "pro" });
+  });
+  it("defaults missing metadata", async () => {
+    expect(await readRegistryItem("bare", loaders)).toMatchObject({ version: null, tier: "free" });
   });
   it("returns null for unknown names, including Object.prototype keys", async () => {
     expect(await readRegistryItem("nope", loaders)).toBeNull();
