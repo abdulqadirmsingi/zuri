@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { readFileSync, rmSync, writeFileSync } from "node:fs";
 
 const base = (process.env.ZURI_REGISTRY_URL ?? "http://localhost:3000").replace(/\/$/, "");
-const out = process.env.ZURI_REGISTRY_OUT ?? "../../apps/web/public/r";
+const out = process.env.ZURI_REGISTRY_OUT ?? "../../apps/web/.registry";
 const rendered = "registry.generated.json";
 
 writeFileSync(

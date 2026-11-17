@@ -13,5 +13,5 @@ playwright-report
 test-results
 *.tsbuildinfo
 next-env.d.ts
-apps/web/public/r
+apps/web/.registry
 registry.generated.json
