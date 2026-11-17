@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "zuri",
+  "homepage": "https://zuri.dev",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "An accessible button with default, outline, ghost and glass variants.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [{ "path": "src/actions/button/button.tsx", "type": "registry:ui" }],
+      "categories": ["actions"],
+      "meta": { "version": "0.1.0", "tier": "free" }
+    }
+  ]
+}
