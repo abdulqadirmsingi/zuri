@@ -1,0 +1,22 @@
+{
+  "name": "@zuri/utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "clsx": "2.1.1",
+    "tailwind-merge": "3.7.0"
+  },
+  "devDependencies": {
+    "@zuri/config": "workspace:*",
+    "vitest": "5.1.0",
+    "typescript": "5.9.3"
+  }
+}

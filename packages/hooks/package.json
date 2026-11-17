@@ -1,0 +1,6 @@
+{
+  "name": "@zuri/hooks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Headless React hooks (published to npm later)."
+}

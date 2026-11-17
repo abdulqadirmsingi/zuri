@@ -1,0 +1,1 @@
+{ "extends": "@zuri/config/tsconfig.base.json", "include": ["src"] }

@@ -1,0 +1,6 @@
+{
+  "name": "@zuri/registry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Component source and registry.json: the single source of truth. Pipeline lands in the next Phase 0 step."
+}

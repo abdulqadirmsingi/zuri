@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@import "@zuri/tokens/tokens.css";
+@import "@zuri/tokens/theme.css";
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
