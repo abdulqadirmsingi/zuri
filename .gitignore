@@ -11,3 +11,5 @@ coverage
 .vercel
 playwright-report
 test-results
+*.tsbuildinfo
+next-env.d.ts
