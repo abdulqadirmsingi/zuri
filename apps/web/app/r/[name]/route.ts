@@ -3,6 +3,7 @@ import { loaders } from "@/.registry/manifest";
 import { buildInstallEvent } from "@/lib/analytics/build-event";
 import { getDb } from "@/lib/analytics/db";
 import { recordInstall } from "@/lib/analytics/install-events";
+import { canAccess } from "@/lib/licence/access";
 import { parseItemName, readRegistryItem } from "@/lib/registry-files";
 import { checkRegistryRate } from "@/lib/registry-rate-limit";
 
@@ -29,6 +30,13 @@ export async function GET(request: Request, ctx: { params: Promise<{ name: strin
 
   const item = await readRegistryItem(name, loaders);
   if (!item) return Response.json({ error: "Not found" }, { status: 404 });
+
+  if (!(await canAccess(item.tier, request.headers, getDb()))) {
+    return Response.json(
+      { error: "A valid licence key is required" },
+      { status: 401, headers: { "WWW-Authenticate": "Bearer", "Cache-Control": "no-store" } },
+    );
+  }
 
   // The index is a listing, not an install. after() runs once the response is sent,
   // so counting never delays the response, and recordInstall never throws.
