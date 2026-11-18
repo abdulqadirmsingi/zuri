@@ -29,6 +29,9 @@ importers:
       '@zuri/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      class-variance-authority:
+        specifier: 0.7.1
+        version: 0.7.1
       drizzle-orm:
         specifier: 0.45.4
         version: 0.45.4(@electric-sql/pglite@0.5.16)(postgres@4.1.1)
