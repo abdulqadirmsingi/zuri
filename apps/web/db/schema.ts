@@ -23,3 +23,24 @@ export const installEvents = pgTable(
 );
 
 export type InstallEventInsert = typeof installEvents.$inferInsert;
+
+/**
+ * Pro licence keys. The plaintext key is shown once at creation and never stored:
+ * only its sha256 (keys are 256 bits of randomness, so a fast hash is appropriate).
+ */
+export const licenceKeys = pgTable(
+  "licence_keys",
+  {
+    id: bigserial("id", { mode: "number" }).primaryKey(),
+    keyHash: text("key_hash").notNull().unique(),
+    /** First characters of the key, so the owner can recognise it in the admin UI. */
+    keyPrefix: text("key_prefix").notNull(),
+    /** Opaque reference to the customer at the payment provider. No emails here. */
+    customerRef: text("customer_ref").notNull(),
+    tier: text("tier").notNull().default("pro"),
+    status: text("status").notNull().default("active"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+  },
+  (t) => [index("licence_keys_status_idx").on(t.status)],
+);
