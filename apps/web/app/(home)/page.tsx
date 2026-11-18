@@ -14,8 +14,10 @@ export default function Home() {
         <span lang="sw">Zuri</span> means “beautiful” in Swahili. Small, accessible React components
         you copy into your project and own.
       </p>
-      <div className="zuri-glass mt-8 max-w-full overflow-x-auto rounded-lg px-4 py-3">
-        <code className="font-mono text-sm">npx shadcn@latest add {siteUrl}/r/button.json</code>
+      <div className="zuri-glass mt-8 max-w-full rounded-lg px-4 py-3">
+        <code className="break-all text-start font-mono text-sm">
+          npx shadcn@latest add {siteUrl}/r/button.json
+        </code>
       </div>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link
