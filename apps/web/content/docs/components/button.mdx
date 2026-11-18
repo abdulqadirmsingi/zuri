@@ -1,6 +1,6 @@
 ---
 title: Button
-description: A native button with default, outline, ghost and glass variants.
+description: A native button with default, outline, ghost, destructive and glass variants, icon sizes and a loading state.
 ---
 
 <Preview>
@@ -37,6 +37,26 @@ The `glass` variant blurs whatever is behind it, so it needs a colourful or imag
   <Demo name="button-sizes" />
 </Preview>
 
+For a square icon-only button use `size="icon-sm"`, `"icon"` or `"icon-lg"` (32, 40 and 48 pixels) and give it an `aria-label`.
+
+## Icons and shape
+
+Put an inline SVG before or after the text. Icons are sized to 16 pixels automatically and are not clickable on their own. `shape="pill"` makes the ends fully round.
+
+<Preview>
+  <Demo name="button-icons" />
+</Preview>
+
+## Loading
+
+`loading` shows a spinner and disables the button, so a second click can't submit a payment twice.
+
+<Preview>
+  <Demo name="button-loading" />
+</Preview>
+
+Also show a status message somewhere on the page. `aria-busy` on its own is not announced by every screen reader.
+
 ## States
 
 <Preview>
@@ -49,8 +69,10 @@ The `glass` variant blurs whatever is behind it, so it needs a colourful or imag
 
 <PropsTable
   rows={[
-    { name: "variant", type: '"default" | "outline" | "ghost" | "glass"', default: '"default"', description: "Visual style." },
-    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Minimum heights of 32, 40 and 48 pixels." },
+    { name: "variant", type: '"default" | "outline" | "ghost" | "destructive" | "glass"', default: '"default"', description: "Visual style. Destructive is danger-coloured text on a light surface." },
+    { name: "size", type: '"sm" | "md" | "lg" | "icon-sm" | "icon" | "icon-lg"', default: '"md"', description: "Heights of 32, 40 and 48 pixels. The icon sizes are square and need an aria-label." },
+    { name: "shape", type: '"default" | "pill"', default: '"default"', description: "Pill makes the ends fully round." },
+    { name: "loading", type: "boolean", default: "false", description: "Shows a spinner, sets aria-busy and disables the button." },
     { name: "type", type: '"button" | "submit" | "reset"', default: '"button"', description: "Defaults to button so it never submits a form by accident." },
     { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
   ]}
@@ -61,7 +83,8 @@ The `glass` variant blurs whatever is behind it, so it needs a colourful or imag
 - It renders a native `<button>`, so Enter and Space activate it and screen readers announce it as a button.
 - A visible focus ring appears on keyboard focus only (`:focus-visible`).
 - Disabled buttons are removed from pointer interaction and dimmed.
-- Under `prefers-reduced-motion`, the press animation and transitions are turned off.
+- Under `prefers-reduced-motion`, the press animation and transitions are turned off, and the loading spinner pulses instead of rotating.
+- Icon-only buttons have no visible text, so they must have an `aria-label`.
 - The smallest size is 32 pixels high, above the 24-pixel WCAG 2.2 minimum but below the 44-pixel touch target we prefer. Use `lg` for primary touch actions.
 
 ## Tokens used
@@ -70,7 +93,8 @@ The `glass` variant blurs whatever is behind it, so it needs a colourful or imag
 
 ## Known limitations
 
-- No loading state and no icon-only variant yet.
+- Loading disables the button, so it leaves the tab order while it waits.
+- Nothing checks that an icon-only button has an aria-label; that is up to you.
 - Glass text contrast has not been measured against worst-case backdrops.
 
 ## Source

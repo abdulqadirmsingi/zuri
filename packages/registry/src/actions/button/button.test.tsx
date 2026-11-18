@@ -73,6 +73,53 @@ describe("Button", () => {
     expect(screen.getByRole("button").className).toContain("min-h-12");
   });
 
+  it("supports a destructive style, icon sizes and a pill shape", () => {
+    const { rerender } = render(<Button variant="destructive">x</Button>);
+    expect(screen.getByRole("button").className).toContain("text-danger");
+    rerender(
+      <Button size="icon" aria-label="More">
+        …
+      </Button>,
+    );
+    expect(screen.getByRole("button").className).toContain("size-10");
+    expect(screen.getByRole("button").className).not.toContain("rounded-lg");
+    rerender(<Button shape="pill">x</Button>);
+    expect(screen.getByRole("button").className).toContain("rounded-full");
+    expect(screen.getByRole("button").className).not.toContain("rounded-md");
+  });
+
+  it("sizes icons placed inside it", () => {
+    render(<Button>x</Button>);
+    expect(screen.getByRole("button").className).toContain("[&_svg]:size-4");
+  });
+
+  describe("loading", () => {
+    it("disables the button, marks it busy and shows a hidden spinner", () => {
+      const { container } = render(<Button loading>Pay</Button>);
+      const el = screen.getByRole("button", { name: "Pay" });
+      expect(el).toHaveProperty("disabled", true);
+      expect(el.getAttribute("aria-busy")).toBe("true");
+      expect(container.querySelector("svg")?.getAttribute("aria-hidden")).toBe("true");
+    });
+
+    it("blocks clicks so a form cannot be submitted twice", async () => {
+      const onClick = vi.fn();
+      render(
+        <Button loading onClick={onClick}>
+          Pay
+        </Button>,
+      );
+      await userEvent.click(screen.getByRole("button"));
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it("is not busy and has no spinner by default", () => {
+      const { container } = render(<Button>Pay</Button>);
+      expect(screen.getByRole("button").hasAttribute("aria-busy")).toBe(false);
+      expect(container.querySelector("svg")).toBeNull();
+    });
+  });
+
   it("lets className override built-in classes", () => {
     render(<Button className="px-8">x</Button>);
     const { className } = screen.getByRole("button");
@@ -99,13 +146,24 @@ describe("Button", () => {
   });
 
   describe("axe", () => {
-    it.each(["default", "outline", "ghost", "glass"] as const)(
+    it.each(["default", "outline", "ghost", "glass", "destructive"] as const)(
       "has no violations (%s)",
       async (variant: NonNullable<ButtonProps["variant"]>) => {
         const { container } = render(<Button variant={variant}>Label</Button>);
         expect((await axe(container)).violations).toEqual([]);
       },
     );
+    it("has no violations when loading or icon-only", async () => {
+      const { container } = render(
+        <>
+          <Button loading>Pay</Button>
+          <Button size="icon" aria-label="More">
+            <svg aria-hidden="true" viewBox="0 0 16 16" />
+          </Button>
+        </>,
+      );
+      expect((await axe(container)).violations).toEqual([]);
+    });
     it("has no violations when disabled", async () => {
       const { container } = render(<Button disabled>Label</Button>);
       expect((await axe(container)).violations).toEqual([]);

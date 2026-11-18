@@ -13,6 +13,7 @@ const pages = [
   "/docs/theming",
   "/docs/components",
   "/docs/components/button",
+  "/docs/components/copy-button",
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/textarea",

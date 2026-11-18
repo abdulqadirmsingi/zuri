@@ -1,5 +1,13 @@
 import type { ReactNode } from "react";
-import { ButtonDefault, ButtonSizes, ButtonStates, ButtonVariants } from "./button-demos";
+import {
+  ButtonDefault,
+  ButtonIcons,
+  ButtonLoading,
+  ButtonSizes,
+  ButtonStates,
+  ButtonVariants,
+} from "./button-demos";
+import { CopyButtonDefault } from "./copy-button-demos";
 import {
   BadgeVariants,
   KbdDefault,
@@ -44,6 +52,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-variants": ButtonVariants,
   "button-sizes": ButtonSizes,
   "button-states": ButtonStates,
+  "button-icons": ButtonIcons,
+  "button-loading": ButtonLoading,
+  "copy-button-default": CopyButtonDefault,
   "checkbox-default": CheckboxDefault,
   "checkbox-states": CheckboxStates,
   "switch-default": SwitchDefault,

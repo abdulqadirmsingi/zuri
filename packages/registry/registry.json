@@ -116,7 +116,7 @@
       ],
       "categories": ["actions"],
       "meta": {
-        "version": "0.1.0",
+        "version": "0.2.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
@@ -462,6 +462,25 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy button",
+      "description": "A button that copies text and confirms it visually and to screen readers.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/actions/copy-button/copy-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
     }
   ]
 }
