@@ -93,6 +93,15 @@ When the registry is served from a real domain, set `ZURI_REGISTRY_URL=https://y
 pnpm lint && pnpm typecheck && pnpm test && pnpm build
 ```
 
+## 8. Accessibility audit (real browser, WCAG 2.2 AA)
+
+With the site running (`pnpm dev` or `pnpm --filter web start`):
+```bash
+pnpm --filter web exec playwright install chromium   # once
+BASE_URL=http://localhost:3000 pnpm --filter web a11y
+```
+It audits every docs page in light and dark with axe and exits non-zero on any violation. If your dev server is on another port, change `BASE_URL`; set `CHROME_PATH` to use an existing Chromium.
+
 ## Troubleshooting
 - `/r/...` returns 500: the registry was not built. `pnpm dev` and `pnpm build` do it for you; otherwise run `pnpm registry:build`.
 - `/admin` returns 404: `ADMIN_TOKEN` is unset or shorter than 32 characters (this is deliberate).
