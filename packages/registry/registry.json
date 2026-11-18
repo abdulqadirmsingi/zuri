@@ -23,7 +23,8 @@
           "color-ring": "var(--ring)",
           "color-success": "var(--success)",
           "color-warning": "var(--warning)",
-          "color-danger": "var(--danger)"
+          "color-danger": "var(--danger)",
+          "color-control-border": "var(--control-border)"
         },
         "light": {
           "background": "oklch(0.99 0 0)",
@@ -39,7 +40,8 @@
           "ring": "oklch(0.18 0 0)",
           "success": "oklch(0.5 0.14 155)",
           "warning": "oklch(0.52 0.12 70)",
-          "danger": "oklch(0.52 0.2 25)"
+          "danger": "oklch(0.52 0.2 25)",
+          "control-border": "oklch(0.6 0 0)"
         },
         "dark": {
           "background": "oklch(0.14 0 0)",
@@ -55,7 +57,8 @@
           "ring": "oklch(0.97 0 0)",
           "success": "oklch(0.75 0.15 155)",
           "warning": "oklch(0.8 0.14 80)",
-          "danger": "oklch(0.72 0.17 25)"
+          "danger": "oklch(0.72 0.17 25)",
+          "control-border": "oklch(0.55 0 0)"
         }
       },
       "css": {
@@ -184,6 +187,82 @@
       "files": [
         {
           "path": "src/inputs/field/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A native checkbox, restyled, with an invalid state.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/checkbox/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio group",
+      "description": "A fieldset with native radios, a legend, a hint and an error.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/radio-group/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A native checkbox exposed as a switch.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/switch/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A native select with a custom chevron and an invalid state.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/select/select.tsx",
           "type": "registry:ui"
         }
       ],

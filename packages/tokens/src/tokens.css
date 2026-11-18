@@ -20,6 +20,8 @@
   --accent-foreground: oklch(0.18 0 0);
   --accent-ink: oklch(0.52 0.14 50);
   --border: oklch(0.9 0 0);
+  /* Boundary of form controls: needs 3:1 against the background (WCAG 1.4.11); --border does not. */
+  --control-border: oklch(0.6 0 0);
   --ring: oklch(0.18 0 0);
   --success: oklch(0.5 0.14 155);
   --warning: oklch(0.52 0.12 70);
@@ -72,6 +74,7 @@
     --accent-foreground: oklch(0.18 0 0);
     --accent-ink: oklch(0.8 0.14 62);
     --border: oklch(0.3 0 0);
+    --control-border: oklch(0.55 0 0);
     --ring: oklch(0.97 0 0);
     --success: oklch(0.75 0.15 155);
     --warning: oklch(0.8 0.14 80);
@@ -97,6 +100,7 @@
   --accent-foreground: oklch(0.18 0 0);
   --accent-ink: oklch(0.8 0.14 62);
   --border: oklch(0.3 0 0);
+  --control-border: oklch(0.55 0 0);
   --ring: oklch(0.97 0 0);
   --success: oklch(0.75 0.15 155);
   --warning: oklch(0.8 0.14 80);

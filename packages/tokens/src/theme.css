@@ -10,6 +10,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-ink: var(--accent-ink);
   --color-border: var(--border);
+  --color-control-border: var(--control-border);
   --color-ring: var(--ring);
   --color-success: var(--success);
   --color-warning: var(--warning);

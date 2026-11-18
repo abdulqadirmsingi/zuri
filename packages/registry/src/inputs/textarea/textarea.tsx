@@ -7,7 +7,7 @@ const textareaVariants = cva(
   {
     variants: {
       variant: {
-        default: "rounded-md border-border bg-background",
+        default: "rounded-md border-control-border bg-background",
         glass: "rounded-md zuri-glass",
       },
     },

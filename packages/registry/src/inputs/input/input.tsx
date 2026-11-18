@@ -7,7 +7,7 @@ const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-border bg-background",
+        default: "border-control-border bg-background",
         glass: "zuri-glass",
       },
       size: {

@@ -16,6 +16,7 @@ const COLOURS = [
   "success",
   "warning",
   "danger",
+  "control-border",
 ];
 const RAW_LIGHT = [
   "glass-blur",

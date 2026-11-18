@@ -1,0 +1,71 @@
+---
+title: Select
+description: A native select with a custom chevron and an invalid state.
+---
+
+<Preview>
+  <Demo name="select-default" />
+</Preview>
+
+Use `Select` to pick one option from a list. It wraps the browser's own `<select>`, so mobile users get the platform picker. If you need search or custom option rendering, that is a combobox, which is a separate component.
+
+## Installation
+
+<InstallTabs name="select" />
+
+## Usage
+
+```tsx
+import { Field } from "@/components/ui/field";
+import { Select } from "@/components/ui/select";
+
+<Field label="Country">
+  {(control) => (
+    <Select name="country" {...control}>
+      <option value="tz">Tanzania</option>
+      <option value="ke">Kenya</option>
+    </Select>
+  )}
+</Field>
+```
+
+## Variants, sizes and states
+
+<Preview>
+  <Demo name="select-variants" />
+</Preview>
+
+The `glass` variant blurs whatever is behind the closed control, so it needs a colourful backdrop. The open list is drawn by the browser and is not glass.
+
+## Props
+
+`Select` extends all native `<select>` props and spreads them onto the element, including `ref` (React 19). Pass `<option>` and `<optgroup>` as children.
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Minimum heights of 32, 40 and 48 pixels. This replaces the native numeric size attribute." },
+    { name: "invalid", type: "boolean", description: "Sets aria-invalid and a danger border. Field sets this for you." },
+    { name: "className", type: "string", description: "Merged onto the select; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native `<select>`: keyboard, type-ahead, screen reader announcements and form submission all come from the browser.
+- It needs a name: use [Field](/docs/components/field) or a `Label`.
+- The chevron is decorative and hidden from screen readers.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted-foreground`, `--control-border`, `--danger`, `--ring`, `--duration-base`, `--ease-out`, and the glass variables.
+
+## Known limitations
+
+- The open list can't be styled with CSS, so it follows the operating system.
+- No multiple-select styling yet.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="select" />

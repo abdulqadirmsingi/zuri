@@ -17,6 +17,10 @@ const pages = [
   "/docs/components/input",
   "/docs/components/textarea",
   "/docs/components/field",
+  "/docs/components/checkbox",
+  "/docs/components/switch",
+  "/docs/components/radio-group",
+  "/docs/components/select",
 ];
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
