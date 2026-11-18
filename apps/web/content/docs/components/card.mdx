@@ -1,0 +1,68 @@
+---
+title: Card
+description: A surface with header, title, description, content and footer parts.
+---
+
+<Preview>
+  <Demo name="card-default" />
+</Preview>
+
+Use `Card` to group related content into one unit, such as a wallet balance or a plan. It is a container, not a control: if the whole card should be clickable, put a link inside it and stretch the link, rather than making the card a button.
+
+## Installation
+
+<InstallTabs name="card" />
+
+## Usage
+
+```tsx
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+<Card>
+  <CardHeader>
+    <CardTitle>Wallet</CardTitle>
+    <CardDescription>Available to spend</CardDescription>
+  </CardHeader>
+  <CardContent>TZS 240,000</CardContent>
+  <CardFooter>…</CardFooter>
+</Card>
+```
+
+## Variants
+
+<Preview>
+  <Demo name="card-variants" />
+</Preview>
+
+The `glass` variant blurs whatever is behind it, so it needs a colourful or image backdrop.
+
+## Props
+
+Every part extends its native element's props and spreads them on, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "outline" | "glass"', default: '"default"', description: "On Card. Visual style." },
+    { name: "as", type: '"h2" | "h3" | "h4" | "h5" | "h6"', default: '"h3"', description: "On CardTitle. The heading element, so the card fits your page's heading outline." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- A card is a plain `<div>` with no role, so it adds no noise for screen readers.
+- `CardTitle` is a real heading. Choose its level to match the page, and never skip levels.
+- The default card border is decorative; the `outline` variant uses the stronger control-border colour.
+
+## Tokens used
+
+`--background`, `--foreground`, `--border`, `--control-border`, `--muted-foreground`, and the glass variables.
+
+## Known limitations
+
+- No image slot or clickable-card pattern yet.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="card" />

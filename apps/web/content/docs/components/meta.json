@@ -16,6 +16,10 @@
     "spinner",
     "skeleton",
     "kbd",
-    "progress"
+    "progress",
+    "card",
+    "avatar",
+    "empty-state",
+    "stat"
   ]
 }

@@ -9,6 +9,14 @@ import {
   SpinnerSizes,
 } from "./display-demos";
 import {
+  AvatarGroupDefault,
+  AvatarSizes,
+  CardDefault,
+  CardVariants,
+  EmptyStateDefault,
+  StatDefault,
+} from "./display-demos-2";
+import {
   FieldDefault,
   FieldError,
   FieldTextarea,
@@ -51,6 +59,12 @@ const demos: Record<string, () => ReactNode> = {
   "skeleton-card": SkeletonCard,
   "kbd-default": KbdDefault,
   "progress-default": ProgressDefault,
+  "card-default": CardDefault,
+  "card-variants": CardVariants,
+  "avatar-sizes": AvatarSizes,
+  "avatar-group": AvatarGroupDefault,
+  "empty-state-default": EmptyStateDefault,
+  "stat-default": StatDefault,
   "label-default": LabelDefault,
   "input-default": InputDefault,
   "input-variants": InputVariants,

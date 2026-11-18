@@ -27,6 +27,10 @@ const pages = [
   "/docs/components/skeleton",
   "/docs/components/kbd",
   "/docs/components/progress",
+  "/docs/components/card",
+  "/docs/components/avatar",
+  "/docs/components/empty-state",
+  "/docs/components/stat",
 ];
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
