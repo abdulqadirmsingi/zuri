@@ -15,6 +15,7 @@ const pages = [
   "/docs/components",
   "/docs/components/button",
   "/docs/components/copy-button",
+  "/docs/components/expanding-button-group",
   "/docs/components/bottom-nav",
   "/docs/components/dialog",
   "/docs/components/popover",
