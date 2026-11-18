@@ -1,10 +1,12 @@
 /*
  * Zuri design tokens. Plain CSS variables so they work in any project.
  * Theme: follows prefers-color-scheme by default; `.dark` / `[data-theme="dark"]`
- * and `[data-theme="light"]` force a mode.
+ * and `.light` / `[data-theme="light"]` force a mode (`.light` also re-lights a section
+ * inside a dark page, e.g. a docs preview).
  */
 
-:root {
+:root,
+.light {
   /* Colour (semantic) — light */
   --background: oklch(0.99 0 0);
   --foreground: oklch(0.16 0 0);
@@ -59,7 +61,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme="light"]):not(.light) {
     --background: oklch(0.14 0 0);
     --foreground: oklch(0.97 0 0);
     --muted: oklch(0.2 0 0);

@@ -51,7 +51,7 @@ const pick = (src: Record<string, string>, keys: string[]) =>
 // Why: the registry item is what users install, tokens.css is what the site uses.
 // They must never disagree, or the docs site would not look like installed components.
 describe("zuri-tokens registry item matches packages/tokens", () => {
-  const light = vars(":root {");
+  const light = vars(".light {");
   const dark = vars(':root[data-theme="dark"]');
 
   it("light colours", () => expect(item?.cssVars?.light).toEqual(pick(light, COLOURS)));
