@@ -1,11 +1,31 @@
 import type { ReactNode } from "react";
 import { ButtonDefault, ButtonSizes, ButtonStates, ButtonVariants } from "./button-demos";
+import {
+  FieldDefault,
+  FieldError,
+  FieldTextarea,
+  InputDefault,
+  InputSizes,
+  InputVariants,
+  LabelDefault,
+  TextareaDefault,
+  TextareaStates,
+} from "./input-demos";
 
 const demos: Record<string, () => ReactNode> = {
   "button-default": ButtonDefault,
   "button-variants": ButtonVariants,
   "button-sizes": ButtonSizes,
   "button-states": ButtonStates,
+  "label-default": LabelDefault,
+  "input-default": InputDefault,
+  "input-variants": InputVariants,
+  "input-sizes": InputSizes,
+  "textarea-default": TextareaDefault,
+  "textarea-states": TextareaStates,
+  "field-default": FieldDefault,
+  "field-error": FieldError,
+  "field-textarea": FieldTextarea,
 };
 
 /** Looks a demo up by name, so MDX can say <Demo name="button-variants" />. */

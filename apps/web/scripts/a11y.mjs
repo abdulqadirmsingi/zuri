@@ -13,6 +13,10 @@ const pages = [
   "/docs/theming",
   "/docs/components",
   "/docs/components/button",
+  "/docs/components/label",
+  "/docs/components/input",
+  "/docs/components/textarea",
+  "/docs/components/field",
 ];
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 

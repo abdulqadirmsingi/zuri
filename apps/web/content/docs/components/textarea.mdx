@@ -1,0 +1,58 @@
+---
+title: Textarea
+description: A native multi-line input with an invalid state.
+---
+
+<Preview>
+  <Demo name="textarea-default" />
+</Preview>
+
+Use `Textarea` for free text over several lines, such as a message or a note. It resizes vertically only, so it can't break your layout.
+
+## Installation
+
+<InstallTabs name="textarea" />
+
+## Usage
+
+```tsx
+import { Textarea } from "@/components/ui/textarea";
+
+<Textarea name="message" rows={5} />
+```
+
+## States
+
+<Preview>
+  <Demo name="textarea-states" />
+</Preview>
+
+## Props
+
+`Textarea` extends all native `<textarea>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "invalid", type: "boolean", description: "Sets aria-invalid and a danger border. Field sets this for you." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It renders a native `<textarea>`, so Enter inserts a new line and form submission works natively.
+- It needs a name: use [Field](/docs/components/field) or a `Label`.
+- A visible focus ring appears on keyboard focus only.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted-foreground`, `--border`, `--danger`, `--ring`, `--duration-base`, `--ease-out`, and the glass variables.
+
+## Known limitations
+
+- No auto-grow and no character counter yet.
+
+## Source
+
+<Source name="textarea" />
