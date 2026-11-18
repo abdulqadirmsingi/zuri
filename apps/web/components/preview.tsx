@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useId, useState } from "react";
+import { type ReactNode, useEffect, useId, useState } from "react";
 
 const themes = ["light", "dark"] as const;
 const widths = [
@@ -21,6 +21,11 @@ export function Preview({ children }: { children: ReactNode }) {
   const id = useId();
   const [theme, setTheme] = useState<(typeof themes)[number]>("light");
   const [width, setWidth] = useState<string>("100%");
+
+  // Start in the site's current theme. Done after mount so server and client markup match.
+  useEffect(() => {
+    if (document.documentElement.classList.contains("dark")) setTheme("dark");
+  }, []);
 
   return (
     <figure
