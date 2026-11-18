@@ -9,6 +9,8 @@ const base = (process.env.BASE_URL ?? "http://localhost:3000").replace(/\/$/, ""
 const pages = [
   "/",
   "/fonts",
+  "/fonts/figtree",
+  "/fonts/martian-mono",
   "/docs",
   "/docs/installation",
   "/docs/theming",
