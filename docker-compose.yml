@@ -1,0 +1,20 @@
+# Local development database only. Do not use these credentials in production.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: zuri
+      POSTGRES_PASSWORD: zuri_dev
+      POSTGRES_DB: zuri
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - zuri-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zuri"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  zuri-db:
