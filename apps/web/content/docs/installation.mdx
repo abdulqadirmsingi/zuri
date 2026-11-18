@@ -1,0 +1,29 @@
+---
+title: Installation
+description: Add a Zuri component to an existing shadcn project.
+---
+
+## Requirements
+
+- A project set up with the shadcn CLI (it has a `components.json`). If not, run `npx shadcn@latest init` first.
+- React 19 and Tailwind CSS v4.
+
+## Add a component
+
+Run the command for your package manager:
+
+<InstallTabs name="button" />
+
+The CLI copies the component into your components folder and adds the packages it needs. It also installs the `zuri-tokens` item, which adds the colour, glass and motion variables to your global CSS.
+
+<Callout type="info" title="Registry URL">
+  The URL in the command above is where this site is currently running. It is a placeholder until a public domain exists.
+</Callout>
+
+## Dark mode
+
+The installed tokens switch on a `.dark` class on a parent element, as in a standard shadcn setup.
+
+## Counting
+
+Each request for a registry item is counted so the maintainer can see which components are used. No IP address is stored and no cookies are set; see the privacy notes in the repository.
