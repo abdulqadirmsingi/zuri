@@ -8,6 +8,7 @@
     "input",
     "textarea",
     "field",
+    "password-strength",
     "checkbox",
     "switch",
     "radio-group",

@@ -28,6 +28,7 @@ const pages = [
   "/docs/components/input",
   "/docs/components/textarea",
   "/docs/components/field",
+  "/docs/components/password-strength",
   "/docs/components/checkbox",
   "/docs/components/switch",
   "/docs/components/radio-group",
