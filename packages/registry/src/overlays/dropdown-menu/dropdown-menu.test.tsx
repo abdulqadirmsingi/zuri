@@ -164,6 +164,37 @@ describe("DropdownMenu", () => {
     await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
   });
 
+  // Regression: in modal mode the rest of the page was aria-hidden while still focusable.
+  it("leaves the rest of the page available to assistive technology while open", async () => {
+    render(
+      <>
+        <button type="button">Outside</button>
+        <Example />
+      </>,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Actions" }));
+    await screen.findByRole("menu");
+    expect(screen.getByRole("button", { name: "Outside" })).toBeTruthy();
+    expect(document.body.style.pointerEvents).not.toBe("none");
+  });
+
+  it("can be made modal with the modal prop", async () => {
+    render(
+      <>
+        <button type="button">Outside</button>
+        <DropdownMenu modal>
+          <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem>One</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </>,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Actions" }));
+    await screen.findByRole("menu");
+    expect(screen.queryByRole("button", { name: "Outside" })).toBeNull();
+  });
+
   it("styles a destructive item", async () => {
     render(<Example />);
     await userEvent.click(screen.getByRole("button", { name: "Actions" }));

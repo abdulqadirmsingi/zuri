@@ -5,7 +5,18 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 /** Compose with DropdownMenuTrigger and DropdownMenuContent, then items inside the content. */
-export const DropdownMenu = MenuPrimitive.Root;
+/**
+ * Non-modal by default, as in the WAI-ARIA menu button pattern. Radix's modal mode marks the rest
+ * of the page `aria-hidden` while leaving its links and buttons focusable, which axe reports as
+ * `aria-hidden-focus`. The menu still closes on Escape or an outside click.
+ * Pass `modal` to get the locked-page behaviour back.
+ */
+export function DropdownMenu({
+  modal = false,
+  ...props
+}: ComponentProps<typeof MenuPrimitive.Root>) {
+  return <MenuPrimitive.Root modal={modal} {...props} />;
+}
 export const DropdownMenuTrigger = MenuPrimitive.Trigger;
 export const DropdownMenuGroup = MenuPrimitive.Group;
 export const DropdownMenuRadioGroup = MenuPrimitive.RadioGroup;
