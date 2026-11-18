@@ -68,7 +68,7 @@ export function BottomNav({
 }: BottomNavProps) {
   const [inner, setInner] = useState(defaultValue ?? items[0]?.id);
   const active = value ?? inner;
-  const itemRefs = useRef(new Map<string, HTMLElement>());
+  const itemRefs = useRef(new Map<string, HTMLLIElement>());
   const listRef = useRef<HTMLUListElement>(null);
   const [box, setBox] = useState<{ x: number; w: number } | null>(null);
 
@@ -94,7 +94,12 @@ export function BottomNav({
 
   return (
     <nav className={cn(barVariants({ variant, fixed }), className)} {...props}>
-      <ul ref={listRef} className="relative m-0 flex list-none items-center gap-1 p-0">
+      <ul
+        ref={listRef}
+        // The label grows over a transition; measure again once it has finished.
+        onTransitionEnd={measure}
+        className="relative m-0 flex list-none items-center gap-1 p-0"
+      >
         {/* The sliding pill. Hidden until measured; until then the active item paints its own. */}
         {box ? (
           <li
@@ -108,12 +113,17 @@ export function BottomNav({
           const Tag = item.href ? "a" : "button";
           const count = item.badge && item.badge > 0 ? item.badge : 0;
           return (
-            <li key={item.id} className="relative z-10">
+            <li
+              key={item.id}
+              // Measured for the indicator: the li is positioned relative to the list, so its
+              // offsetLeft is the distance from the list's start (the button's would be ~0).
+              ref={(el) => {
+                if (el) itemRefs.current.set(item.id, el);
+                else itemRefs.current.delete(item.id);
+              }}
+              className="relative z-10"
+            >
               <Tag
-                ref={(el: HTMLElement | null) => {
-                  if (el) itemRefs.current.set(item.id, el);
-                  else itemRefs.current.delete(item.id);
-                }}
                 href={item.href}
                 type={item.href ? undefined : "button"}
                 aria-current={isActive ? "page" : undefined}
