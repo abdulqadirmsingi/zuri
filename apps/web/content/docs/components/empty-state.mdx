@@ -1,0 +1,58 @@
+---
+title: Empty state
+description: A message with an icon and a next step for when there is no content.
+---
+
+<Preview>
+  <Demo name="empty-state-default" />
+</Preview>
+
+Use `EmptyState` where a list, table or page has nothing to show yet. Say why it is empty and give one clear next step. Don't use it for errors or loading; those need their own messages.
+
+## Installation
+
+<InstallTabs name="empty-state" />
+
+## Usage
+
+```tsx
+import { EmptyState } from "@/components/ui/empty-state";
+
+<EmptyState
+  title="No transactions yet"
+  description="Payments you send or receive will show up here."
+  action={<Button>Request a payment</Button>}
+/>
+```
+
+## Props
+
+`EmptyState` extends native `<div>` props (except `title`) and spreads them on, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "title", type: "ReactNode", description: "Short heading. Required." },
+    { name: "description", type: "ReactNode", description: "One sentence: why it is empty and what to do." },
+    { name: "icon", type: "ReactNode", description: "Decorative icon or illustration; hidden from assistive technology." },
+    { name: "action", type: "ReactNode", description: "A button or link for the next step." },
+    { name: "headingLevel", type: "2 | 3 | 4 | 5 | 6", default: "3", description: "Heading level, to fit your page's outline." },
+  ]}
+/>
+
+## Accessibility
+
+- The title is a real heading, so users can find it by heading navigation.
+- The icon is decorative and hidden. Don't put essential information only in it.
+- It is static content. If a list becomes empty after a user action, move focus somewhere sensible or announce the change.
+
+## Tokens used
+
+`--control-border`, `--muted-foreground`.
+
+## Known limitations
+
+- No illustrations are included; bring your own icon or SVG.
+
+## Source
+
+<Source name="empty-state" />
