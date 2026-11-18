@@ -67,6 +67,7 @@ The owner shared three example components (a password-strength field, an account
 - **State changes that show direction:** a word rises when strength improves and drops when it falls; a counter rolls; a tick draws itself; an error row opens and settles.
 - **Measured sizes:** use a ResizeObserver with a sub-pixel tolerance so widths never wobble; make the slot as wide as the longer of two swapped words.
 - **Touch and async:** on touch the first tap reveals a label and the second runs the action; an async action stays busy until it settles; a bottom sheet drags down to dismiss.
+- **Theme switch (planned original, `theme-switch`, actions):** one icon-and-label button that swaps light and dark. Ideas to keep: the two icons turn the same way so the swap reads as one rotation; the page change can radiate from the button (View Transitions API with an instant fallback, and no animation under reduced motion); a few styles to choose from (reveal, eclipse, split, rise); changes in the first painted frames are not animated, so a stored preference that arrives just after hydration never spins the icon. Accessibility: use either a stable label with `aria-pressed`, or a changing label without it, never both; it reports the choice and leaves applying the theme to the app.
 - **Messages and a11y:** every user-facing string overridable through a `messages` prop (Swahili-ready); a polite live region reports changes; reduced motion must not change the first client render.
 
 ## Phase 7 — Mobile and extras
