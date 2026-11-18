@@ -55,7 +55,10 @@ export function KeysPanel({ keys }: { keys: KeyRow[] }) {
   }
 
   return (
-    <section aria-labelledby={`${id}-h`} className="zuri-glass grid gap-4 rounded-lg p-4">
+    <section
+      aria-labelledby={`${id}-h`}
+      className="zuri-glass grid grid-cols-1 gap-4 rounded-lg p-4"
+    >
       <h2 id={`${id}-h`} className="font-display text-base font-semibold">
         Pro licence keys
       </h2>
@@ -92,7 +95,7 @@ export function KeysPanel({ keys }: { keys: KeyRow[] }) {
         {error && <p className="text-sm text-danger">{error}</p>}
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <table className="w-full text-sm">
           <caption className="sr-only">Licence keys</caption>
           <thead>

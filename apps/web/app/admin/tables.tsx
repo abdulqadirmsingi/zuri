@@ -25,7 +25,7 @@ export function DataTable({
   empty?: string;
 }) {
   return (
-    <section className="zuri-glass overflow-x-auto rounded-lg">
+    <section className="zuri-glass relative overflow-x-auto rounded-lg">
       <table className="w-full text-sm">
         <caption className="px-4 pt-4 text-start font-display text-base font-semibold">
           {caption}

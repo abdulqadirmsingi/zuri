@@ -14,7 +14,7 @@ export default async function AdminPage() {
   const db = getDb();
 
   return (
-    <main className="grid gap-6">
+    <main className="grid grid-cols-1 gap-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="font-display text-3xl font-semibold tracking-tight">Zuri admin</h1>
         <SignOut />
