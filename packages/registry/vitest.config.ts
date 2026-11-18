@@ -10,6 +10,10 @@ export default defineConfig({
         find: "@/components/ui/button",
         replacement: path.resolve(import.meta.dirname, "src/actions/button/button"),
       },
+      {
+        find: "@/components/ui/input",
+        replacement: path.resolve(import.meta.dirname, "src/inputs/input/input"),
+      },
       { find: "@", replacement: path.resolve(import.meta.dirname, "src") },
     ],
   },

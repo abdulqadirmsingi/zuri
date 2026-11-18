@@ -6,6 +6,7 @@
     "incremental": true,
     "paths": {
       "@/components/ui/button": ["../../packages/registry/src/actions/button/button"],
+      "@/components/ui/input": ["../../packages/registry/src/inputs/input/input"],
       "@/*": ["./*"],
       "@registry/*": ["../../packages/registry/src/*"]
     }
