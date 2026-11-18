@@ -53,6 +53,7 @@ hero (several variants), feature-grid, logo-cloud, testimonial, faq, cta, footer
 Added 2026-11-18 from the owner's inspiration screenshots. Ideas and direction only: build our own, never copy their code, imagery or branding.
 - **Curved 3D gallery carousel**: a row of cards bent into a perspective arc that scrolls or drags, for showing templates or products. Needs a keyboard-operable fallback (a plain list or arrow buttons) and a static layout under `prefers-reduced-motion`.
 - **Progressive blur edge**: content fades into a blur at the bottom (or top) of a scroller, so cards soften as they leave the view. Pure CSS (a masked, stacked `backdrop-filter`), subject to the glass rules in RULES.md (few blurred layers, no animated blur radius, solid fallback). Text under the blur must stay readable or be hidden from assistive technology.
+- **Helix / spiral gallery**: cards arranged on a rising spiral that rotates with scroll or drag, with an index counter and small caption labels. Our own design and our own placeholder imagery. Needs arrow-key and button controls, an accessible list of the items, and a static grid under `prefers-reduced-motion`.
 - More hero variants and richer scroll-driven sections (pinned scroll, cursor-reactive effects, looping auto-playing product demos), each with a reduced-motion version.
 - Optional grain texture on glass and gradient surfaces.
 - Heavier effects (WebGL/shaders) need an ADR first, because they break the dependency and size budgets.
