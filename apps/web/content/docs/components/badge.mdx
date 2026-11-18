@@ -1,0 +1,51 @@
+---
+title: Badge
+description: A short status label with solid, outline, semantic and glass variants.
+---
+
+<Preview>
+  <Demo name="badge-variants" />
+</Preview>
+
+Use `Badge` for a short label such as a status, a count or a category. It is not interactive: if it must be clicked, use a [Button](/docs/components/button).
+
+## Installation
+
+<InstallTabs name="badge" />
+
+## Usage
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+
+<Badge variant="success">Paid</Badge>
+```
+
+## Props
+
+`Badge` extends all native `<span>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "secondary" | "outline" | "success" | "warning" | "danger" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- The text carries the meaning ("Failed", "Paid"). Colour only reinforces it, so it never works alone.
+- It is a plain `<span>`, so screen readers read it inline. For a status that changes, put it in a live region yourself.
+
+## Tokens used
+
+`--primary`, `--primary-foreground`, `--muted`, `--foreground`, `--control-border`, `--success`, `--warning`, `--danger`, `--background`, and the glass variables.
+
+## Known limitations
+
+- No dot or icon slot yet; place an inline SVG as a child.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="badge" />

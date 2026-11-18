@@ -1,6 +1,14 @@
 import type { ReactNode } from "react";
 import { ButtonDefault, ButtonSizes, ButtonStates, ButtonVariants } from "./button-demos";
 import {
+  BadgeVariants,
+  KbdDefault,
+  ProgressDefault,
+  SeparatorDefault,
+  SkeletonCard,
+  SpinnerSizes,
+} from "./display-demos";
+import {
   FieldDefault,
   FieldError,
   FieldTextarea,
@@ -37,6 +45,12 @@ const demos: Record<string, () => ReactNode> = {
   "radio-group-disabled": RadioGroupDisabled,
   "select-default": SelectDefault,
   "select-variants": SelectVariants,
+  "badge-variants": BadgeVariants,
+  "separator-default": SeparatorDefault,
+  "spinner-sizes": SpinnerSizes,
+  "skeleton-card": SkeletonCard,
+  "kbd-default": KbdDefault,
+  "progress-default": ProgressDefault,
   "label-default": LabelDefault,
   "input-default": InputDefault,
   "input-variants": InputVariants,
