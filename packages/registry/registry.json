@@ -516,6 +516,73 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal dialog with focus trapping, scroll lock and a glass option, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/dialog/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A panel anchored to its trigger that can hold interactive content, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/popover/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A short label on hover and focus, built on Radix.",
+      "dependencies": ["@radix-ui/react-tooltip", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/overlays/tooltip/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }
