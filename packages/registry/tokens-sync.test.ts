@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const COLOURS = [
@@ -23,8 +23,17 @@ const RAW_LIGHT = [
   "glass-bg",
   "glass-border",
   "glass-solid",
+  "duration-fast",
   "duration-base",
+  "duration-slow",
   "ease-out",
+  "ease-in-out",
+  "z-dropdown",
+  "z-sticky",
+  "z-overlay",
+  "z-modal",
+  "z-toast",
+  "z-tooltip",
 ];
 const RAW_DARK = ["glass-bg", "glass-border", "glass-solid"];
 
@@ -53,13 +62,15 @@ const pick = (src: Record<string, string>, keys: string[]) =>
 // They must never disagree, or the docs site would not look like installed components.
 describe("zuri-tokens registry item matches packages/tokens", () => {
   const light = vars(".light {");
+  // Motion, z-index and blur live in a :root-only block (see the comment in tokens.css).
+  const rootOnly = vars(":root {");
   const dark = vars(':root[data-theme="dark"]');
 
   it("light colours", () => expect(item?.cssVars?.light).toEqual(pick(light, COLOURS)));
   it("dark colours", () => expect(item?.cssVars?.dark).toEqual(pick(dark, COLOURS)));
   it("raw light variables", () =>
     expect(item?.css?.[":root"]).toEqual(
-      Object.fromEntries(RAW_LIGHT.map((k) => [`--${k}`, light[k]])),
+      Object.fromEntries(RAW_LIGHT.map((k) => [`--${k}`, light[k] ?? rootOnly[k]])),
     ));
   it("raw dark variables", () =>
     expect(item?.css?.[".dark"]).toEqual(
@@ -69,4 +80,53 @@ describe("zuri-tokens registry item matches packages/tokens", () => {
     expect(Object.keys(item?.cssVars?.theme ?? {}).sort()).toEqual(
       COLOURS.map((k) => `color-${k}`).sort(),
     ));
+
+  // Regression: these lived in `:root, .light`, so a `.light`/`.dark` scope (as in the docs
+  // preview frame) re-declared them and the reduced-motion override never applied inside it.
+  it("keeps motion, z-index and blur out of the theme-scoped block", () => {
+    for (const k of ["duration-base", "duration-slow", "ease-out", "z-sticky", "glass-blur"])
+      expect(light[k], k).toBeUndefined();
+    expect(rootOnly["duration-slow"]).toBe("300ms");
+  });
+
+  it("shortens motion for prefers-reduced-motion in both tokens.css and the item", () => {
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\)\s*\{\s*:root\s*\{[^}]*--duration-slow:\s*0\.01ms/,
+    );
+    expect(item?.css?.["@media (prefers-reduced-motion: reduce)"]).toEqual({
+      ":root": {
+        "--duration-fast": "0.01ms",
+        "--duration-base": "0.01ms",
+        "--duration-slow": "0.01ms",
+      },
+    });
+  });
+
+  // Regression: bottom-nav used --duration-slow and --z-sticky, which the installable item
+  // did not declare, so they would have been undefined in a user's project.
+  it("declares every CSS variable that component source uses", () => {
+    const declared = new Set<string>([
+      ...Object.keys(item?.cssVars?.light ?? {}).map((k) => `--${k}`),
+      ...Object.keys(item?.cssVars?.theme ?? {}).map((k) => `--${k}`),
+      ...Object.keys(item?.css?.[":root"] ?? {}),
+    ]);
+    // Set inline by the component itself, not a token.
+    const own = new Set(["--zuri-progress"]);
+    const used = new Map<string, string>();
+    for (const file of listSources("src"))
+      for (const m of readFileSync(file, "utf8").matchAll(/var\((--[a-z0-9-]+)/g))
+        used.set(m[1] as string, file);
+    for (const [name, file] of used) {
+      if (name.startsWith("--tw-") || own.has(name)) continue;
+      expect(declared.has(name), `${name} (used in ${file})`).toBe(true);
+    }
+  });
 });
+
+function listSources(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+    const full = `${dir}/${e.name}`;
+    if (e.isDirectory()) return listSources(full);
+    return /\.tsx?$/.test(e.name) && !/\.test\./.test(e.name) ? [full] : [];
+  });
+}
