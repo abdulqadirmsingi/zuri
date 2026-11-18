@@ -11,12 +11,32 @@ import {
   TextareaDefault,
   TextareaStates,
 } from "./input-demos";
+import {
+  CheckboxDefault,
+  CheckboxStates,
+  RadioGroupDefault,
+  RadioGroupDisabled,
+  RadioGroupHorizontalError,
+  SelectDefault,
+  SelectVariants,
+  SwitchDefault,
+  SwitchStates,
+} from "./selection-demos";
 
 const demos: Record<string, () => ReactNode> = {
   "button-default": ButtonDefault,
   "button-variants": ButtonVariants,
   "button-sizes": ButtonSizes,
   "button-states": ButtonStates,
+  "checkbox-default": CheckboxDefault,
+  "checkbox-states": CheckboxStates,
+  "switch-default": SwitchDefault,
+  "switch-states": SwitchStates,
+  "radio-group-default": RadioGroupDefault,
+  "radio-group-error": RadioGroupHorizontalError,
+  "radio-group-disabled": RadioGroupDisabled,
+  "select-default": SelectDefault,
+  "select-variants": SelectVariants,
   "label-default": LabelDefault,
   "input-default": InputDefault,
   "input-variants": InputVariants,
