@@ -366,7 +366,7 @@ export function PasswordStrength({
             <span key={i} className="h-1.5 overflow-hidden rounded-full bg-muted">
               <span
                 className={cn(
-                  "block h-full origin-left scale-x-0 rounded-full transition-[transform,background-color] duration-[var(--duration-slow)] ease-[var(--ease-out)] rtl:origin-right motion-reduce:transition-none",
+                  "block h-full origin-left scale-x-0 rounded-full transition-[transform,translate,scale,rotate,background-color] duration-[var(--duration-slow)] ease-[var(--ease-out)] rtl:origin-right motion-reduce:transition-none",
                   i < score.level && cn("scale-x-100", levelTone[score.level]),
                 )}
                 // A short wave: each segment starts a little after the one before it.

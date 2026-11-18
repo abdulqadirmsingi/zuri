@@ -12,7 +12,7 @@ export const PopoverClose = PopoverPrimitive.Close;
 export const PopoverAnchor = PopoverPrimitive.Anchor;
 
 const contentVariants = cva(
-  "z-[var(--z-dropdown)] w-72 max-w-[calc(100vw-1rem)] rounded-xl p-4 text-sm text-foreground transition-[opacity,transform] duration-[var(--duration-fast)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 focus-visible:outline-none",
+  "z-[var(--z-dropdown)] w-72 max-w-[calc(100vw-1rem)] rounded-xl p-4 text-sm text-foreground transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-fast)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 focus-visible:outline-none",
   {
     variants: {
       variant: {
