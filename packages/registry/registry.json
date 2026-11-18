@@ -753,6 +753,25 @@
           }
         }
       }
+    },
+    {
+      "name": "expanding-button-group",
+      "type": "registry:ui",
+      "title": "Expanding button group",
+      "description": "A pill of icon buttons where one shows its label, with in-place confirmation and a two-tap flow on touch.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/actions/expanding-button-group/expanding-button-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }
