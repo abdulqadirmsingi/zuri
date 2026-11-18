@@ -26,7 +26,8 @@
   --color-fd-muted-foreground: var(--muted-foreground);
   --color-fd-popover: var(--background);
   --color-fd-popover-foreground: var(--foreground);
-  --color-fd-card: var(--muted);
+  /* Slightly lighter than --muted: Shiki's comment colour needs >= 4.5:1 on code blocks. */
+  --color-fd-card: color-mix(in oklab, var(--muted) 45%, var(--background));
   --color-fd-card-foreground: var(--foreground);
   --color-fd-border: var(--border);
   --color-fd-primary: var(--primary);

@@ -1,5 +1,6 @@
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { loaders } from "@/.registry/manifest";
+import { codeThemes } from "@/lib/code-themes";
 
 /** Shows the exact file a user receives, read from the built registry item. */
 export async function Source({ name }: { name: string }) {
@@ -8,5 +9,5 @@ export async function Source({ name }: { name: string }) {
   const item = (await load()).default as { files?: { path: string; content: string }[] };
   const file = item.files?.[0];
   if (!file) throw new Error(`Registry item has no files: ${name}`);
-  return <DynamicCodeBlock lang="tsx" code={file.content} />;
+  return <DynamicCodeBlock lang="tsx" code={file.content} options={{ themes: codeThemes }} />;
 }

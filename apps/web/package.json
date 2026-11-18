@@ -9,7 +9,8 @@
     "typecheck": "next typegen && tsc -p .",
     "test": "vitest run --passWithNoTests",
     "db:generate": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/drizzle-kit/bin.cjs generate",
-    "db:migrate": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/drizzle-kit/bin.cjs migrate"
+    "db:migrate": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/drizzle-kit/bin.cjs migrate",
+    "a11y": "node scripts/a11y.mjs"
   },
   "dependencies": {
     "@zuri/tokens": "workspace:*",
@@ -27,6 +28,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@electric-sql/pglite": "0.5.16",
     "@tailwindcss/postcss": "4.3.5",
     "@types/mdx": "^2.0.14",
