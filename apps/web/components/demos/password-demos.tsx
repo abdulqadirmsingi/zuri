@@ -45,7 +45,7 @@ export function PasswordReworded() {
   return (
     <PasswordStrength
       label="Choose a password"
-      defaultValue="Maji-ya-moto-9"
+      defaultValue="Blue-river-stone-9"
       shortLength={10}
       messages={{
         meterLabel: "How strong is it?",
