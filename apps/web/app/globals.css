@@ -1,6 +1,11 @@
 @import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 @import "@zuri/tokens/tokens.css";
 @import "@zuri/tokens/theme.css";
+
+/* Tailwind only scans this app by default; registry components are rendered in live previews. */
+@source "../../../packages/registry/src";
 
 @theme inline {
   --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
@@ -9,8 +14,41 @@
   --font-mono: var(--font-mono-loaded), ui-monospace, SFMono-Regular, monospace;
 }
 
+/* Bridge Fumadocs' palette to Zuri tokens so the docs look like the components.
+ * Only neutral roles are mapped: our --accent is saffron (a loud fill), so it must not
+ * become Fumadocs' subtle hover colour. Declared per theme class so values re-resolve. */
+:root,
+.light,
+.dark {
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-popover: var(--background);
+  --color-fd-popover-foreground: var(--foreground);
+  --color-fd-card: var(--muted);
+  --color-fd-card-foreground: var(--foreground);
+  --color-fd-border: var(--border);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--muted);
+  --color-fd-secondary-foreground: var(--foreground);
+  --color-fd-accent: var(--muted);
+  --color-fd-accent-foreground: var(--foreground);
+  --color-fd-ring: var(--ring);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--background);
   color: var(--foreground);
+}
+
+.prose :where(h1, h2, h3) {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
