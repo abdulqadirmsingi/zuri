@@ -1,3 +1,17 @@
 packages:
   - apps/*
   - packages/*
+
+# Security overrides, each for an advisory that has a patched release (see docs/SECURITY-AUDIT.md).
+overrides:
+  # drizzle-kit's old @esbuild-kit loader pins a vulnerable esbuild (GHSA: dev server request leak).
+  "@esbuild-kit/core-utils>esbuild": "0.25.12"
+  # The shadcn CLI's ts-morph pulls a vulnerable minimatch (ReDoS); 11.x keeps a CommonJS build.
+  "@ts-morph/common>minimatch": "11.0.9"
+
+# Accepted risk, reviewed 2026-11-18: picomatch ReDoS through repeated extglobs. No patched
+# release exists (4.0.7 is the latest and is the vulnerable one). It only runs in build tooling
+# on our own fixed patterns, never on untrusted input. Remove this when picomatch > 4.0.7 ships.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-fc5q-39xc-vjpf
