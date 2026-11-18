@@ -8,6 +8,17 @@ import {
   nextFontName,
 } from "./fonts-catalog";
 import { emptyFilter, filterFonts, isFiltering } from "./fonts-filter";
+import {
+  clampWeight,
+  DEFAULT_PREVIEW,
+  glyphRows,
+  MAX_PREVIEW_LENGTH,
+  previewText,
+  SIZE_RANGE,
+  WEIGHT_RANGE,
+  weightName,
+  weightSteps,
+} from "./fonts-preview";
 import { applySnippet, nextFontSnippet, sampleWeights } from "./fonts-snippets";
 
 type NextFontData = Record<
@@ -172,5 +183,77 @@ describe("snippets", () => {
     }
     const instrument = findFont("instrument-sans");
     expect(instrument && sampleWeights(instrument)).toEqual([400, 700]);
+  });
+});
+
+describe("type tester helpers", () => {
+  it("falls back to the default text when nothing useful was typed", () => {
+    expect(previewText("")).toBe(DEFAULT_PREVIEW);
+    expect(previewText("   \n\t ")).toBe(DEFAULT_PREVIEW);
+  });
+
+  it("trims the text and caps its length", () => {
+    expect(previewText("  Hello  ")).toBe("Hello");
+    const long = "x".repeat(MAX_PREVIEW_LENGTH + 50);
+    expect(previewText(long)).toHaveLength(MAX_PREVIEW_LENGTH);
+  });
+
+  it("keeps the typed text as typed, including accents and emoji", () => {
+    expect(previewText("Café ☕ 2026")).toBe("Café ☕ 2026");
+  });
+
+  it("clamps a wanted weight into each font's real range", () => {
+    const instrument = findFont("instrument-sans");
+    const martian = findFont("martian-mono");
+    if (!instrument || !martian) throw new Error("missing font");
+    expect(clampWeight(instrument, 900)).toBe(700);
+    expect(clampWeight(instrument, 100)).toBe(400);
+    expect(clampWeight(instrument, 500)).toBe(500);
+    expect(clampWeight(martian, 100)).toBe(100);
+    expect(clampWeight(martian, 900)).toBe(800);
+  });
+
+  it("never returns a weight outside the font's range, for every font and every slider stop", () => {
+    for (const f of fontsCatalog) {
+      for (let w = WEIGHT_RANGE.min; w <= WEIGHT_RANGE.max; w += WEIGHT_RANGE.step) {
+        const used = clampWeight(f, w);
+        expect(used).toBeGreaterThanOrEqual(f.weights.min);
+        expect(used).toBeLessThanOrEqual(f.weights.max);
+      }
+    }
+  });
+
+  it("starts the sliders inside their own ranges", () => {
+    expect(SIZE_RANGE.initial).toBeGreaterThanOrEqual(SIZE_RANGE.min);
+    expect(SIZE_RANGE.initial).toBeLessThanOrEqual(SIZE_RANGE.max);
+    expect(WEIGHT_RANGE.initial).toBeGreaterThanOrEqual(WEIGHT_RANGE.min);
+    expect(WEIGHT_RANGE.initial).toBeLessThanOrEqual(WEIGHT_RANGE.max);
+    expect(glyphRows.join("")).toContain("0123456789");
+  });
+
+  it("uses English for every sample sentence", () => {
+    expect(DEFAULT_PREVIEW).toMatch(/^[\x20-\x7E]+$/);
+    expect(DEFAULT_PREVIEW.toLowerCase()).not.toMatch(/tuma|pesa|habari|karibu|urahisi/);
+  });
+
+  it("lists a font's real weights in steps of 100 for the ladder", () => {
+    const get = (id: string) => {
+      const f = findFont(id);
+      if (!f) throw new Error(id);
+      return weightSteps(f);
+    };
+    expect(get("instrument-sans")).toEqual([400, 500, 600, 700]);
+    expect(get("bricolage-grotesque")).toEqual([200, 300, 400, 500, 600, 700, 800]);
+    expect(get("martian-mono")).toEqual([100, 200, 300, 400, 500, 600, 700, 800]);
+    for (const f of fontsCatalog) for (const w of weightSteps(f)) expect(clampWeight(f, w)).toBe(w);
+  });
+
+  it("names weights the usual way and falls back to the number", () => {
+    expect(weightName(400)).toBe("Regular");
+    expect(weightName(700)).toBe("Bold");
+    expect(weightName(100)).toBe("Thin");
+    expect(weightName(450)).toBe("450");
+    for (const f of fontsCatalog)
+      for (const w of weightSteps(f)) expect(weightName(w)).not.toMatch(/^\d+$/);
   });
 });
