@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 
+// method=post: if the form is submitted before hydration, the token must never end up in the URL.
 export function LoginForm() {
   const router = useRouter();
   const id = useId();
@@ -32,7 +33,12 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="zuri-glass mt-6 grid gap-4 rounded-lg p-6">
+    <form
+      method="post"
+      action="/api/admin/login"
+      onSubmit={onSubmit}
+      className="zuri-glass mt-6 grid gap-4 rounded-lg p-6"
+    >
       <label htmlFor={id} className="text-sm font-medium">
         Admin token
       </label>
