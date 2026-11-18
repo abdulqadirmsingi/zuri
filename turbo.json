@@ -17,7 +17,8 @@
       "dependsOn": ["^build", "@zuri/registry#registry:build"]
     },
     "registry:build": {
-      "outputs": ["../../apps/web/.registry/**"]
+      "outputs": ["../../apps/web/.registry/**"],
+      "env": ["ZURI_REGISTRY_URL", "ZURI_REGISTRY_OUT"]
     }
   }
 }
