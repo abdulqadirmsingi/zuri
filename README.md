@@ -23,6 +23,7 @@ Planning stage. This folder contains the project brief and rules for building it
 | `docs/ANALYTICS.md`       | Install counting and usage analytics design                                    |
 | `docs/AI_PROMPTS.md`      | Spec for "copy a prompt for my AI agent", llms.txt, agent skill                |
 | `docs/SOURCES.md`         | Reference code/skills on the owner's machine and safe-reuse rules              |
+| `docs/RUNNING.md`         | How to run the site, database, admin and registry locally                      |
 | `AGENTS.md` / `CLAUDE.md` | Entry points that AI tools read automatically                                  |
 | `.claude/skills/`         | Design and animation skills used while building (see `THIRD_PARTY_NOTICES.md`) |
 
