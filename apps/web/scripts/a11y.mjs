@@ -18,6 +18,8 @@ const pages = [
   "/docs/components/dialog",
   "/docs/components/popover",
   "/docs/components/tooltip",
+  "/docs/components/alert-dialog",
+  "/docs/components/dropdown-menu",
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/textarea",

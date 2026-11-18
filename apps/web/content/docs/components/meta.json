@@ -25,6 +25,8 @@
     "bottom-nav",
     "dialog",
     "popover",
-    "tooltip"
+    "tooltip",
+    "alert-dialog",
+    "dropdown-menu"
   ]
 }
