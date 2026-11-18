@@ -2,7 +2,6 @@
   "extends": "@zuri/config/tsconfig.react.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
       "@/components/ui/button": ["./src/actions/button/button"],
       "@/*": ["./src/*"]
