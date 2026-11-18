@@ -6,6 +6,9 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-ink: var(--accent-ink);
   --color-border: var(--border);
   --color-ring: var(--ring);
   --color-success: var(--success);
