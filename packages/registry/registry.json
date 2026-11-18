@@ -701,6 +701,58 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "password-strength",
+      "type": "registry:ui",
+      "title": "Password strength",
+      "description": "A new-password field with a strength meter, requirements that tick off, a show/hide toggle and translatable messages.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/password-strength/password-strength.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/button.json",
+        "__REGISTRY_URL__/input.json"
+      ],
+      "css": {
+        "@keyframes zuri-rise": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateY(0.3em)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     }
   ]
 }
