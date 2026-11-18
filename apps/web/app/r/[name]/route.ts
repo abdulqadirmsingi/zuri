@@ -4,6 +4,7 @@ import { buildInstallEvent } from "@/lib/analytics/build-event";
 import { getDb } from "@/lib/analytics/db";
 import { recordInstall } from "@/lib/analytics/install-events";
 import { parseItemName, readRegistryItem } from "@/lib/registry-files";
+import { checkRegistryRate } from "@/lib/registry-rate-limit";
 
 // Served by a function (never from public/) so every request can be counted.
 // No CDN caching for now: an edge hit would skip the function and swallow the count.
@@ -14,6 +15,14 @@ const headers = {
 };
 
 export async function GET(request: Request, ctx: { params: Promise<{ name: string }> }) {
+  const rate = checkRegistryRate(request.headers);
+  if (!rate.ok) {
+    return Response.json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfterSec) } },
+    );
+  }
+
   const { name: param } = await ctx.params;
   const name = parseItemName(param);
   if (!name) return Response.json({ error: "Invalid name" }, { status: 400 });
