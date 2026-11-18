@@ -20,6 +20,9 @@ const pages = [
   "/docs/components/tooltip",
   "/docs/components/alert-dialog",
   "/docs/components/dropdown-menu",
+  "/docs/components/tabs",
+  "/docs/components/accordion",
+  "/docs/components/breadcrumbs",
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/textarea",
@@ -44,25 +47,34 @@ const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
 let failures = 0;
 
-for (const scheme of ["light", "dark"]) {
-  const context = await browser.newContext({ colorScheme: scheme });
-  const page = await context.newPage();
-  for (const path of pages) {
-    await page.goto(base + path);
-    await page.waitForLoadState("networkidle");
-    const { violations } = await new AxeBuilder({ page }).withTags(tags).analyze();
-    console.log(`${violations.length ? "FAIL" : "ok  "} ${scheme.padEnd(5)} ${path}`);
-    for (const v of violations) {
-      failures += v.nodes.length;
-      console.log(`   - ${v.id} (${v.impact}): ${v.help}`);
-      for (const n of v.nodes.slice(0, 3))
-        console.log(
-          `       ${n.target.join(" ")}  ${(n.failureSummary ?? "").split("\n")[1] ?? ""}`,
-        );
+// Narrow screens expose problems desktop hides, such as sideways-scrolling regions that
+// keyboard users cannot reach, so audit both.
+const viewports = [
+  { name: "desktop", width: 1280, height: 800 },
+  { name: "320px", width: 320, height: 700 },
+];
+for (const viewport of viewports)
+  for (const scheme of ["light", "dark"]) {
+    const context = await browser.newContext({ colorScheme: scheme, viewport });
+    const page = await context.newPage();
+    for (const path of pages) {
+      await page.goto(base + path);
+      await page.waitForLoadState("networkidle");
+      const { violations } = await new AxeBuilder({ page }).withTags(tags).analyze();
+      console.log(
+        `${violations.length ? "FAIL" : "ok  "} ${viewport.name.padEnd(7)} ${scheme.padEnd(5)} ${path}`,
+      );
+      for (const v of violations) {
+        failures += v.nodes.length;
+        console.log(`   - ${v.id} (${v.impact}): ${v.help}`);
+        for (const n of v.nodes.slice(0, 3))
+          console.log(
+            `       ${n.target.join(" ")}  ${(n.failureSummary ?? "").split("\n")[1] ?? ""}`,
+          );
+      }
     }
+    await context.close();
   }
-  await context.close();
-}
 
 await browser.close();
 if (failures) {

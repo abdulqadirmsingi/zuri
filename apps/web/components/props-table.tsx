@@ -7,7 +7,14 @@ export interface PropRow {
 
 export function PropsTable({ rows }: { rows: PropRow[] }) {
   return (
-    <div className="not-prose my-6 overflow-x-auto rounded-lg border border-fd-border">
+    // A region that scrolls sideways on narrow screens must be reachable by keyboard (WCAG 2.1.1),
+    // so it is focusable and named.
+    <section
+      aria-label="Props"
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable region needs a tab stop so keyboard users can scroll it.
+      tabIndex={0}
+      className="not-prose my-6 overflow-x-auto rounded-lg border border-fd-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fd-ring"
+    >
       <table className="w-full text-sm">
         <caption className="sr-only">Props</caption>
         <thead>
@@ -32,6 +39,6 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
