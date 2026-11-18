@@ -37,4 +37,22 @@ describe("registry.json", () => {
       for (const dep of item.registryDependencies ?? [])
         expect(dep).toMatch(/^__REGISTRY_URL__\/[a-z0-9-]+\.json$/);
   });
+
+  // Regression guard: a component that animates with a zuri keyframe must ship it, or the
+  // animation silently does nothing in a user's project.
+  it("ships every zuri keyframe its component source uses", () => {
+    for (const item of items as (Item & {
+      files?: { path: string }[];
+      css?: Record<string, unknown>;
+    })[]) {
+      for (const file of item.files ?? []) {
+        const source = readFileSync(file.path, "utf8");
+        for (const m of source.matchAll(/animate-\[(zuri-[a-z-]+)_/g)) {
+          expect(Object.keys(item.css ?? {}), `${item.name} uses ${m[1]}`).toContain(
+            `@keyframes ${m[1]}`,
+          );
+        }
+      }
+    }
+  });
 });

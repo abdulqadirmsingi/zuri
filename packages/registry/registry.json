@@ -626,6 +626,81 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs with a sliding indicator, pill and line styles and full keyboard support, built on Radix.",
+      "dependencies": ["@radix-ui/react-tabs", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/tabs/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Expandable sections with an animated height, built on Radix.",
+      "dependencies": ["@radix-ui/react-accordion", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/accordion/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-accordion-down": {
+          "from": {
+            "height": "0"
+          },
+          "to": {
+            "height": "var(--radix-accordion-content-height)"
+          }
+        },
+        "@keyframes zuri-accordion-up": {
+          "from": {
+            "height": "var(--radix-accordion-content-height)"
+          },
+          "to": {
+            "height": "0"
+          }
+        }
+      }
+    },
+    {
+      "name": "breadcrumbs",
+      "type": "registry:ui",
+      "title": "Breadcrumbs",
+      "description": "A breadcrumb trail with the current page marked for assistive technology.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/breadcrumbs/breadcrumbs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }
