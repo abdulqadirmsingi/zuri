@@ -1,0 +1,76 @@
+---
+title: Tabs
+description: Tabs with a sliding indicator, pill and line styles and full keyboard support, built on Radix.
+---
+
+<Preview>
+  <Demo name="tabs-default" />
+</Preview>
+
+Use `Tabs` to switch between related views in the same place, such as the sections of an account. Each tab shows a panel without leaving the page. If each choice is a different page, use links or a navigation instead.
+
+## Installation
+
+<InstallTabs name="tabs" />
+
+This adds one dependency, `@radix-ui/react-tabs`, which the command installs for you.
+
+## Usage
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+<Tabs defaultValue="overview">
+  <TabsList aria-label="Account sections">
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">…</TabsContent>
+  <TabsContent value="activity">…</TabsContent>
+</Tabs>
+```
+
+Use `defaultValue` to leave it uncontrolled, or `value` with `onValueChange` to control it.
+
+## Line style
+
+<Preview>
+  <Demo name="tabs-line" />
+</Preview>
+
+## Props
+
+`Tabs` takes the Radix root props. `TabsList`, `TabsTrigger` and `TabsContent` take the Radix props and native element props.
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"pill" | "line"', default: '"pill"', description: "On TabsList. A filled track with a sliding pill, or an underline that slides." },
+    { name: "value / defaultValue / onValueChange", type: "string / string / (value: string) => void", description: "On Tabs. Controlled and uncontrolled use." },
+    { name: "disabled", type: "boolean", description: "On TabsTrigger. Skipped by the keyboard and not selectable." },
+    { name: "aria-label", type: "string", description: "On TabsList. Name the group of tabs." },
+  ]}
+/>
+
+## Accessibility
+
+- The list has `role="tablist"`, each tab `role="tab"` with `aria-selected`, and each panel `role="tabpanel"` named by its tab.
+- The tabs are **one Tab stop**: Tab moves to the selected tab, then into its panel. Arrow Left and Right move between tabs and select them, Home and End jump to the first and last, and disabled tabs are skipped.
+- **Give the list a name** with `aria-label` or `aria-labelledby`.
+- The indicator is decorative and hidden from assistive technology.
+- The indicator slides using the `--duration-*` tokens, which are almost zero under `prefers-reduced-motion`, so it jumps instead.
+- Each tab is at least 36 pixels tall. On narrow screens the list scrolls sideways rather than wrapping.
+
+## Tokens used
+
+`--muted`, `--background`, `--foreground`, `--muted-foreground`, `--primary`, `--border`, `--ring`, `--duration-base`, `--duration-slow`.
+
+## Known limitations
+
+- Horizontal only: there is no vertical orientation.
+- It is a client component: it measures the active tab to place the indicator.
+- Before the page hydrates, the indicator is not drawn yet, though the active tab's text is already emphasised.
+- Panels unmount when hidden, so their state resets. Keep state above `Tabs` if you need it kept.
+
+## Source
+
+<Source name="tabs" />

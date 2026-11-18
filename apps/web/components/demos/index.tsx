@@ -37,6 +37,14 @@ import {
   TextareaStates,
 } from "./input-demos";
 import { AlertDialogDefault, DropdownMenuChoices, DropdownMenuDefault } from "./menu-demos";
+import {
+  AccordionDefault,
+  AccordionMultiple,
+  BreadcrumbsDefault,
+  BreadcrumbsLong,
+  TabsDefault,
+  TabsLine,
+} from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import {
   CheckboxDefault,
@@ -59,6 +67,12 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "tabs-default": TabsDefault,
+  "tabs-line": TabsLine,
+  "accordion-default": AccordionDefault,
+  "accordion-multiple": AccordionMultiple,
+  "breadcrumbs-default": BreadcrumbsDefault,
+  "breadcrumbs-long": BreadcrumbsLong,
   "alert-dialog-default": AlertDialogDefault,
   "dropdown-menu-default": DropdownMenuDefault,
   "dropdown-menu-choices": DropdownMenuChoices,

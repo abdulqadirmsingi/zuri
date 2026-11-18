@@ -27,6 +27,9 @@
     "popover",
     "tooltip",
     "alert-dialog",
-    "dropdown-menu"
+    "dropdown-menu",
+    "tabs",
+    "accordion",
+    "breadcrumbs"
   ]
 }

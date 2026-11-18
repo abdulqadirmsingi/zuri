@@ -1,0 +1,70 @@
+---
+title: Breadcrumbs
+description: A breadcrumb trail with the current page marked for assistive technology.
+---
+
+<Preview>
+  <Demo name="breadcrumbs-default" />
+</Preview>
+
+Use `Breadcrumbs` on pages that sit several levels deep, so people can see where they are and jump back up. It helps orientation. It is not the main navigation.
+
+## Installation
+
+<InstallTabs name="breadcrumbs" />
+
+## Usage
+
+```tsx
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+
+<Breadcrumbs
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Payments", href: "/payments" },
+    { label: "Receipt 4821" },
+  ]}
+/>
+```
+
+The last item is the current page, so it usually has no `href`.
+
+## Long trails and labels
+
+Long labels are cut off with an ellipsis (the full text is kept in a tooltip title), and a long trail wraps onto more lines.
+
+<Preview>
+  <Demo name="breadcrumbs-long" />
+</Preview>
+
+## Props
+
+`Breadcrumbs` extends native `<nav>` props and spreads them onto the element, including `ref` (React 19). It is a Server Component: it needs no JavaScript.
+
+<PropsTable
+  rows={[
+    { name: "items", type: "{ label: string; href?: string }[]", description: "The trail from the top level down to the current page. Required." },
+    { name: "aria-label", type: "string", default: '"Breadcrumb"', description: "The landmark's name. Translate it for other languages." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a `<nav>` landmark with an ordered list, so screen readers announce the position ("list, 3 items").
+- The last entry has `aria-current="page"`.
+- The chevron separators are hidden from assistive technology.
+- Links have a visible focus ring. Chevrons mirror in right-to-left layouts.
+
+## Tokens used
+
+`--muted-foreground`, `--foreground`, `--ring`.
+
+## Known limitations
+
+- It does not collapse a long trail into an "…" menu, because hiding levels from screen readers would lose information. It wraps instead.
+- Links are plain `<a>` elements. For client-side routing, wrap or replace them with your router's link.
+- It adds no structured data for search engines.
+
+## Source
+
+<Source name="breadcrumbs" />
