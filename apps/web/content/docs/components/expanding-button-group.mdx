@@ -1,0 +1,89 @@
+---
+title: Expanding button group
+description: A pill of icon buttons where one shows its label, with in-place confirmation and a two-tap flow on touch.
+---
+
+<Preview>
+  <Demo name="expanding-default" />
+</Preview>
+
+Use `ExpandingButtonGroup` for a few related actions on one item, such as the actions on a message or a transaction. It stays compact because only one button shows its label at a time. For one primary action use a [Button](/docs/components/button). For many actions, or actions people rarely use, use a [Dropdown menu](/docs/components/dropdown-menu).
+
+## Installation
+
+<InstallTabs name="expanding-button-group" />
+
+## Usage
+
+```tsx
+import { ExpandingButtonGroup } from "@/components/ui/expanding-button-group";
+
+<ExpandingButtonGroup
+  aria-label="Message actions"
+  actions={[
+    { id: "reply", label: "Reply", icon: <ReplyIcon /> },
+    { id: "archive", label: "Archive", icon: <ArchiveIcon />, successLabel: "Archived", onPress: archive },
+    { id: "delete", label: "Delete", icon: <TrashIcon />, variant: "danger", onPress: remove },
+  ]}
+/>
+```
+
+The first enabled action shows its label at rest. Point at or focus another and it takes over while the rest slide aside.
+
+## Pending and failed actions
+
+Return a promise from `onPress` to show a busy state until it settles. Return `false`, or reject, to say it did not work: no success message appears. A disabled action stays focusable and still reveals its label, so people can learn what it would do.
+
+<Preview>
+  <Demo name="expanding-async" />
+</Preview>
+
+## Smaller
+
+<Preview>
+  <Demo name="expanding-small" />
+</Preview>
+
+## Props
+
+`ExpandingButtonGroup` extends native `<div>` props (except `children`) and spreads them onto the toolbar, including `ref` (React 19). Give it an `aria-label`.
+
+<PropsTable
+  rows={[
+    { name: "actions", type: "ExpandingAction[]", description: "The buttons. Each has id, label, icon, and optionally onPress, successLabel, variant and disabled." },
+    { name: "restingId", type: "string", description: "The action whose label shows at rest. Defaults to the first one that is not disabled." },
+    { name: "size", type: '"sm" | "md"', default: '"md"', description: "32 or 40 pixel buttons." },
+    { name: "onAction", type: "(id: string) => void", description: "Called with the id whenever an action starts, before its own onPress." },
+    { name: "successDuration", type: "number", default: "1400", description: "Milliseconds the success message stays." },
+    { name: "successLabel", type: "string", description: "On an action. The past-tense word shown in place after it works, with the icon turning into a check." },
+    { name: "variant", type: '"default" | "danger"', default: '"default"', description: "On an action. Danger colours the expanded button." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a `role="toolbar"` with **one Tab stop**: Tab goes to the resting button, then Left and Right arrows move between buttons (mirrored in right-to-left layouts), and Home and End jump to the first and last. Disabled buttons stay in the arrow order.
+- Every button is named by its text label, even when that label is visually collapsed, so icon-only buttons have a name. While an action shows its success word, the name becomes that word.
+- Keyboard focus expands the focused button (decided by `:focus-visible`). A mouse click or a tap does not leave a stray label open.
+- The success message is also announced through a polite live region.
+- **Touch:** with no hover on a phone, the first tap on a collapsed button reveals its label and the second tap runs it. A tap elsewhere closes the label. A button that already shows its label runs on the first tap.
+- A busy action sets `aria-busy` and ignores repeat presses, which prevents a double submit. A disabled action uses `aria-disabled`, not the `disabled` attribute, so it stays reachable.
+- Pointer hover follows real mouse movement only. When a label opens, the buttons slide, and a different button can end up under a pointer that has not moved. Ignoring that stops two neighbours trading places forever.
+- The label slides open with a CSS grid column, using the `--duration-*` tokens, which are almost zero under `prefers-reduced-motion`, so it jumps instead.
+- Buttons are at least 32 pixels in each direction.
+
+## Tokens used
+
+`--background`, `--border`, `--primary`, `--primary-foreground`, `--muted-foreground`, `--foreground`, `--danger`, `--ring`, `--duration-base`, `--duration-slow`, `--ease-out`.
+
+## Known limitations
+
+- It is for a handful of actions. With many, the row grows wide: it never wraps, so it needs room.
+- Nothing hides a button in a narrow space. Use a smaller `size`, fewer actions, or a menu.
+- Only one label can show at a time, so someone who wants to see every label at once should use plain buttons.
+- It is a client component.
+- Icons are yours to supply (inline SVG); they are hidden from assistive technology.
+
+## Source
+
+<Source name="expanding-button-group" />

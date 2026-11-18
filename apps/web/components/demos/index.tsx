@@ -25,6 +25,7 @@ import {
   EmptyStateDefault,
   StatDefault,
 } from "./display-demos-2";
+import { ExpandingAsync, ExpandingDefault, ExpandingSmall } from "./expanding-demos";
 import {
   FieldDefault,
   FieldError,
@@ -68,6 +69,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "expanding-default": ExpandingDefault,
+  "expanding-async": ExpandingAsync,
+  "expanding-small": ExpandingSmall,
   "password-default": PasswordDefault,
   "password-error": PasswordWithError,
   "password-reworded": PasswordReworded,
