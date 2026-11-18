@@ -7,6 +7,8 @@ Monorepo, tooling, CI, tokens (incl. glass tokens), registry pipeline, docs shel
 
 ## Phase 1 — Core primitives (Free)
 **Actions:** button, icon-button, button-group, toggle, toggle-group, link, copy-button
+
+**Button upgrades (planned, from the owner's reference image, 2026-11-18):** extend `button` with a `destructive` variant (danger-coloured text on a light surface), icon-only sizes (`icon-sm`, `icon`, `icon-lg`, which require an `aria-label`), an optional pill `shape`, automatic icon sizing for leading and trailing icons (for example "Add item" and "Continue →"), and a `loading` state (disabled, `aria-busy`, spinner, which also guards against double submit). `copy-button` shows brief "Copied" feedback, in both a labelled and an icon-only form, announced through a live region and handling clipboard failure. Composed components that import another one (such as copy-button using button) need explicit `@/components/ui/<name>` path aliases in the registry tests and web app, so that decision comes first.
 **Inputs:** input, textarea, label, field (label+hint+error), select, combobox, checkbox, radio-group, switch, slider, number-input, search-input, tag-input, file-dropzone
 **Display:** badge, avatar, avatar-group, card, separator, kbd, skeleton, spinner, progress, empty-state, stat
 **Overlays:** tooltip, popover, dialog, sheet, drawer, dropdown-menu, context-menu, toast, alert, banner
