@@ -149,3 +149,23 @@
     --duration-slow: 0.01ms;
   }
 }
+
+/* Accordion height animation. Radix measures the content and exposes its height as a variable.
+ * The durations are tokens, so this is near-instant under prefers-reduced-motion. The registry
+ * item for the accordion ships the same keyframes for installed projects. */
+@keyframes zuri-accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes zuri-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
