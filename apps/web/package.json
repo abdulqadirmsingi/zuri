@@ -29,6 +29,7 @@
     "@types/react-dom": "^19",
     "@zuri/config": "workspace:*",
     "drizzle-kit": "0.31.11",
+    "playwright": "^1.65.1",
     "tailwindcss": "4.3.5",
     "typescript": "5.9.3",
     "vitest": "5.1.0"
