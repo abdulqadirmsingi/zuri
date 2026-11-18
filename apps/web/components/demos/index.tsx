@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BottomNavDefault, BottomNavGlass } from "./bottom-nav-demos";
 import {
   ButtonDefault,
   ButtonIcons,
@@ -54,6 +55,8 @@ const demos: Record<string, () => ReactNode> = {
   "button-states": ButtonStates,
   "button-icons": ButtonIcons,
   "button-loading": ButtonLoading,
+  "bottom-nav-default": BottomNavDefault,
+  "bottom-nav-glass": BottomNavGlass,
   "copy-button-default": CopyButtonDefault,
   "checkbox-default": CheckboxDefault,
   "checkbox-states": CheckboxStates,

@@ -14,6 +14,7 @@ const pages = [
   "/docs/components",
   "/docs/components/button",
   "/docs/components/copy-button",
+  "/docs/components/bottom-nav",
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/textarea",

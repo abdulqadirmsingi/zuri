@@ -21,6 +21,7 @@
     "card",
     "avatar",
     "empty-state",
-    "stat"
+    "stat",
+    "bottom-nav"
   ]
 }
