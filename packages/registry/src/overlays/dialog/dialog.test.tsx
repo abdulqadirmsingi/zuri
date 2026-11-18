@@ -32,6 +32,24 @@ function Example(props: { variant?: "default" | "glass"; onOpenChange?: (o: bool
   );
 }
 
+function Controlled({ onChange }: { onChange: (open: boolean) => void }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={(o) => {
+        onChange(o);
+        setOpen(o);
+      }}
+    >
+      <DialogContent>
+        <DialogTitle>Hi</DialogTitle>
+        <DialogDescription>There</DialogDescription>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 describe("Dialog", () => {
   it("is closed until the trigger is activated", () => {
     render(<Example />);
@@ -111,24 +129,7 @@ describe("Dialog", () => {
 
   it("reports open changes and works controlled", async () => {
     const onOpenChange = vi.fn();
-    function Controlled() {
-      const [open, setOpen] = useState(true);
-      return (
-        <Dialog
-          open={open}
-          onOpenChange={(o) => {
-            onOpenChange(o);
-            setOpen(o);
-          }}
-        >
-          <DialogContent>
-            <DialogTitle>Hi</DialogTitle>
-            <DialogDescription>There</DialogDescription>
-          </DialogContent>
-        </Dialog>
-      );
-    }
-    render(<Controlled />);
+    render(<Controlled onChange={onOpenChange} />);
     expect(await screen.findByRole("dialog")).toBeTruthy();
     await userEvent.keyboard("{Escape}");
     expect(onOpenChange).toHaveBeenCalledWith(false);
