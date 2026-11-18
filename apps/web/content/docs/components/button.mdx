@@ -1,0 +1,78 @@
+---
+title: Button
+description: A native button with default, outline, ghost and glass variants.
+---
+
+<Preview>
+  <Demo name="button-variants" />
+</Preview>
+
+Use `Button` for actions: submitting a form, opening a dialog, confirming a choice. For navigation use a link instead, because a link is announced and behaves differently.
+
+## Installation
+
+<InstallTabs name="button" />
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export function Example() {
+  return <Button variant="outline">Continue</Button>;
+}
+```
+
+## Variants
+
+<Preview>
+  <Demo name="button-variants" />
+</Preview>
+
+The `glass` variant blurs whatever is behind it, so it needs a colourful or image backdrop to look right.
+
+## Sizes
+
+<Preview>
+  <Demo name="button-sizes" />
+</Preview>
+
+## States
+
+<Preview>
+  <Demo name="button-states" />
+</Preview>
+
+## Props
+
+`Button` extends all native `<button>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "outline" | "ghost" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Minimum heights of 32, 40 and 48 pixels." },
+    { name: "type", type: '"button" | "submit" | "reset"', default: '"button"', description: "Defaults to button so it never submits a form by accident." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It renders a native `<button>`, so Enter and Space activate it and screen readers announce it as a button.
+- A visible focus ring appears on keyboard focus only (`:focus-visible`).
+- Disabled buttons are removed from pointer interaction and dimmed.
+- Under `prefers-reduced-motion`, the press animation and transitions are turned off.
+- The smallest size is 32 pixels high, above the 24-pixel WCAG 2.2 minimum but below the 44-pixel touch target we prefer. Use `lg` for primary touch actions.
+
+## Tokens used
+
+`--primary`, `--primary-foreground`, `--background`, `--foreground`, `--border`, `--muted`, `--ring`, `--duration-base`, `--ease-out`, and the glass variables.
+
+## Known limitations
+
+- No loading state and no icon-only variant yet.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="button" />
