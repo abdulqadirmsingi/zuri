@@ -8,6 +8,7 @@ export function baseOptions(): BaseLayoutProps {
     links: [
       { text: "Docs", url: "/docs" },
       { text: "Components", url: "/docs/components" },
+      { text: "Fonts", url: "/fonts" },
     ],
   };
 }
