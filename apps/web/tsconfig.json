@@ -5,7 +5,11 @@
     "allowJs": false,
     "incremental": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["./*"], "@registry/*": ["../../packages/registry/src/*"] }
+    "paths": {
+      "@/components/ui/button": ["../../packages/registry/src/actions/button/button"],
+      "@/*": ["./*"],
+      "@registry/*": ["../../packages/registry/src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
