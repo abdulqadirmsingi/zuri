@@ -60,6 +60,15 @@ Added 2026-11-18 from the owner's inspiration screenshots. Ideas and direction o
 - Optional grain texture on glass and gradient surfaces.
 - Heavier effects (WebGL/shaders) need an ADR first, because they break the dependency and size budgets.
 
+### Interaction patterns to carry into components (from the owner's examples, 2026-11-18)
+The owner shared three example components (a password-strength field, an account menu, an expanding icon-button group). Ideas only: write originals, never copy (see docs/SOURCES.md). Their code needs a motion library, a private tokens module and CSS modules, none of which fit a single-file Tailwind registry component as written.
+- **Planned originals:** `password-strength` (inputs: segmented meter, rules that tick off, strength word, show/hide toggle, error with a settle), `user-menu` (navigation: identity header, account links, inline theme and status switches, sign out, bottom sheet on narrow screens), `expanding-button-group` (actions: icon buttons where one shows its label, confirm in place, first-tap reveal on touch).
+- **Pointer vs keyboard:** a highlight that glides between rows for pointer moves but lands instantly for keyboard moves; focus follows the mouse; an inline switch is one stop in a menu, with left and right choosing inside it; typeahead.
+- **State changes that show direction:** a word rises when strength improves and drops when it falls; a counter rolls; a tick draws itself; an error row opens and settles.
+- **Measured sizes:** use a ResizeObserver with a sub-pixel tolerance so widths never wobble; make the slot as wide as the longer of two swapped words.
+- **Touch and async:** on touch the first tap reveals a label and the second runs the action; an async action stays busy until it settles; a bottom sheet drags down to dismiss.
+- **Messages and a11y:** every user-facing string overridable through a `messages` prop (Swahili-ready); a polite live region reports changes; reduced motion must not change the first client render.
+
 ## Phase 7 — Mobile and extras
 Expo / React Native versions of the most-used payment and form components · MCP server so AI tools can search/install Zuri components · Figma kit · Swahili (`sw`) docs · Vue/Svelte ports (only if demand).
 
