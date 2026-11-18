@@ -1,0 +1,63 @@
+---
+title: Tooltip
+description: A short label on hover and focus, built on Radix.
+---
+
+<Preview>
+  <Demo name="tooltip-default" />
+</Preview>
+
+Use `Tooltip` to add a few words of extra help to a control, such as naming an icon button. **Never put essential information in one**: tooltips don't appear on touch screens, and many people never see them.
+
+## Installation
+
+<InstallTabs name="tooltip" />
+
+This adds one dependency, `@radix-ui/react-tooltip`, which the command installs for you.
+
+## Usage
+
+The child must be a focusable element that accepts a ref, such as a button or link.
+
+```tsx
+import { Tooltip } from "@/components/ui/tooltip";
+
+<Tooltip content="Add to favourites">
+  <Button size="icon" aria-label="Favourite">♥</Button>
+</Tooltip>
+```
+
+To share one delay across many tooltips, wrap them in `TooltipProvider`.
+
+## Props
+
+`Tooltip` takes the Radix content props, such as `side`, `align` and `sideOffset`.
+
+<PropsTable
+  rows={[
+    { name: "content", type: "ReactNode", description: "The tooltip text. Required." },
+    { name: "children", type: "ReactNode", description: "The trigger element. Required." },
+    { name: "delayDuration", type: "number", default: "300", description: "Milliseconds before it appears." },
+    { name: "side", type: '"top" | "right" | "bottom" | "left"', default: '"top"', description: "Where it appears. It flips if there is no room." },
+  ]}
+/>
+
+## Accessibility
+
+- It appears on keyboard focus as well as hover, and Escape dismisses it.
+- It is announced as a description of the trigger (`aria-describedby`). It does **not** replace the trigger's name, so an icon-only button still needs its own `aria-label`.
+- It stays open while the pointer is over it, so users who magnify the screen can read it (WCAG 1.4.13).
+- It does not appear on touch, so don't rely on it there.
+
+## Tokens used
+
+`--foreground`, `--background`, `--duration-fast`, `--z-tooltip`.
+
+## Known limitations
+
+- Text only: no interactive content. Use a [Popover](/docs/components/popover) for that.
+- It does not animate out.
+
+## Source
+
+<Source name="tooltip" />

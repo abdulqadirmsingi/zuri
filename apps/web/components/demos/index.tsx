@@ -36,6 +36,7 @@ import {
   TextareaDefault,
   TextareaStates,
 } from "./input-demos";
+import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import {
   CheckboxDefault,
   CheckboxStates,
@@ -57,6 +58,10 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "dialog-default": DialogDefault,
+  "dialog-glass": DialogGlass,
+  "popover-default": PopoverDefault,
+  "tooltip-default": TooltipDefault,
   "copy-button-default": CopyButtonDefault,
   "checkbox-default": CheckboxDefault,
   "checkbox-states": CheckboxStates,

@@ -1,0 +1,62 @@
+---
+title: Popover
+description: A panel anchored to its trigger that can hold interactive content, built on Radix.
+---
+
+<Preview>
+  <Demo name="popover-default" />
+</Preview>
+
+Use `Popover` for a small panel tied to a control, such as filters, a date picker or a share menu. Unlike a [Tooltip](/docs/components/tooltip) it can contain buttons and fields. Unlike a [Dialog](/docs/components/dialog) it does not block the page.
+
+## Installation
+
+<InstallTabs name="popover" />
+
+This adds one dependency, `@radix-ui/react-popover`, which the command installs for you.
+
+## Usage
+
+```tsx
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+<Popover>
+  <PopoverTrigger>Filters</PopoverTrigger>
+  <PopoverContent aria-label="Filters">…</PopoverContent>
+</Popover>
+```
+
+Place it with `side`, `align` and `sideOffset`. It flips to the other side when there is not enough room, and keeps 8 pixels from the screen edge.
+
+## Props
+
+`PopoverContent` takes the Radix content props. `Popover` takes `open`, `defaultOpen` and `onOpenChange`.
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "glass"', default: '"default"', description: "On PopoverContent. Visual style of the panel." },
+    { name: "side / align", type: '"top" | "right" | "bottom" | "left" / "start" | "center" | "end"', default: '"bottom" / "center"', description: "Where it appears relative to the trigger." },
+    { name: "sideOffset", type: "number", default: "8", description: "Gap from the trigger in pixels." },
+    { name: "open / defaultOpen / onOpenChange", type: "boolean / boolean / (open: boolean) => void", description: "On Popover. Controlled and uncontrolled use." },
+  ]}
+/>
+
+## Accessibility
+
+- The trigger is a native button with `aria-expanded`. Enter and Space open it.
+- Focus moves into the panel when it opens and returns to the trigger on close. Escape and an outside click close it.
+- **Give the content an accessible name**: a heading inside it, or `aria-label` as in the example.
+- The panel is a `dialog`-role region that does not trap focus, so Tab can leave it. Put long forms in a [Dialog](/docs/components/dialog) instead.
+
+## Tokens used
+
+`--background`, `--foreground`, `--border`, `--shadow-lg` look, `--duration-fast`, `--ease-out`, `--z-dropdown`, and the glass variables.
+
+## Known limitations
+
+- No exit animation: it unmounts when closed.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="popover" />

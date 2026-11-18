@@ -22,6 +22,9 @@
     "avatar",
     "empty-state",
     "stat",
-    "bottom-nav"
+    "bottom-nav",
+    "dialog",
+    "popover",
+    "tooltip"
   ]
 }

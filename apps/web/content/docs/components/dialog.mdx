@@ -1,0 +1,83 @@
+---
+title: Dialog
+description: A modal dialog with focus trapping, scroll lock and a glass option, built on Radix.
+---
+
+<Preview>
+  <Demo name="dialog-default" />
+</Preview>
+
+Use `Dialog` when the user must finish or dismiss something before going back to the page: confirming a payment, editing a profile. For a small panel that should not block the page, use [Popover](/docs/components/popover). For a short hint, use [Tooltip](/docs/components/tooltip).
+
+## Installation
+
+<InstallTabs name="dialog" />
+
+This adds one dependency, `@radix-ui/react-dialog`, which the command installs for you. It provides the hard parts: focus handling, scroll lock, and hiding the rest of the page from screen readers.
+
+## Usage
+
+```tsx
+import {
+  Dialog, DialogClose, DialogContent, DialogDescription,
+  DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
+} from "@/components/ui/dialog";
+
+<Dialog>
+  <DialogTrigger>Edit profile</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit profile</DialogTitle>
+      <DialogDescription>Change how your name appears on receipts.</DialogDescription>
+    </DialogHeader>
+    …
+    <DialogFooter>
+      <DialogClose>Cancel</DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+To control it yourself, pass `open` and `onOpenChange` to `Dialog`. To style the trigger like a button, pass `className` (for example `buttonVariants()` from [Button](/docs/components/button)).
+
+## Glass
+
+<Preview>
+  <Demo name="dialog-glass" />
+</Preview>
+
+## Props
+
+`DialogContent` takes the Radix content props and native `<div>` props, and `Dialog` takes `open`, `defaultOpen` and `onOpenChange`.
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "glass"', default: '"default"', description: "On DialogContent. Visual style of the panel." },
+    { name: "closeLabel", type: "string", default: '"Close"', description: "On DialogContent. Accessible name of the corner close button. Translate it for other languages." },
+    { name: "open / defaultOpen / onOpenChange", type: "boolean / boolean / (open: boolean) => void", description: "On Dialog. Controlled and uncontrolled use." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It has `role="dialog"` and is named by `DialogTitle` and described by `DialogDescription`. **Always include a title**; without it the dialog has no name. If you really don't want one visible, hide it with `sr-only`.
+- Focus moves into the dialog when it opens, is trapped there, and returns to the trigger when it closes.
+- Escape closes it, and so does clicking the backdrop. The rest of the page is hidden from screen readers and can't be scrolled while it is open.
+- The corner close button is 32 pixels square and always present, so keyboard and touch users have an obvious way out.
+- It fades and scales in using the `--duration-*` tokens, which are almost zero under `prefers-reduced-motion`. It closes instantly.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted`, `--muted-foreground`, `--border`, `--ring`, `--duration-base`, `--ease-out`, `--z-overlay`, `--z-modal`, and the glass variables.
+
+## Known limitations
+
+- It does not animate out; it unmounts when closed.
+- For a destructive confirmation (such as deleting something), consider an alert dialog that does not close on an outside click. That is a separate component and not built yet.
+- Glass text contrast has not been measured against worst-case backdrops.
+- It renders into a portal at the end of `<body>`, so it is not inside your app's landmarks.
+
+## Source
+
+<Source name="dialog" />
