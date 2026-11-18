@@ -15,7 +15,7 @@ export function Switch({ className, ...props }: SwitchProps) {
         // biome-ignore lint/a11y/useAriaPropsForRole: a native checkbox exposes its checked state itself; aria-checked would duplicate it.
         role="switch"
         className={cn(
-          "peer h-6 w-11 cursor-pointer appearance-none rounded-full border border-border bg-muted transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-out)] checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none",
+          "peer h-6 w-11 cursor-pointer appearance-none rounded-full border border-control-border bg-muted transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-out)] checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none",
           className,
         )}
         {...props}

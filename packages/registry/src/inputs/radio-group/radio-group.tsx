@@ -67,7 +67,7 @@ export function Radio({ className, ...props }: RadioProps) {
       <input
         type="radio"
         className={cn(
-          "peer size-6 cursor-pointer appearance-none rounded-full border border-border bg-background transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-out)] checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none",
+          "peer size-6 cursor-pointer appearance-none rounded-full border border-control-border bg-background transition-[background-color,border-color] duration-[var(--duration-base)] ease-[var(--ease-out)] checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none",
           className,
         )}
         {...props}
