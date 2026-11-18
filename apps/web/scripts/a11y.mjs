@@ -21,6 +21,12 @@ const pages = [
   "/docs/components/switch",
   "/docs/components/radio-group",
   "/docs/components/select",
+  "/docs/components/badge",
+  "/docs/components/separator",
+  "/docs/components/spinner",
+  "/docs/components/skeleton",
+  "/docs/components/kbd",
+  "/docs/components/progress",
 ];
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 

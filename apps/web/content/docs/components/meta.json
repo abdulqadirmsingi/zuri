@@ -10,6 +10,12 @@
     "checkbox",
     "switch",
     "radio-group",
-    "select"
+    "select",
+    "badge",
+    "separator",
+    "spinner",
+    "skeleton",
+    "kbd",
+    "progress"
   ]
 }
