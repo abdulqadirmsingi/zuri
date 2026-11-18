@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
-import { ButtonSizes, ButtonStates, ButtonVariants } from "./button-demos";
+import { ButtonDefault, ButtonSizes, ButtonStates, ButtonVariants } from "./button-demos";
 
 const demos: Record<string, () => ReactNode> = {
+  "button-default": ButtonDefault,
   "button-variants": ButtonVariants,
   "button-sizes": ButtonSizes,
   "button-states": ButtonStates,

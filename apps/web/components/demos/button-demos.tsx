@@ -1,6 +1,10 @@
 import { Button } from "@registry/actions/button/button";
 
 // Demos render the real registry source, so docs can never drift from what users install.
+export function ButtonDefault() {
+  return <Button>Continue</Button>;
+}
+
 export function ButtonVariants() {
   return (
     <>
