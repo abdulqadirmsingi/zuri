@@ -1,0 +1,75 @@
+---
+title: Field
+description: A label, a control, a hint and an error, wired together with ids.
+---
+
+<Preview>
+  <Demo name="field-default" />
+</Preview>
+
+Use `Field` around any form control to get a visible label, optional helper text and an error message, with the `id` and `aria-describedby` wiring done for you.
+
+## Installation
+
+<InstallTabs name="field" />
+
+Field does not depend on a specific control. Install [Input](/docs/components/input) or [Textarea](/docs/components/textarea) alongside it.
+
+## Usage
+
+`Field` takes a function as its child and gives it the props to spread on your control. This keeps the wiring explicit and works in Server Components.
+
+```tsx
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+
+<Field label="Email" hint="We only use it for receipts." error={errors.email}>
+  {(control) => <Input type="email" name="email" {...control} />}
+</Field>
+```
+
+## With an error
+
+<Preview>
+  <Demo name="field-error" />
+</Preview>
+
+## With a textarea
+
+<Preview>
+  <Demo name="field-textarea" />
+</Preview>
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "label", type: "ReactNode", description: "Visible label text. Required." },
+    { name: "hint", type: "ReactNode", description: "Helper text under the control; linked with aria-describedby." },
+    { name: "error", type: "ReactNode", description: "Error message. Marks the control aria-invalid and is announced (role=alert)." },
+    { name: "required", type: "boolean", description: "Passes required to the control and shows an asterisk (hidden from screen readers; the native required state is announced)." },
+    { name: "children", type: "(control: FieldControlProps) => ReactNode", description: "Receives id, aria-describedby, aria-invalid and required to spread on your control." },
+  ]}
+/>
+
+`Field` also accepts native `<div>` props, which are spread on the wrapper.
+
+## Accessibility
+
+- The label is a native `<label for>` pointing at the control's generated id (`useId`, so it is stable across server and client).
+- Hint and error are linked with `aria-describedby`; the error also uses `role="alert"` so it is announced when it appears.
+- The control gets `aria-invalid` only while there is an error.
+- Errors are text, never colour alone.
+
+## Tokens used
+
+`--foreground`, `--muted-foreground`, `--danger`.
+
+## Known limitations
+
+- It wires one control. Groups such as radio sets need a `fieldset` and `legend`, which will come with those components.
+- It does not validate; pass your own `error`.
+
+## Source
+
+<Source name="field" />

@@ -1,0 +1,51 @@
+---
+title: Label
+description: A native label that names a form control.
+---
+
+<Preview>
+  <Demo name="label-default" />
+</Preview>
+
+Use `Label` when you place a control yourself. If you also want a hint, an error and automatic id wiring, use [Field](/docs/components/field) instead.
+
+## Installation
+
+<InstallTabs name="label" />
+
+## Usage
+
+```tsx
+import { Label } from "@/components/ui/label";
+
+<Label htmlFor="phone">Phone number</Label>
+<Input id="phone" />
+```
+
+## Props
+
+`Label` extends all native `<label>` props and spreads them onto the element.
+
+<PropsTable
+  rows={[
+    { name: "htmlFor", type: "string", description: "The id of the control it names. Without it (or nesting), the label names nothing." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native `<label>`, so clicking it focuses the control and screen readers announce it as the control's name.
+- A label is required for every input. A placeholder is not a label.
+
+## Tokens used
+
+`--foreground`.
+
+## Known limitations
+
+- It does not check that it is associated with a control; that is up to you.
+
+## Source
+
+<Source name="label" />
