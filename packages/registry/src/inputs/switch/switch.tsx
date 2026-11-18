@@ -22,7 +22,7 @@ export function Switch({ className, ...props }: SwitchProps) {
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute start-0.5 top-0.5 size-5 rounded-full bg-muted-foreground transition-[transform,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] peer-checked:translate-x-5 peer-checked:bg-primary-foreground rtl:peer-checked:-translate-x-5 motion-reduce:transition-none"
+        className="pointer-events-none absolute start-0.5 top-0.5 size-5 rounded-full bg-muted-foreground transition-[transform,translate,scale,rotate,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] peer-checked:translate-x-5 peer-checked:bg-primary-foreground rtl:peer-checked:-translate-x-5 motion-reduce:transition-none"
       />
     </span>
   );

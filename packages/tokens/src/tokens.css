@@ -169,3 +169,35 @@
     height: 0;
   }
 }
+
+/* Password strength: the strength word rises in when it changes, and a refused field shakes once.
+ * Both use token durations, so they are near-instant under prefers-reduced-motion. The registry
+ * item for the component ships the same keyframes for installed projects. */
+@keyframes zuri-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.3em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes zuri-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-0.4rem);
+  }
+  40% {
+    transform: translateX(0.4rem);
+  }
+  60% {
+    transform: translateX(-0.25rem);
+  }
+  80% {
+    transform: translateX(0.2rem);
+  }
+}

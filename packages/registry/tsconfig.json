@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "paths": {
       "@/components/ui/button": ["./src/actions/button/button"],
+      "@/components/ui/input": ["./src/inputs/input/input"],
       "@/*": ["./src/*"]
     }
   },

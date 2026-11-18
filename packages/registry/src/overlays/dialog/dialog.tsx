@@ -13,7 +13,7 @@ export const DialogClose = DialogPrimitive.Close;
 const contentVariants = cva(
   // Enter animation only (`starting:`): Radix unmounts immediately on close, which is fine
   // and keeps this free of keyframes. Durations come from tokens, so reduced motion is honoured.
-  "fixed start-1/2 top-1/2 z-[var(--z-modal)] flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-xl p-6 text-foreground transition-[opacity,transform] duration-[var(--duration-base)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 rtl:translate-x-1/2 focus-visible:outline-none",
+  "fixed start-1/2 top-1/2 z-[var(--z-modal)] flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-xl p-6 text-foreground transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-base)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 rtl:translate-x-1/2 focus-visible:outline-none",
   {
     variants: {
       variant: {

@@ -38,7 +38,7 @@ export function DropdownMenuContent({
         sideOffset={sideOffset}
         collisionPadding={collisionPadding}
         className={cn(
-          "z-[var(--z-dropdown)] min-w-44 max-w-[calc(100vw-1rem)] overflow-hidden rounded-xl border border-border bg-background p-1 text-sm text-foreground shadow-lg transition-[opacity,transform] duration-[var(--duration-fast)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0",
+          "z-[var(--z-dropdown)] min-w-44 max-w-[calc(100vw-1rem)] overflow-hidden rounded-xl border border-border bg-background p-1 text-sm text-foreground shadow-lg transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-fast)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0",
           className,
         )}
         {...props}

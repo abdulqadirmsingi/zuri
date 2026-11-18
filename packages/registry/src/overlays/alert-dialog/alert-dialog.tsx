@@ -24,7 +24,7 @@ export function AlertDialogContent({
       <AlertDialogPrimitive.Overlay className="fixed inset-0 z-[var(--z-overlay)] bg-foreground/40 transition-opacity duration-[var(--duration-base)] starting:opacity-0" />
       <AlertDialogPrimitive.Content
         className={cn(
-          "fixed start-1/2 top-1/2 z-[var(--z-modal)] flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground transition-[opacity,transform] duration-[var(--duration-base)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 rtl:translate-x-1/2 focus-visible:outline-none",
+          "fixed start-1/2 top-1/2 z-[var(--z-modal)] flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-base)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 rtl:translate-x-1/2 focus-visible:outline-none",
           className,
         )}
         {...props}

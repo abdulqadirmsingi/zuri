@@ -70,7 +70,7 @@ export function TabsList({ className, variant = "pill", children, ...props }: Ta
         <span
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute left-0 transition-[transform,width] duration-[var(--duration-slow)] ease-[cubic-bezier(0.34,1.4,0.64,1)]",
+            "pointer-events-none absolute left-0 transition-[transform,translate,scale,rotate,width] duration-[var(--duration-slow)] ease-[cubic-bezier(0.34,1.4,0.64,1)]",
             variant === "pill"
               ? "inset-y-1 rounded-md bg-background shadow-sm"
               : "bottom-0 h-0.5 rounded-full bg-primary",

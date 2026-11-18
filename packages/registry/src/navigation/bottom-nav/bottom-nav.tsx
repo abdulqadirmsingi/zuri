@@ -104,7 +104,7 @@ export function BottomNav({
         {box ? (
           <li
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 start-0 left-0 rounded-full bg-primary transition-[transform,width] duration-[var(--duration-slow)] ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+            className="pointer-events-none absolute inset-y-0 start-0 left-0 rounded-full bg-primary transition-[transform,translate,scale,rotate,width] duration-[var(--duration-slow)] ease-[cubic-bezier(0.34,1.56,0.64,1)]"
             style={{ transform: `translateX(${box.x}px)`, width: box.w }}
           />
         ) : null}

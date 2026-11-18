@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 type Item = {
@@ -52,6 +52,28 @@ describe("registry.json", () => {
             `@keyframes ${m[1]}`,
           );
         }
+      }
+    }
+  });
+
+  // Regression guard: Tailwind v4's translate-*, scale-* and rotate-* utilities set the standalone
+  // `translate`, `scale` and `rotate` CSS properties, not `transform`. A `transition-[transform,...]`
+  // list therefore does NOT animate them, and the motion silently does nothing (it happened to the
+  // button press, the switch thumb, the strength meter and every overlay's entrance). jsdom cannot
+  // see it, so the source is checked instead.
+  it("lists translate, scale and rotate wherever a transition lists transform", () => {
+    const sources = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+        const full = `${dir}/${e.name}`;
+        if (e.isDirectory()) return sources(full);
+        return /\.tsx$/.test(e.name) && !/\.test\./.test(e.name) ? [full] : [];
+      });
+    for (const file of sources("src")) {
+      for (const m of readFileSync(file, "utf8").matchAll(/transition-\[([^\]]*)\]/g)) {
+        const props = (m[1] ?? "").split(",");
+        if (!props.includes("transform")) continue;
+        for (const needed of ["translate", "scale", "rotate"])
+          expect(props, `${file}: ${m[0]} is missing ${needed}`).toContain(needed);
       }
     }
   });

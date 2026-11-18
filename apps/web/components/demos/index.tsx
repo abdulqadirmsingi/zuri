@@ -46,6 +46,7 @@ import {
   TabsLine,
 } from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
+import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
 import {
   CheckboxDefault,
   CheckboxStates,
@@ -67,6 +68,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "password-default": PasswordDefault,
+  "password-error": PasswordWithError,
+  "password-reworded": PasswordReworded,
   "tabs-default": TabsDefault,
   "tabs-line": TabsLine,
   "accordion-default": AccordionDefault,
