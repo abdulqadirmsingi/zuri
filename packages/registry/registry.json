@@ -104,95 +104,238 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "An accessible button with default, outline, ghost and glass variants.",
-      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "src/actions/button/button.tsx",
           "type": "registry:ui"
         }
       ],
-      "categories": ["actions"],
+      "categories": [
+        "actions"
+      ],
       "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
     },
     {
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
       "description": "A native label.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "src/inputs/label/label.tsx",
           "type": "registry:ui"
         }
       ],
-      "categories": ["inputs"],
+      "categories": [
+        "inputs"
+      ],
       "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
     },
     {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
       "description": "A native text input with default and glass variants and an invalid state.",
-      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "src/inputs/input/input.tsx",
           "type": "registry:ui"
         }
       ],
-      "categories": ["inputs"],
+      "categories": [
+        "inputs"
+      ],
       "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
     },
     {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
       "description": "A native multi-line input with an invalid state.",
-      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "src/inputs/textarea/textarea.tsx",
           "type": "registry:ui"
         }
       ],
-      "categories": ["inputs"],
+      "categories": [
+        "inputs"
+      ],
       "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
     },
     {
       "name": "field",
       "type": "registry:ui",
       "title": "Field",
       "description": "Label, control, hint and error wired together with ids.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "src/inputs/field/field.tsx",
           "type": "registry:ui"
         }
       ],
-      "categories": ["inputs"],
+      "categories": [
+        "inputs"
+      ],
       "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A native checkbox, restyled, with an invalid state.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/inputs/checkbox/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "inputs"
+      ],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio group",
+      "description": "A fieldset with native radios, a legend, a hint and an error.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/inputs/radio-group/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "inputs"
+      ],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A native checkbox exposed as a switch.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/inputs/switch/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "inputs"
+      ],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A native select with a custom chevron and an invalid state.",
+      "dependencies": [
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/inputs/select/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "inputs"
+      ],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json"
+      ]
     }
   ]
 }
