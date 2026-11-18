@@ -583,6 +583,49 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert dialog",
+      "description": "A confirmation that demands a choice, focusing the safe option first, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "clsx",
+        "tailwind-merge",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/alert-dialog/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "A menu of actions with checkbox and radio items and full keyboard support, built on Radix.",
+      "dependencies": ["@radix-ui/react-dropdown-menu", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/overlays/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }

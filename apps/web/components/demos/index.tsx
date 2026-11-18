@@ -36,6 +36,7 @@ import {
   TextareaDefault,
   TextareaStates,
 } from "./input-demos";
+import { AlertDialogDefault, DropdownMenuChoices, DropdownMenuDefault } from "./menu-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import {
   CheckboxDefault,
@@ -58,6 +59,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "alert-dialog-default": AlertDialogDefault,
+  "dropdown-menu-default": DropdownMenuDefault,
+  "dropdown-menu-choices": DropdownMenuChoices,
   "dialog-default": DialogDefault,
   "dialog-glass": DialogGlass,
   "popover-default": PopoverDefault,
@@ -97,7 +101,8 @@ const demos: Record<string, () => ReactNode> = {
 
 /** Looks a demo up by name, so MDX can say <Demo name="button-variants" />. */
 export function Demo({ name }: { name: string }) {
-  const render = Object.hasOwn(demos, name) ? demos[name] : undefined;
-  if (!render) throw new Error(`Unknown demo: ${name}`);
-  return <>{render()}</>;
+  const Component = Object.hasOwn(demos, name) ? demos[name] : undefined;
+  if (!Component) throw new Error(`Unknown demo: ${name}`);
+  // Rendered as a component (not called) so a demo may be a client component.
+  return <Component />;
 }

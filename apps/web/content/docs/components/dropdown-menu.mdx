@@ -1,0 +1,83 @@
+---
+title: Dropdown menu
+description: A menu of actions with checkbox and radio items and full keyboard support, built on Radix.
+---
+
+<Preview>
+  <Demo name="dropdown-menu-default" />
+</Preview>
+
+Use `DropdownMenu` for a list of actions opened from a button: "Copy reference", "Download receipt", "Report a problem". It is for **actions**. For choosing a value in a form use [Select](/docs/components/select), and for moving between pages use links or a navigation.
+
+## Installation
+
+<InstallTabs name="dropdown-menu" />
+
+This adds one dependency, `@radix-ui/react-dropdown-menu`, which the command installs for you.
+
+## Usage
+
+```tsx
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuSeparator, DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+<DropdownMenu>
+  <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem onSelect={copy}>Copy reference</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem destructive onSelect={report}>Report a problem</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+Use `onSelect`, not `onClick`, on items: it also fires for keyboard selection.
+
+## Checkbox and radio items
+
+<Preview>
+  <Demo name="dropdown-menu-choices" />
+</Preview>
+
+## Props
+
+`DropdownMenu` takes `open`, `defaultOpen`, `onOpenChange` and `modal`. Content takes `side`, `align` and `sideOffset`.
+
+<PropsTable
+  rows={[
+    { name: "modal", type: "boolean", default: "false", description: "On DropdownMenu. When true the rest of the page is locked and hidden from assistive technology while the menu is open. See the note below." },
+    { name: "destructive", type: "boolean", description: "On DropdownMenuItem. Danger styling for actions that delete or can't be undone." },
+    { name: "disabled", type: "boolean", description: "On items. Skipped by the keyboard and not selectable." },
+    { name: "onSelect", type: "(event: Event) => void", description: "On items. Called when chosen. Call event.preventDefault() to keep the menu open." },
+    { name: "checked / onCheckedChange", type: "boolean / (checked: boolean) => void", description: "On DropdownMenuCheckboxItem." },
+    { name: "value / onValueChange", type: "string / (value: string) => void", description: "On DropdownMenuRadioGroup. Each DropdownMenuRadioItem has its own value." },
+  ]}
+/>
+
+Also exported: `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuGroup` and `DropdownMenuShortcut`.
+
+## Accessibility
+
+- The trigger is a button with `aria-haspopup="menu"` and `aria-expanded`. Enter, Space or Arrow Down open it.
+- Inside: Arrow keys move, Home and End jump to the first and last item, typing a letter jumps to a matching item, Enter or Space chooses, and Escape closes and returns focus to the trigger. Disabled items are skipped.
+- Items have `role="menuitem"`, checkboxes `menuitemcheckbox` and radios `menuitemradio`, with their checked state announced. The check mark and dot are decorative.
+- Each item is at least 36 pixels tall.
+- Shortcut text is only a hint. It does not bind any keys, so bind them yourself.
+
+The menu is **not modal** by default, following the WAI-ARIA menu button pattern. Radix's modal mode hides the rest of the page from screen readers while its links and buttons stay focusable, which accessibility checkers (axe's `aria-hidden-focus` rule) report as an error. Without it the menu still closes on Escape or an outside click. Set `modal` if you need the page locked.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted`, `--muted-foreground`, `--border`, `--danger`, `--duration-fast`, `--ease-out`, `--z-dropdown`.
+
+## Known limitations
+
+- No submenus yet.
+- It does not animate out.
+- A menu is for short lists. For many options, or to search, a combobox is the better fit (not built yet).
+
+## Source
+
+<Source name="dropdown-menu" />

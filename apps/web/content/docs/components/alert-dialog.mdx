@@ -1,0 +1,75 @@
+---
+title: Alert dialog
+description: A confirmation that demands a choice, focusing the safe option first, built on Radix.
+---
+
+<Preview>
+  <Demo name="alert-dialog-default" />
+</Preview>
+
+Use `AlertDialog` to confirm something that matters, usually a destructive or irreversible action such as deleting an account or cancelling a payment. It interrupts the user and asks for a clear yes or no. For anything else, such as editing a form, use a [Dialog](/docs/components/dialog).
+
+## Installation
+
+<InstallTabs name="alert-dialog" />
+
+This adds `@radix-ui/react-alert-dialog` and also installs [Button](/docs/components/button), which styles its two buttons.
+
+## Usage
+
+```tsx
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
+<AlertDialog>
+  <AlertDialogTrigger>Delete account</AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete your account?</AlertDialogTitle>
+      <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Keep account</AlertDialogCancel>
+      <AlertDialogAction variant="destructive" onClick={deleteAccount}>Delete</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+Do the work in the action's `onClick`. The dialog closes itself afterwards. Label the buttons with what they do ("Delete", "Keep account"), not "OK" and "Cancel".
+
+## Props
+
+`AlertDialog` takes `open`, `defaultOpen` and `onOpenChange`. The parts take the Radix props and native element props.
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "destructive"', default: '"default"', description: "On AlertDialogAction. Use destructive when the action deletes or can't be undone." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It has `role="alertdialog"` and is named by its title and described by its description. Include both.
+- Focus moves to **Cancel**, the safe choice, when it opens, so pressing Enter by reflex doesn't delete anything. It is trapped inside, and returns to the trigger on close.
+- Clicking outside does **not** close it, because it demands a choice. Escape does cancel it.
+- The rest of the page is hidden from screen readers and can't be scrolled while it is open.
+- It fades and scales in using the `--duration-*` tokens, which are almost zero under `prefers-reduced-motion`.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted-foreground`, `--border`, `--danger` (through Button), `--duration-base`, `--ease-out`, `--z-overlay`, `--z-modal`.
+
+## Known limitations
+
+- It does not animate out; it unmounts when closed.
+- The action can't be asynchronous with a loading state yet: it closes straight away. For a slow action, use a [Dialog](/docs/components/dialog) with a loading [Button](/docs/components/button).
+- It renders into a portal at the end of `<body>`.
+
+## Source
+
+<Source name="alert-dialog" />
