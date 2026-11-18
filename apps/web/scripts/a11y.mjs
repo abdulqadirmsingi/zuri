@@ -8,6 +8,7 @@ import { chromium } from "playwright";
 const base = (process.env.BASE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 const pages = [
   "/",
+  "/fonts",
   "/docs",
   "/docs/installation",
   "/docs/theming",
