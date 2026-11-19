@@ -109,3 +109,7 @@ It audits every docs page in light and dark with axe and exits non-zero on any v
 - `/admin` returns 404: `ADMIN_TOKEN` is unset or shorter than 32 characters (this is deliberate).
 - Installs are not counted: `DATABASE_URL` or `ZURI_HASH_SECRET` is missing, or you have not run `pnpm db:migrate`.
 - Too many requests (429): you hit the per-minute limit; set `ZURI_RATE_LIMIT_PER_MIN` higher for local testing.
+
+## Home page pictures
+
+The pictures on the home page are screenshots of the real blocks. After changing a hero or the starter, start the site and run `BASE_URL=http://localhost:3000 node apps/web/scripts/home-shots.mjs` to refresh `apps/web/public/home/`.
