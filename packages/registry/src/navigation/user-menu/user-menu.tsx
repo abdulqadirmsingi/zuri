@@ -40,7 +40,7 @@ export interface UserMenuItem {
   label: string;
   /** Decorative icon (an inline SVG). Hidden from assistive technology. */
   icon?: ReactNode;
-  /** A hint such as "Ctrl ,". It only shows the shortcut; it does not bind any keys. */
+  /** A hint such as "Ctrl ,". It is part of the item's spoken name, and it does not bind any keys. */
   shortcut?: string;
   /** Makes the item a link. Without it the item is a button. */
   href?: string;
@@ -282,7 +282,6 @@ export function UserMenu({
     <button
       ref={triggerRef}
       type="button"
-      aria-label={triggerName}
       className={cn(
         "inline-flex min-h-11 items-center gap-2 rounded-full p-0.5 pe-0.5 text-sm font-medium hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:data-[name]:pe-3",
         className,
@@ -290,10 +289,14 @@ export function UserMenu({
       data-name={showName || undefined}
       {...extra}
     >
-      <span className="relative inline-flex">
+      {/* Decorative: the button's name already says who this is. */}
+      <span aria-hidden="true" className="relative inline-flex">
         <Avatar name={user.name} src={user.avatarSrc} size="md" />
         {showStatus ? <PresenceDot status={status} /> : null}
       </span>
+      {/* The name is real (visually hidden) text, not an aria-label: a label that omits the visible
+          initials would fail WCAG 2.5.3 (Label in Name). */}
+      <span className="sr-only">{triggerName}</span>
       {showName ? (
         <>
           <span className="hidden max-w-32 truncate sm:inline">{user.name}</span>
@@ -461,7 +464,10 @@ export function UserMenu({
               {item.icon ? <span aria-hidden="true">{item.icon}</span> : null}
               <span>{item.label}</span>
               {item.shortcut ? (
-                <DropdownMenuShortcut aria-hidden="true">{item.shortcut}</DropdownMenuShortcut>
+                <>
+                  {/* A real space, so the spoken name reads "Profile Ctrl P", not "ProfileCtrl P". */}{" "}
+                  <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
+                </>
               ) : null}
             </>
           );

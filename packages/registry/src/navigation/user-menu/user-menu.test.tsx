@@ -66,10 +66,10 @@ describe("UserMenu (wide screens: a menu)", () => {
     expect(menu.textContent).toContain("Pro");
   });
 
-  it("lists destinations as menu items; links keep their href and hide the shortcut hint", async () => {
+  it("lists destinations as menu items; links keep their href and the shortcut is part of the name", async () => {
     render(<UserMenu user={user} items={items} />);
     await openMenu();
-    const profile = screen.getByRole("menuitem", { name: "Profile" });
+    const profile = screen.getByRole("menuitem", { name: "Profile Ctrl P" });
     expect(profile.tagName).toBe("A");
     expect(profile.getAttribute("href")).toBe("/profile");
     expect(profile.textContent).toContain("Ctrl P");
@@ -182,6 +182,14 @@ describe("UserMenu (wide screens: a menu)", () => {
     expect(screen.queryByRole("menu")).toBeNull();
     rerender(<UserMenu user={user} open onOpenChange={onOpenChange} />);
     expect(await screen.findByRole("menu")).toBeTruthy();
+  });
+
+  // Regression: visible initials inside a button named "Account menu, ..." broke WCAG 2.5.3.
+  it("hides the trigger's picture from assistive technology, because its name already says who it is", () => {
+    render(<UserMenu user={user} />);
+    const trigger = screen.getByRole("button", { name: /Account menu/ });
+    const picture = trigger.querySelector('[role="img"]');
+    expect(picture?.closest('[aria-hidden="true"]')).toBeTruthy();
   });
 
   it("falls back to initials when there is no picture", () => {
