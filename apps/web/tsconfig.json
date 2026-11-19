@@ -12,6 +12,15 @@
       "@/components/ui/dropdown-menu": [
         "../../packages/registry/src/overlays/dropdown-menu/dropdown-menu"
       ],
+      "@/components/ui/closing-cta": ["../../packages/registry/src/blocks/closing-cta/closing-cta"],
+      "@/components/ui/marquee": ["../../packages/registry/src/blocks/marquee/marquee"],
+      "@/components/ui/reveal": ["../../packages/registry/src/blocks/reveal/reveal"],
+      "@/components/ui/section-heading": [
+        "../../packages/registry/src/blocks/section-heading/section-heading"
+      ],
+      "@/components/ui/site-footer": ["../../packages/registry/src/blocks/site-footer/site-footer"],
+      "@/components/ui/site-header": ["../../packages/registry/src/blocks/site-header/site-header"],
+      "@/components/ui/split-hero": ["../../packages/registry/src/blocks/split-hero/split-hero"],
       "@/*": ["./*"],
       "@registry/*": ["../../packages/registry/src/*"]
     }

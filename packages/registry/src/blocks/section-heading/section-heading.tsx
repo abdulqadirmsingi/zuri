@@ -11,6 +11,8 @@ export interface SectionHeadingProps extends Omit<ComponentProps<"div">, "title"
   align?: "start" | "center";
   /** Heading level. Use the level that fits the page outline. Defaults to 2. */
   headingLevel?: 2 | 3 | 4;
+  /** An id for the heading itself, so a section can name itself with `aria-labelledby`. */
+  titleId?: string;
 }
 
 /** The title block that opens a page section: an eyebrow, a heading and a short description. */
@@ -20,6 +22,7 @@ export function SectionHeading({
   description,
   align = "start",
   headingLevel = 2,
+  titleId,
   className,
   ...props
 }: SectionHeadingProps) {
@@ -34,7 +37,10 @@ export function SectionHeading({
       {...props}
     >
       {eyebrow ? <p className="m-0 text-sm font-medium text-accent-ink">{eyebrow}</p> : null}
-      <Heading className="m-0 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+      <Heading
+        id={titleId}
+        className="m-0 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl"
+      >
         {title}
       </Heading>
       {description ? (

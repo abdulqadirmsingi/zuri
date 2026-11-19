@@ -43,6 +43,8 @@ const pages = [
   "/docs/components/spinner",
   "/docs/components/skeleton",
   "/docs/components/progressive-blur",
+  "/docs/blocks/landing-starter",
+  "/starter",
   "/docs/blocks/split-hero",
   "/docs/blocks/magazine-hero",
   "/docs/blocks/card-fan-hero",
