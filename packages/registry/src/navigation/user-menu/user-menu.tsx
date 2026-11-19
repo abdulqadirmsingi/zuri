@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  type PointerEvent,
   type ReactNode,
   useCallback,
   useEffect,
@@ -178,6 +179,106 @@ const chevron = (
   </svg>
 );
 
+/* ------------------------------------------------------------ sheet drag */
+
+const DISMISS_FRACTION = 0.3; // dragged past this share of the sheet's height: dismiss
+const FLICK_SPEED = 0.6; // pixels per millisecond: a quick downward flick dismisses
+const FLICK_MIN_DISTANCE = 24; // ...but only after at least this many pixels
+
+/** Runs `done` once the sheet's slide-out transition ends (or shortly after, as a fallback). */
+function afterSlide(el: HTMLElement, done: () => void) {
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    el.removeEventListener("transitionend", onEnd);
+    clearTimeout(timer);
+    done();
+  };
+  const onEnd = (event: TransitionEvent) => {
+    if (event.target === el && event.propertyName === "transform") finish();
+  };
+  el.addEventListener("transitionend", onEnd);
+  const duration = getComputedStyle(el).transitionDuration.split(",")[0] ?? "";
+  const ms = Number.parseFloat(duration) * (duration.endsWith("ms") ? 1 : 1000);
+  const timer = setTimeout(finish, (Number.isFinite(ms) ? ms : 0) + 80);
+}
+
+/**
+ * Pulling the sheet's grab area down dismisses it. The sheet follows the pointer exactly (pulling
+ * up meets resistance), and on release it either slides away or springs back. It writes the
+ * transform straight onto the element instead of using state, so dragging never re-renders.
+ * It is an extra gesture only: Escape and the close button always work.
+ */
+function useSheetDrag(dismiss: () => void) {
+  const sheet = useRef<HTMLDivElement | null>(null);
+  const drag = useRef<{
+    id: number;
+    startY: number;
+    dy: number;
+    marks: { t: number; y: number }[];
+  } | null>(null);
+
+  const onPointerDown = (event: PointerEvent<HTMLElement>) => {
+    const el = sheet.current;
+    if (!el || drag.current || (event.pointerType === "mouse" && event.button !== 0)) return;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    drag.current = {
+      id: event.pointerId,
+      startY: event.clientY,
+      dy: 0,
+      marks: [{ t: performance.now(), y: event.clientY }],
+    };
+    el.style.transition = "none"; // follow the pointer with no easing
+  };
+
+  const onPointerMove = (event: PointerEvent<HTMLElement>) => {
+    const el = sheet.current;
+    const d = drag.current;
+    if (!el || !d || d.id !== event.pointerId) return;
+    const raw = event.clientY - d.startY;
+    d.dy = raw < 0 ? raw * 0.2 : raw;
+    d.marks.push({ t: performance.now(), y: event.clientY });
+    if (d.marks.length > 6) d.marks.shift();
+    el.style.transform = `translateY(${d.dy}px)`;
+  };
+
+  const release = (event: PointerEvent<HTMLElement>, cancelled: boolean) => {
+    const el = sheet.current;
+    const d = drag.current;
+    if (!el || !d || d.id !== event.pointerId) return;
+    drag.current = null;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    el.style.transition = ""; // back to the sheet's own (token-based) transition
+    const first = d.marks[0];
+    const last = d.marks[d.marks.length - 1];
+    // Speed over the last few moves; pausing before letting go cancels a flick.
+    const moving = last && first && performance.now() - last.t < 100;
+    const speed = moving && last.t > first.t ? (last.y - first.y) / (last.t - first.t) : 0;
+    const height = el.offsetHeight;
+    const dismissed =
+      !cancelled &&
+      d.dy > 0 &&
+      (d.dy > height * DISMISS_FRACTION || (speed > FLICK_SPEED && d.dy > FLICK_MIN_DISTANCE));
+    if (dismissed) {
+      el.style.transform = `translateY(${height}px)`;
+      afterSlide(el, dismiss);
+    } else {
+      el.style.transform = ""; // springs back
+    }
+  };
+
+  return {
+    sheet,
+    grip: {
+      onPointerDown,
+      onPointerMove,
+      onPointerUp: (e: PointerEvent<HTMLElement>) => release(e, false),
+      onPointerCancel: (e: PointerEvent<HTMLElement>) => release(e, true),
+    },
+  };
+}
+
 const rowClass =
   "flex min-h-11 w-full items-center gap-3 rounded-lg px-3 text-start text-sm hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring [&_svg]:size-4 [&_svg]:shrink-0";
 
@@ -242,6 +343,10 @@ export function UserMenu({
     },
     [openProp, onOpenChange],
   );
+
+  const sheetDrag = useSheetDrag(() => {
+    if (alive.current) setOpen(false);
+  });
 
   function changeStatus(value: string) {
     const next = value as UserStatus;
@@ -342,6 +447,7 @@ export function UserMenu({
         })}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent
+            ref={sheetDrag.sheet}
             closeLabel={messages.sheetClose}
             // The sheet opens from a plain button (not a DialogTrigger), so Radix has no trigger to
             // return focus to; without this, focus would be lost to <body> when it closes.
@@ -351,16 +457,28 @@ export function UserMenu({
             }}
             className="bottom-0 start-0 top-auto w-full max-w-none translate-x-0 translate-y-0 gap-3 rounded-b-none rounded-t-2xl pb-[max(1.5rem,env(safe-area-inset-bottom))] starting:translate-y-full starting:scale-100 rtl:translate-x-0"
           >
-            <div className="flex items-center gap-3 pe-8">
-              <span aria-hidden="true" className="relative inline-flex shrink-0">
-                <Avatar name={user.name} src={user.avatarSrc} size="md" />
-                {showStatus ? <PresenceDot status={status} /> : null}
-              </span>
-              <div className="flex min-w-0 flex-col">
-                <DialogTitle className="m-0">
-                  <span className="text-base">{user.name}</span>
-                </DialogTitle>
-                <DialogDescription className="m-0 truncate">{user.email}</DialogDescription>
+            {/* The grab area: a handle and the header. Pulling it down dismisses the sheet. The
+                handle is only a hint for pointer users, so it is hidden from assistive technology;
+                Escape and the close button are the keyboard and screen reader ways out. */}
+            <div
+              {...sheetDrag.grip}
+              className="-mx-6 -mt-6 cursor-grab touch-none select-none px-6 pb-1 pt-3 active:cursor-grabbing"
+            >
+              <span
+                aria-hidden="true"
+                className="mx-auto mb-3 block h-1.5 w-10 rounded-full bg-control-border"
+              />
+              <div className="flex items-center gap-3 pe-8">
+                <span aria-hidden="true" className="relative inline-flex shrink-0">
+                  <Avatar name={user.name} src={user.avatarSrc} size="md" />
+                  {showStatus ? <PresenceDot status={status} /> : null}
+                </span>
+                <div className="flex min-w-0 flex-col">
+                  <DialogTitle className="m-0">
+                    <span className="text-base">{user.name}</span>
+                  </DialogTitle>
+                  <DialogDescription className="m-0 truncate">{user.email}</DialogDescription>
+                </div>
               </div>
             </div>
             <div className="-mx-2 flex flex-col">
