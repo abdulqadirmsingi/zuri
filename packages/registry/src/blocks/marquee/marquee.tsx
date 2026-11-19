@@ -43,9 +43,11 @@ export function Marquee({
   const [paused, setPaused] = useState(false);
   const half = Math.max(1, Math.floor(repeat));
   const copy = Array.from({ length: half }, (_, i) => (
-    // The copies are identical and never reorder, so the index is a stable key.
-    // biome-ignore lint/suspicious/noArrayIndexKey: see above.
-    <div key={i} className="flex shrink-0 items-center gap-[inherit]">
+    <div
+      // biome-ignore lint/suspicious/noArrayIndexKey: the copies are identical and never reorder.
+      key={i}
+      className="flex shrink-0 items-center gap-[inherit] motion-reduce:min-w-0 motion-reduce:shrink motion-reduce:justify-center"
+    >
       {children}
     </div>
   ));

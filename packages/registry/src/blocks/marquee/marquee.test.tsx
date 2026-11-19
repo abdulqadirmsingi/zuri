@@ -5,7 +5,7 @@ import { axe } from "vitest-axe";
 import { Marquee } from "./marquee";
 
 const items = (
-  <ul className="m-0 flex list-none gap-8 p-0">
+  <ul className="m-0 flex list-none flex-wrap gap-8 p-0">
     <li>Alpha</li>
     <li>Beta</li>
   </ul>

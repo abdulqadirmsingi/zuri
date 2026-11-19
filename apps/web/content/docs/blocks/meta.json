@@ -1,0 +1,18 @@
+{
+  "title": "Blocks",
+  "pages": [
+    "index",
+    "---Heroes---",
+    "split-hero",
+    "magazine-hero",
+    "card-fan-hero",
+    "---Page shell---",
+    "site-header",
+    "site-footer",
+    "section-heading",
+    "closing-cta",
+    "---Motion---",
+    "marquee",
+    "reveal"
+  ]
+}

@@ -65,7 +65,27 @@ export function Reveal({
       { threshold },
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    // A jump past the element (the End key, an anchor link further down) moves it from below the
+    // view to above it without ever intersecting, so the observer stays silent and it would stay
+    // invisible. Anything above the bottom edge of the view has been scrolled to or past: show it.
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          setState("visible");
+          if (once) io.disconnect();
+        }
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+      io.disconnect();
+    };
   }, [once, threshold]);
 
   return (

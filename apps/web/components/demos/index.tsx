@@ -39,6 +39,7 @@ import {
   TextareaStates,
 } from "./input-demos";
 import { AlertDialogDefault, DropdownMenuChoices, DropdownMenuDefault } from "./menu-demos";
+import { MarqueeDefault, MarqueeReverse, RevealDirections, RevealStagger } from "./motion-demos";
 import {
   AccordionDefault,
   AccordionMultiple,
@@ -74,6 +75,10 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "marquee-default": MarqueeDefault,
+  "marquee-reverse": MarqueeReverse,
+  "reveal-stagger": RevealStagger,
+  "reveal-directions": RevealDirections,
   "shell-header": HeaderDemo,
   "shell-footer": FooterDemo,
   "shell-heading": HeadingDemo,

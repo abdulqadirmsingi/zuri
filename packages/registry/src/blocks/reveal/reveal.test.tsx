@@ -67,6 +67,24 @@ describe("Reveal", () => {
     act(() => callback([{ isIntersecting: true }]));
     expect(disconnect).toHaveBeenCalled();
   });
+  it("shows content the reader jumped past without it ever intersecting", () => {
+    setup({ top: 2000 });
+    const { container } = render(<Reveal>Hello</Reveal>);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.getAttribute("data-reveal")).toBe("hidden");
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
+      cb(0);
+      return 1;
+    });
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+      top: -500,
+      bottom: -400,
+    } as DOMRect);
+    act(() => {
+      window.dispatchEvent(new Event("scroll"));
+    });
+    expect(el.getAttribute("data-reveal")).toBe("visible");
+  });
   it("hides again when it leaves the view and once is false", () => {
     setup();
     const { container } = render(<Reveal once={false}>Hello</Reveal>);
