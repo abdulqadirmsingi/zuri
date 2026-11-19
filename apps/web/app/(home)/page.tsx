@@ -5,6 +5,7 @@ import Link from "next/link";
 import { demoFor } from "@/components/demos";
 import { Builder, type BuilderItem } from "@/components/home/builder";
 import { HomeFooter } from "@/components/home/home-footer";
+import { Shelves } from "@/components/home/shelves";
 import { ThemeLab } from "@/components/home/theme-lab";
 import { registryStats } from "@/lib/registry-stats";
 import { siteUrl } from "@/lib/shared";
@@ -169,6 +170,19 @@ export default function Home() {
                   </Link>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Everything, by shelf. Counts and links come from the registry. */}
+          <section aria-labelledby="shelves-title" className="border-t border-border">
+            <div className={`${wrap} py-24 lg:py-32`}>
+              <h2
+                id="shelves-title"
+                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+              >
+                Pick a shelf.
+              </h2>
+              <Shelves shelves={stats.shelves} />
             </div>
           </section>
 
