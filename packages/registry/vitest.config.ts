@@ -14,6 +14,18 @@ export default defineConfig({
         find: "@/components/ui/input",
         replacement: path.resolve(import.meta.dirname, "src/inputs/input/input"),
       },
+      {
+        find: "@/components/ui/avatar",
+        replacement: path.resolve(import.meta.dirname, "src/display/avatar/avatar"),
+      },
+      {
+        find: "@/components/ui/dialog",
+        replacement: path.resolve(import.meta.dirname, "src/overlays/dialog/dialog"),
+      },
+      {
+        find: "@/components/ui/dropdown-menu",
+        replacement: path.resolve(import.meta.dirname, "src/overlays/dropdown-menu/dropdown-menu"),
+      },
       { find: "@", replacement: path.resolve(import.meta.dirname, "src") },
     ],
   },
