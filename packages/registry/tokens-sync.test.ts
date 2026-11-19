@@ -111,7 +111,7 @@ describe("zuri-tokens registry item matches packages/tokens", () => {
       ...Object.keys(item?.css?.[":root"] ?? {}),
     ]);
     // Set inline by the component itself, not a token.
-    const own = new Set(["--zuri-progress"]);
+    const own = new Set(["--zuri-progress", "--zuri-fan-n", "--zuri-fan-w"]);
     const used = new Map<string, string>();
     for (const file of listSources("src"))
       for (const m of readFileSync(file, "utf8").matchAll(/var\((--[a-z0-9-]+)/g))

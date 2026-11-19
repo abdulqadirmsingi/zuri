@@ -846,6 +846,63 @@
           }
         }
       }
+    },
+    {
+      "name": "split-hero",
+      "type": "registry:block",
+      "title": "Split hero",
+      "description": "A hero with text on one side and a visual on the other, stacking on narrow screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/split-hero/split-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "magazine-hero",
+      "type": "registry:block",
+      "title": "Magazine hero",
+      "description": "An editorial hero with a very large headline beside a tall, offset visual and a corner badge.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/magazine-hero/magazine-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "card-fan-hero",
+      "type": "registry:block",
+      "title": "Card fan hero",
+      "description": "A centred hero with a row of cards fanned out in an arc beneath it.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/card-fan-hero/card-fan-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }
