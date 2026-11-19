@@ -1,15 +1,22 @@
 import { type FontEntry, nextFontName } from "./fonts-catalog";
 
-const toIdentifier = (id: string) => id.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+/** "source-serif-4" becomes sourceSerif4. Digits count too, or the name would not be valid JavaScript. */
+export const toIdentifier = (id: string) =>
+  id.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
 
-/** The Tailwind theme variable the font should fill, chosen from what it is good for. */
-function themeVariable(font: FontEntry): "--font-sans" | "--font-display" | "--font-mono" {
+/** The Tailwind theme variable the font should fill, chosen from what it is. */
+function themeVariable(
+  font: FontEntry,
+): "--font-sans" | "--font-serif" | "--font-display" | "--font-mono" {
   if (font.category === "mono") return "--font-mono";
-  return font.uses[0] === "headings" ? "--font-display" : "--font-sans";
+  if (font.category === "serif") return "--font-serif";
+  if (font.category === "display" || font.uses[0] === "headings") return "--font-display";
+  return "--font-sans";
 }
 
 const fallbacks = {
   "--font-sans": "ui-sans-serif, system-ui, sans-serif",
+  "--font-serif": "ui-serif, Georgia, serif",
   "--font-display": "ui-sans-serif, system-ui, sans-serif",
   "--font-mono": "ui-monospace, monospace",
 } as const;

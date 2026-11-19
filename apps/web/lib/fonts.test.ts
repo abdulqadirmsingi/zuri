@@ -19,7 +19,7 @@ import {
   weightName,
   weightSteps,
 } from "./fonts-preview";
-import { applySnippet, nextFontSnippet, sampleWeights } from "./fonts-snippets";
+import { applySnippet, nextFontSnippet, sampleWeights, toIdentifier } from "./fonts-snippets";
 
 type NextFontData = Record<
   string,
@@ -107,7 +107,12 @@ describe("filterFonts", () => {
   it("filters by category", () => {
     const mono = filterFonts(fontsCatalog, { ...emptyFilter, category: "mono" });
     expect(mono.map((f) => f.id)).toEqual(["martian-mono"]);
-    expect(filterFonts(fontsCatalog, { ...emptyFilter, category: "serif" })).toEqual([]);
+    const ids = (c: "serif" | "display") =>
+      filterFonts(fontsCatalog, { ...emptyFilter, category: c })
+        .map((f) => f.id)
+        .sort();
+    expect(ids("serif")).toEqual(["fraunces", "source-serif-4"]);
+    expect(ids("display")).toEqual(["syne", "unbounded"]);
   });
 
   it("requires every selected use", () => {
@@ -117,7 +122,9 @@ describe("filterFonts", () => {
     expect(body.map((f) => f.id).sort()).toEqual([
       "familjen-grotesk",
       "figtree",
+      "fraunces",
       "instrument-sans",
+      "source-serif-4",
     ]);
   });
 
@@ -162,6 +169,34 @@ describe("snippets", () => {
       "--font-mono: var(--font-martian-mono), ui-monospace, monospace",
     );
     expect(get("figtree")).toContain("className={figtree.variable}");
+  });
+
+  it("points serif fonts at the serif role and display fonts at the display role", () => {
+    const get = (id: string) => {
+      const f = findFont(id);
+      if (!f) throw new Error(id);
+      return applySnippet(f);
+    };
+    expect(get("fraunces")).toContain(
+      "--font-serif: var(--font-fraunces), ui-serif, Georgia, serif",
+    );
+    expect(get("source-serif-4")).toContain("--font-serif: var(--font-source-serif-4)");
+    expect(get("unbounded")).toContain("--font-display: var(--font-unbounded)");
+    expect(get("syne")).toContain("--font-display: var(--font-syne)");
+  });
+
+  // Regression: "source-serif-4" once became "sourceSerif-4", which is not valid JavaScript.
+  it("turns every id into a valid JavaScript identifier, even when it ends in a digit", () => {
+    expect(toIdentifier("source-serif-4")).toBe("sourceSerif4");
+    expect(toIdentifier("familjen-grotesk")).toBe("familjenGrotesk");
+    for (const f of fontsCatalog) {
+      expect(toIdentifier(f.id), f.id).toMatch(/^[a-z][A-Za-z0-9]*$/);
+      expect(nextFontSnippet(f)).toContain(`export const ${toIdentifier(f.id)} = `);
+    }
+    const serif = findFont("source-serif-4");
+    expect(serif && nextFontSnippet(serif)).toContain(
+      'import { Source_Serif_4 } from "next/font/google";',
+    );
   });
 
   it("never makes a variable refer to itself", () => {
@@ -255,5 +290,18 @@ describe("type tester helpers", () => {
     expect(weightName(450)).toBe("450");
     for (const f of fontsCatalog)
       for (const w of weightSteps(f)) expect(weightName(w)).not.toMatch(/^\d+$/);
+  });
+});
+
+// Regression guard. Next adds a <link rel="preload"> for every next/font loader to every page, so
+// six library fonts meant ~570KB of fonts downloaded on every page of the site, even the admin
+// login. Library fonts must therefore opt out of preloading.
+describe("library font loaders", () => {
+  it("opt out of preloading, so they are fetched only where they are used", async () => {
+    const { readFileSync } = await import("node:fs");
+    const source = readFileSync("app/fonts/library-fonts.ts", "utf8");
+    const loaders = source.match(/= [A-Z][A-Za-z_0-9]*\(\{/g) ?? [];
+    expect(loaders.length).toBe(fontsCatalog.length - 3); // everything except the three site-wide fonts
+    expect((source.match(/preload: false/g) ?? []).length).toBe(loaders.length);
   });
 });
