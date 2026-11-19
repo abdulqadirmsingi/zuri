@@ -84,3 +84,36 @@ div[role="none"][class*="callout-color"] {
 div:has(> div[role="none"][class*="callout-color"]) {
   padding-inline-start: 0.75rem;
 }
+
+/* Range sliders for the home page's theme lab: a 24px thumb (the minimum target size) on a thin
+ * track. The track colour is set inline (the hue spectrum) or falls back to the border token. */
+.zuri-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--border);
+}
+.zuri-range:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 6px;
+}
+.zuri-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: var(--background);
+  border: 2px solid var(--foreground);
+  box-shadow: var(--shadow-md);
+  cursor: grab;
+}
+.zuri-range::-moz-range-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: var(--background);
+  border: 2px solid var(--foreground);
+  box-shadow: var(--shadow-md);
+  cursor: grab;
+}

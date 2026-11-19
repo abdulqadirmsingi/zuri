@@ -5,6 +5,8 @@ interface Item {
   name: string;
   type: string;
   title: string;
+  description?: string;
+  dependencies?: string[];
 }
 
 /**
@@ -17,8 +19,9 @@ export function registryStats() {
   const components = items.filter((i) => i.type === "registry:ui");
   const blocks = items.filter((i) => i.type === "registry:block");
   return {
-    components: components.length,
+    count: components.length,
     blocks: blocks.length,
     names: components.map((c) => c.title),
+    items: components,
   };
 }
