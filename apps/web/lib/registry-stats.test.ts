@@ -4,9 +4,9 @@ import { registryStats } from "./registry-stats";
 describe("registryStats", () => {
   it("counts the real registry items", () => {
     const s = registryStats();
-    expect(s.components).toBeGreaterThan(30);
+    expect(s.count).toBeGreaterThan(30);
     expect(s.blocks).toBeGreaterThan(5);
-    expect(s.names).toHaveLength(s.components);
+    expect(s.names).toHaveLength(s.count);
   });
   it("lists readable titles, not slugs", () => {
     const { names } = registryStats();
