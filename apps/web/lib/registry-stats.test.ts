@@ -1,0 +1,16 @@
+import { describe, expect, it } from "vitest";
+import { registryStats } from "./registry-stats";
+
+describe("registryStats", () => {
+  it("counts the real registry items", () => {
+    const s = registryStats();
+    expect(s.components).toBeGreaterThan(30);
+    expect(s.blocks).toBeGreaterThan(5);
+    expect(s.names).toHaveLength(s.components);
+  });
+  it("lists readable titles, not slugs", () => {
+    const { names } = registryStats();
+    expect(names).toContain("Button");
+    expect(names.every((n) => !n.includes("-"))).toBe(true);
+  });
+});
