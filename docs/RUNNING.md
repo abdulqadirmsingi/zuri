@@ -95,6 +95,8 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 ## 8. Accessibility audit (real browser, WCAG 2.2 AA)
 
+CI runs this same audit on every push to `main` and `develop` and on pull requests (the `a11y` job in `.github/workflows/ci.yml`), so a regression shows up as a failing check. You only need to run it by hand while you work.
+
 With the site running (`pnpm dev` or `pnpm --filter web start`):
 ```bash
 pnpm --filter web exec playwright install chromium   # once
