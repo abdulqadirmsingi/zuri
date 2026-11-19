@@ -26,6 +26,7 @@ import {
   StatDefault,
 } from "./display-demos-2";
 import { ExpandingAsync, ExpandingDefault, ExpandingSmall } from "./expanding-demos";
+import { HeroFan, HeroMagazine, HeroSplit, HeroSplitStart } from "./hero-demos";
 import {
   FieldDefault,
   FieldError,
@@ -72,6 +73,10 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "hero-split": HeroSplit,
+  "hero-split-start": HeroSplitStart,
+  "hero-magazine": HeroMagazine,
+  "hero-fan": HeroFan,
   "blur-bottom": BlurBottom,
   "blur-both": BlurBoth,
   "blur-side": BlurSide,

@@ -1,0 +1,68 @@
+---
+title: Split hero
+description: A hero with text on one side and a visual on the other, stacking on narrow screens.
+---
+
+<Preview>
+  <Demo name="hero-split" />
+</Preview>
+
+Use `SplitHero` at the top of a landing page or a product page when you have one strong picture or illustration. The text and the visual sit side by side on large screens and stack on small ones, with the text first.
+
+## Installation
+
+<InstallTabs name="split-hero" />
+
+## Usage
+
+```tsx
+import { SplitHero } from "@/components/ui/split-hero";
+
+<SplitHero
+  eyebrow="Applications open"
+  title="Learn skills that build a career"
+  description="Short, practical courses."
+  actions={<a href="/apply">Apply now</a>}
+  highlights={[{ label: "Students", value: "1,200" }]}
+  media={<img src="/classroom.jpg" alt="Students in a workshop" className="size-full object-cover" />}
+/>
+```
+
+## Media on the other side
+
+<Preview>
+  <Demo name="hero-split-start" />
+</Preview>
+
+## Props
+
+It extends the native `<section>` props (except `title`) and spreads them onto the section, including `ref` (React 19). It is a Server Component: it has no state and needs no JavaScript.
+
+<PropsTable
+  rows={[
+    { name: "eyebrow", type: "ReactNode", description: "A short line above the headline." },
+    { name: "title", type: "ReactNode", description: "The headline. Required." },
+    { name: "description", type: "ReactNode", description: "A short paragraph under the headline." },
+    { name: "actions", type: "ReactNode", description: "Buttons or links shown under the text." },
+    { name: "headingLevel", type: "1 | 2", default: "1", description: "The heading level for the headline." },
+    { name: "highlights", type: "{ label: string; value: string }[]", description: "Short facts shown under the actions as a definition list." },
+    { name: "media", type: "ReactNode", description: "The image or illustration. Required." },
+    { name: "mediaPosition", type: '"start" | "end"', default: '"end"', description: "Which side the media is on. It flips in right-to-left layouts." },
+  ]}
+/>
+
+## Accessibility
+
+- The section is a landmark named by its headline (`aria-labelledby`). The headline is an `h1` by default; pass `headingLevel={2}` if the page already has one.
+- Text never sits on top of an image, so its contrast does not depend on the picture you choose.
+- Give each image its own `alt` text, or `alt=""` if it is purely decorative.
+- Make the buttons or links you pass as `actions` at least 24px tall (these examples use 44px).
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted-foreground`, `--border`, `--accent-ink`.
+
+## Known limitations
+
+- It lays out the content you give it; it does not choose or crop images for you. Use a ratio-friendly image, and `object-cover` on it.
+- The demos use plain shapes as stand-in artwork. Bring your own pictures.

@@ -1,0 +1,64 @@
+---
+title: Card fan hero
+description: A centred hero with a row of cards fanned out in an arc beneath it.
+---
+
+<Preview>
+  <Demo name="hero-fan" />
+</Preview>
+
+Use `CardFanHero` to show off a handful of things, such as products, collections or categories, under a centred headline. The cards overlap and tilt away from the middle one, and each lifts a little on hover. Its width adapts to the number of cards, so the fan fits down to 320px.
+
+## Installation
+
+<InstallTabs name="card-fan-hero" />
+
+## Usage
+
+```tsx
+import { CardFanHero } from "@/components/ui/card-fan-hero";
+
+<CardFanHero
+  title="Everything you need, in one place"
+  actions={<a href="/browse">Browse all</a>}
+  cards={[
+    { id: "maps", label: "Maps", media: <img src="/maps.jpg" alt="" className="size-full object-cover" /> },
+    // three to five cards work best
+  ]}
+/>
+```
+
+## How the fan is laid out
+
+Each card turns 5 degrees more than the one before it, away from the middle, and drops a little on a curve. The middle cards sit on top. The cards are a plain list of figures, so a screen reader reads them in order.
+
+## Props
+
+It extends the native `<section>` props (except `title`) and spreads them onto the section, including `ref` (React 19). It is a Server Component: it has no state and needs no JavaScript.
+
+<PropsTable
+  rows={[
+    { name: "eyebrow", type: "ReactNode", description: "A short line above the headline." },
+    { name: "title", type: "ReactNode", description: "The headline. Required." },
+    { name: "description", type: "ReactNode", description: "A short paragraph under the headline." },
+    { name: "actions", type: "ReactNode", description: "Buttons or links shown under the text." },
+    { name: "headingLevel", type: "1 | 2", default: "1", description: "The heading level for the headline." },
+    { name: "cards", type: "{ id: string; label: string; media: ReactNode }[]", description: "The cards to fan out. Three to five work best. Required." },
+  ]}
+/>
+
+## Accessibility
+
+- The section is a landmark named by its headline (`aria-labelledby`). The headline is an `h1` by default; pass `headingLevel={2}` if the page already has one.
+- Text never sits on top of an image, so its contrast does not depend on the picture you choose.
+- Give each image its own `alt` text, or `alt=""` if it is purely decorative.
+- Make the buttons or links you pass as `actions` at least 24px tall (these examples use 44px).
+
+## Tokens used
+
+`--background`, `--border`, `--muted`, `--accent`, `--duration-base`, `--ease-out`. Under reduced motion the hover lift is removed.
+
+## Known limitations
+
+- It lays out the content you give it; it does not choose or crop images for you. Use a ratio-friendly image, and `object-cover` on it.
+- The demos use plain shapes as stand-in artwork. Bring your own pictures.

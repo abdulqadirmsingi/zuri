@@ -6,6 +6,13 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: { default: "Zuri", template: "%s · Zuri" },
+  icons: {
+    icon: [
+      { url: "/brand/favicon.svg", type: "image/svg+xml" },
+      { url: "/brand/favicon.ico", sizes: "48x48" },
+    ],
+    apple: "/brand/zuri-icon-180.png",
+  },
   description: "Beautiful, accessible React components. Own the code.",
 };
 
