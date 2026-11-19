@@ -1,6 +1,6 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
 import { UserMenu, type UserMenuItem } from "./user-menu";
 
@@ -302,6 +302,174 @@ describe("UserMenu (narrow screens: a bottom sheet)", () => {
   });
 
   it("has no axe violations while open", async () => {
+    await openSheet();
+    expect((await axe(document.body, axeOptions)).violations).toEqual([]);
+  });
+});
+
+describe("UserMenu bottom sheet: drag to dismiss", () => {
+  // jsdom has no layout, so give every element a height; the sheet is "400px" tall here.
+  const heightDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetHeight");
+  beforeEach(() => {
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      get: () => 400,
+    });
+  });
+  afterEach(() => {
+    if (heightDescriptor)
+      Object.defineProperty(HTMLElement.prototype, "offsetHeight", heightDescriptor);
+    delete (window as { matchMedia?: unknown }).matchMedia;
+    vi.restoreAllMocks();
+  });
+
+  async function openSheet() {
+    setNarrow(true);
+    render(<UserMenu user={user} items={items} />);
+    const trigger = screen.getByRole("button", { name: /Account menu/ });
+    await userEvent.click(trigger);
+    const dialog = await screen.findByRole("dialog");
+    const grip = dialog.querySelector<HTMLElement>(".touch-none") as HTMLElement;
+    return { trigger, dialog, grip };
+  }
+  const pointer = (clientY: number, extra: Record<string, unknown> = {}) => ({
+    pointerId: 1,
+    pointerType: "touch",
+    button: 0,
+    clientY,
+    ...extra,
+  });
+
+  it("has a grab handle that assistive technology ignores", async () => {
+    const { grip } = await openSheet();
+    expect(grip).toBeTruthy();
+    expect(grip.querySelector('[aria-hidden="true"]')).toBeTruthy();
+    expect(grip.className).toContain("touch-none");
+  });
+
+  it("follows the pointer straight down", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100));
+    fireEvent.pointerMove(grip, pointer(160));
+    expect(dialog.style.transform).toBe("translateY(60px)");
+    expect(dialog.style.transition).toBe("none");
+  });
+
+  it("resists being pulled up instead of following", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100));
+    fireEvent.pointerMove(grip, pointer(40));
+    expect(dialog.style.transform).toBe("translateY(-12px)");
+  });
+
+  it("dismisses when dragged past 30% of its height, then returns focus to the trigger", async () => {
+    const { trigger, dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100));
+    fireEvent.pointerMove(grip, pointer(300));
+    fireEvent.pointerUp(grip, pointer(300));
+    expect(dialog.style.transform).toBe("translateY(400px)"); // sliding the rest of the way out
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("springs back when dragged only a little, and slowly", async () => {
+    // Events fired back to back in a test would look like an instant flick, so pin the clock:
+    // 40px over half a second is a slow, short pull.
+    const now = vi.spyOn(performance, "now");
+    const { dialog, grip } = await openSheet();
+    now.mockReturnValueOnce(0);
+    fireEvent.pointerDown(grip, pointer(100));
+    now.mockReturnValueOnce(500);
+    fireEvent.pointerMove(grip, pointer(140));
+    now.mockReturnValue(520);
+    fireEvent.pointerUp(grip, pointer(140));
+    expect(dialog.style.transform).toBe("");
+    expect(dialog.style.transition).toBe("");
+    await new Promise((r) => setTimeout(r, 200));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+  });
+
+  it("dismisses on a quick downward flick even over a short distance", async () => {
+    const now = vi.spyOn(performance, "now");
+    const { grip } = await openSheet();
+    now.mockReturnValueOnce(0); // pointer down
+    fireEvent.pointerDown(grip, pointer(100));
+    now.mockReturnValueOnce(20); // moved 40px in 20ms: 2px/ms
+    fireEvent.pointerMove(grip, pointer(140));
+    now.mockReturnValue(30); // let go straight away
+    fireEvent.pointerUp(grip, pointer(140));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("does not count a flick if the pointer paused before letting go", async () => {
+    const now = vi.spyOn(performance, "now");
+    const { dialog, grip } = await openSheet();
+    now.mockReturnValueOnce(0);
+    fireEvent.pointerDown(grip, pointer(100));
+    now.mockReturnValueOnce(20);
+    fireEvent.pointerMove(grip, pointer(140));
+    now.mockReturnValue(700); // a long pause
+    fireEvent.pointerUp(grip, pointer(140));
+    expect(dialog.style.transform).toBe("");
+    await new Promise((r) => setTimeout(r, 200));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+  });
+
+  it("never dismisses from an upward pull", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(300));
+    fireEvent.pointerMove(grip, pointer(20));
+    fireEvent.pointerUp(grip, pointer(20));
+    expect(dialog.style.transform).toBe("");
+    await new Promise((r) => setTimeout(r, 200));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+  });
+
+  it("settles back when the browser cancels the gesture", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100));
+    fireEvent.pointerMove(grip, pointer(350)); // far enough to dismiss...
+    fireEvent.pointerCancel(grip, pointer(350)); // ...but it was cancelled, e.g. by a system gesture
+    expect(dialog.style.transform).toBe("");
+    await new Promise((r) => setTimeout(r, 200));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+  });
+
+  it("ignores a second pointer while one is dragging", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100));
+    fireEvent.pointerMove(grip, pointer(150));
+    fireEvent.pointerDown(grip, pointer(500, { pointerId: 2 }));
+    fireEvent.pointerMove(grip, pointer(600, { pointerId: 2 }));
+    expect(dialog.style.transform).toBe("translateY(50px)");
+  });
+
+  it("ignores the right mouse button", async () => {
+    const { dialog, grip } = await openSheet();
+    fireEvent.pointerDown(grip, pointer(100, { pointerType: "mouse", button: 2 }));
+    fireEvent.pointerMove(grip, pointer(200, { pointerType: "mouse" }));
+    expect(dialog.style.transform).toBe("");
+  });
+
+  it("does not start a drag from the list rows, so they stay clickable and scrollable", async () => {
+    const { dialog } = await openSheet();
+    const row = screen.getByRole("link", { name: "Profile" });
+    fireEvent.pointerDown(row, pointer(100));
+    fireEvent.pointerMove(row, pointer(300));
+    expect(dialog.style.transform).toBe("");
+  });
+
+  it("still closes with Escape and with the close button (dragging is never the only way)", async () => {
+    const { trigger } = await openSheet();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(document.activeElement).toBe(trigger);
+    await userEvent.click(trigger);
+    await userEvent.click(await screen.findByRole("button", { name: "Close" }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("has no axe violations with the grab handle", async () => {
     await openSheet();
     expect((await axe(document.body, axeOptions)).violations).toEqual([]);
   });
