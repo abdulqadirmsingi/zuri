@@ -8,6 +8,7 @@ const pages = [
   "/fonts/figtree",
   "/fonts/martian-mono",
   "/fonts/fraunces",
+  "/fonts/pairings",
   "/fonts/unbounded",
   "/docs",
   "/docs/installation",
