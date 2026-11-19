@@ -60,7 +60,7 @@ export function SiteHeader({
       <Link
         href={l.href}
         aria-current={l.href === current ? "page" : undefined}
-        className={cn(linkClass, close && "w-full text-base text-foreground")}
+        className={cn(linkClass, close && "w-full px-0 text-base text-foreground")}
       >
         {l.label}
       </Link>

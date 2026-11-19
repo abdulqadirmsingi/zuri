@@ -1,0 +1,47 @@
+---
+title: Section heading
+description: "The title block that opens a page section, with an eyebrow, a heading and a description."
+---
+
+<Preview>
+  <Demo name="shell-heading" />
+</Preview>
+
+Use `SectionHeading` to start each section of a landing page, so headings look the same all the way down.
+
+## Installation
+
+<InstallTabs name="section-heading" />
+
+## Usage
+
+```tsx
+import { SectionHeading } from "@/components/ui/section-heading";
+
+<SectionHeading eyebrow="Courses" title="Pick a path" description="Every course ends with a project." />
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "eyebrow", type: "ReactNode", description: "A short line above the title." },
+    { name: "title", type: "ReactNode", description: "The heading. Required." },
+    { name: "description", type: "ReactNode", description: "A short paragraph under the heading." },
+    { name: "align", type: '"start" | "center"', default: '"start"', description: "Text alignment. \"start\" follows the reading direction." },
+    { name: "headingLevel", type: "2 | 3 | 4", default: "2", description: "Pick the level that keeps your page outline in order." },
+  ]}
+/>
+
+## Accessibility
+
+- Renders a real heading. Don't skip levels: use 2 for page sections and 3 for subsections.
+- The eyebrow uses the accent *ink* colour, which meets AA contrast on white. (Plain saffron does not.)
+
+## Tokens used
+
+`--accent-ink`, `--muted-foreground`.
+
+## Known limitations
+
+- It is only the title block, not the section wrapper. You add the spacing and the section element.

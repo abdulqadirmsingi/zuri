@@ -1,0 +1,54 @@
+---
+title: Site footer
+description: A page footer with a brand, labelled link columns and a legal line.
+---
+
+<Preview>
+  <Demo name="shell-footer" />
+</Preview>
+
+Use `SiteFooter` at the bottom of every page. Link columns fit themselves to the space, down to two columns at 320px.
+
+## Installation
+
+<InstallTabs name="site-footer" />
+
+## Usage
+
+```tsx
+import { SiteFooter } from "@/components/ui/site-footer";
+
+<SiteFooter
+  brand="Kilele"
+  description="Practical courses taught by people who do the work."
+  columns={[{ title: "Learn", links: [{ label: "Courses", href: "/courses" }] }]}
+  legal="© 2026 Kilele"
+/>
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "brand", type: "ReactNode", description: "Your logo or name." },
+    { name: "description", type: "ReactNode", description: "A short line under the brand." },
+    { name: "columns", type: "{ title: string; links: { label: string; href: string }[] }[]", description: "Groups of links." },
+    { name: "legal", type: "ReactNode", description: "The line at the very bottom, such as a copyright." },
+    { name: "linkAs", type: "ElementType", default: '"a"', description: "Render links with another component, such as next/link." },
+  ]}
+/>
+
+## Accessibility
+
+- A `<footer>` (contentinfo landmark). Each column is a `<nav>` named by its heading, so screen reader users can jump between them.
+- Column titles are `h2` headings. If that does not fit your page outline, wrap or restyle as needed.
+- Links are at least 24px tall and show a visible focus ring.
+- Link text is the muted colour, which meets AA contrast on the page background.
+
+## Tokens used
+
+`--border`, `--muted-foreground`, `--foreground`, `--ring`.
+
+## Known limitations
+
+- It does not include social icons, a newsletter form or a language picker. Pass those in `brand` or `legal`, or add your own row.
