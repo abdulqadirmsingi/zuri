@@ -1,130 +1,102 @@
 "use client";
 
 import { CopyButton } from "@registry/actions/copy-button/copy-button";
+import { Picker } from "@registry/inputs/picker/picker";
 import Link from "next/link";
-import { type CSSProperties, type ReactNode, useId, useState } from "react";
+import { type CSSProperties, useState } from "react";
+import { LazyDemo } from "@/components/demos/lazy-demo";
 import { useThemeLab } from "./theme-lab";
 
 export interface BuilderItem {
   /** Registry name, also the docs slug. */
   id: string;
-  /** Lower-case name used inside the sentence, e.g. "dropdown menu". */
-  word: string;
-  /** The live demo, rendered on the server and passed in. */
-  demo: ReactNode;
-  command: string;
+  /** What the sentence says, with its article: "a dialog", "some tabs". */
+  phrase: string;
+  /** The heading the component is listed under. */
+  group: string;
+  /** Name of the live demo. */
+  demo: string;
   /** How much bigger than normal to show the demo on the stage. */
   scale: number;
+  command: string;
 }
 
 const corners = [
-  { word: "sharp", radius: 2 },
-  { word: "soft", radius: 10 },
-  { word: "round", radius: 20 },
+  { value: "sharp", label: "sharp", radius: 2 },
+  { value: "soft", label: "soft", radius: 10 },
+  { value: "round", label: "round", radius: 20 },
 ];
 
 const colours = [
-  { word: "saffron", hue: 60 },
-  { word: "coral", hue: 25 },
-  { word: "leaf", hue: 150 },
-  { word: "ocean", hue: 235 },
-  { word: "plum", hue: 320 },
+  { value: "saffron", label: "saffron", hue: 60 },
+  { value: "coral", label: "coral", hue: 25 },
+  { value: "leaf", label: "leaf", hue: 150 },
+  { value: "ocean", label: "ocean", hue: 235 },
+  { value: "plum", label: "plum", hue: 320 },
 ];
 
 /**
- * A word in the sentence that is really a native `<select>`. A hidden copy of the chosen word sets
- * the width, so the control is exactly as wide as the word, in any browser.
- */
-function Word({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: string[];
-  onChange: (v: string) => void;
-}) {
-  const id = useId();
-  return (
-    <span className="relative inline-block align-baseline">
-      <span aria-hidden="true" className="invisible whitespace-pre pe-[0.5em]">
-        {value}
-      </span>
-      <label htmlFor={id} className="sr-only">
-        {label}
-      </label>
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="absolute inset-0 h-full w-full cursor-pointer appearance-none rounded-[0.15em] border-0 border-b-[0.07em] border-solid border-accent bg-transparent p-0 pe-[0.5em] text-accent-ink [font:inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-      >
-        {options.map((o) => (
-          <option key={o} value={o} className="bg-background font-sans text-base text-foreground">
-            {o}
-          </option>
-        ))}
-      </select>
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute end-[0.05em] top-1/2 -translate-y-1/2 text-[0.28em] text-accent-ink"
-      >
-        ▼
-      </span>
-    </span>
-  );
-}
-
-/**
- * The home page's hero: one sentence you finish by picking words. The choice re-themes the whole
- * page (the colour and corners are the real Zuri tokens) and the chosen component runs live below,
+ * The home page's hero: one sentence you finish by picking words. The words are our own Picker, so
+ * the list can be long (it has search and groups) and looks the same everywhere. The choice
+ * re-themes the whole page with the real Zuri tokens, and the chosen component runs live below,
  * with the one command that installs it.
  */
-export function Builder({ items }: { items: BuilderItem[] }) {
+export function Builder({ items, initialId }: { items: BuilderItem[]; initialId?: string }) {
   const { hue, radius, setHue, setRadius, css } = useThemeLab();
-  const [id, setId] = useState(items[0]?.id);
+  const [id, setId] = useState(initialId ?? items[0]?.id);
   const item = items.find((i) => i.id === id) ?? items[0];
   if (!item) return null;
 
-  const colour = colours.find((c) => c.hue === hue)?.word ?? "saffron";
-  const corner = corners.find((c) => c.radius === radius)?.word ?? "soft";
+  const colour = colours.find((c) => c.hue === hue)?.value ?? "saffron";
+  const corner = corners.find((c) => c.radius === radius)?.value ?? "soft";
 
   return (
     <div className="flex flex-col gap-10">
       <p className="m-0 text-balance font-display text-[clamp(2.5rem,6.2vw,5.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
         Show me{" "}
-        <Word
-          label="Component"
-          value={item.word}
-          options={items.map((i) => i.word)}
-          onChange={(w) => setId(items.find((i) => i.word === w)?.id)}
+        <Picker
+          variant="inline"
+          aria-label="Component"
+          searchLabel="Search components"
+          panelLabel="Components"
+          emptyText="No component matches"
+          options={items.map((i) => ({
+            value: i.id,
+            label: i.phrase,
+            group: i.group,
+            keywords: [i.id.replace(/-/g, " ")],
+          }))}
+          value={item.id}
+          onValueChange={setId}
         />{" "}
         with{" "}
-        <Word
-          label="Corners"
+        <Picker
+          variant="inline"
+          aria-label="Corners"
+          panelLabel="Corners"
+          options={corners}
           value={corner}
-          options={corners.map((c) => c.word)}
-          onChange={(w) => setRadius(corners.find((c) => c.word === w)?.radius ?? 10)}
+          onValueChange={(v) => setRadius(corners.find((c) => c.value === v)?.radius ?? 10)}
         />{" "}
         corners in{" "}
-        <Word
-          label="Colour"
+        <Picker
+          variant="inline"
+          aria-label="Colour"
+          panelLabel="Colours"
+          options={colours}
           value={colour}
-          options={colours.map((c) => c.word)}
-          onChange={(w) => setHue(colours.find((c) => c.word === w)?.hue ?? 60)}
+          onValueChange={(v) => setHue(colours.find((c) => c.value === v)?.hue ?? 60)}
         />
         .
       </p>
 
-      <div className="relative flex min-h-[14rem] items-center sm:min-h-[20rem] justify-center overflow-hidden rounded-3xl border border-border bg-muted p-6 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:18px_18px] sm:p-10">
+      <div className="relative flex min-h-[14rem] items-center justify-center overflow-hidden rounded-3xl border border-border bg-muted p-6 [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [background-size:18px_18px] sm:min-h-[20rem] sm:p-10">
         <div
           key={item.id}
           style={{ "--stage-scale": item.scale } as CSSProperties}
-          className="flex w-full max-w-md animate-[zuri-rise_var(--duration-slow)_var(--ease-out)] flex-wrap sm:scale-[var(--stage-scale)] items-center justify-center gap-3"
+          className="flex w-full max-w-md animate-[zuri-rise_var(--duration-slow)_var(--ease-out)] flex-wrap items-center justify-center gap-3 sm:scale-[var(--stage-scale)]"
         >
-          {item.demo}
+          <LazyDemo name={item.demo} />
         </div>
         <span
           aria-hidden="true"

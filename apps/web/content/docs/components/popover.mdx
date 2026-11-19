@@ -43,6 +43,7 @@ Place it with `side`, `align` and `sideOffset`. It flips to the other side when 
 
 ## Accessibility
 
+- After a mouse click, focus returns to the button that opened it **without** drawing a focus ring (no stray border); after a key press the ring shows as normal. This comes from the small `focus-modality` helper, which installs with this component.
 - The trigger is a native button with `aria-expanded`. Enter and Space open it.
 - Focus moves into the panel when it opens and returns to the trigger on close. Escape and an outside click close it.
 - **Give the content an accessible name**: a heading inside it, or `aria-label` as in the example.

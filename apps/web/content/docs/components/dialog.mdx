@@ -61,6 +61,7 @@ To control it yourself, pass `open` and `onOpenChange` to `Dialog`. To style the
 
 ## Accessibility
 
+- After a mouse click, focus returns to the button that opened it **without** drawing a focus ring (no stray border); after a key press the ring shows as normal. This comes from the small `focus-modality` helper, which installs with this component.
 - It has `role="dialog"` and is named by `DialogTitle` and described by `DialogDescription`. **Always include a title**; without it the dialog has no name. If you really don't want one visible, hide it with `sr-only`.
 - Focus moves into the dialog when it opens, is trapped there, and returns to the trigger when it closes.
 - Escape closes it, and so does clicking the backdrop. The rest of the page is hidden from screen readers and can't be scrolled while it is open.

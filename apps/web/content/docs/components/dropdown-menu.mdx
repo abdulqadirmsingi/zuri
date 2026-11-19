@@ -60,6 +60,7 @@ Also exported: `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuGroup`
 
 ## Accessibility
 
+- After a mouse click, focus returns to the button that opened it **without** drawing a focus ring (no stray border); after a key press the ring shows as normal. This comes from the small `focus-modality` helper, which installs with this component.
 - The trigger is a button with `aria-haspopup="menu"` and `aria-expanded`. Enter, Space or Arrow Down open it.
 - Inside: Arrow keys move, Home and End jump to the first and last item, typing a letter jumps to a matching item, Enter or Space chooses, and Escape closes and returns focus to the trigger. Disabled items are skipped.
 - Items have `role="menuitem"`, checkboxes `menuitemcheckbox` and radios `menuitemradio`, with their checked state announced. The check mark and dot are decorative.

@@ -3,6 +3,7 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import type { ComponentProps } from "react";
 import { buttonVariants } from "@/components/ui/button";
+import { useQuietFocusRestore } from "@/lib/focus-modality";
 import { cn } from "@/lib/utils";
 
 /** Compose with AlertDialogTrigger, AlertDialogContent, AlertDialogTitle and the two buttons. */
@@ -17,8 +18,10 @@ export const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 export function AlertDialogContent({
   className,
   children,
+  onCloseAutoFocus,
   ...props
 }: ComponentProps<typeof AlertDialogPrimitive.Content>) {
+  const quiet = useQuietFocusRestore(onCloseAutoFocus);
   return (
     <AlertDialogPrimitive.Portal>
       <AlertDialogPrimitive.Overlay className="fixed inset-0 z-[var(--z-overlay)] bg-foreground/40 transition-opacity duration-[var(--duration-base)] starting:opacity-0" />
@@ -27,8 +30,10 @@ export function AlertDialogContent({
           "fixed start-1/2 top-1/2 z-[var(--z-modal)] flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-xl border border-border bg-background p-6 text-foreground transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-base)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0 rtl:translate-x-1/2 focus-visible:outline-none",
           className,
         )}
+        onCloseAutoFocus={quiet.onCloseAutoFocus}
         {...props}
       >
+        <span hidden ref={quiet.probe} />
         {children}
       </AlertDialogPrimitive.Content>
     </AlertDialogPrimitive.Portal>

@@ -57,6 +57,10 @@ export default defineConfig({
         find: "@/components/ui/split-hero",
         replacement: path.resolve(import.meta.dirname, "src/blocks/split-hero/split-hero"),
       },
+      {
+        find: "@/components/ui/popover",
+        replacement: path.resolve(import.meta.dirname, "src/overlays/popover/popover"),
+      },
       { find: "@", replacement: path.resolve(import.meta.dirname, "src") },
     ],
   },

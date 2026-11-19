@@ -54,6 +54,7 @@ Do the work in the action's `onClick`. The dialog closes itself afterwards. Labe
 
 ## Accessibility
 
+- After a mouse click, focus returns to the button that opened it **without** drawing a focus ring (no stray border); after a key press the ring shows as normal. This comes from the small `focus-modality` helper, which installs with this component.
 - It has `role="alertdialog"` and is named by its title and described by its description. Include both.
 - Focus moves to **Cancel**, the safe choice, when it opens, so pressing Enter by reflex doesn't delete anything. It is trapped inside, and returns to the trigger on close.
 - Clicking outside does **not** close it, because it demands a choice. Escape does cancel it.
