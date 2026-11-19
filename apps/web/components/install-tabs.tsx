@@ -17,7 +17,8 @@ export function InstallTabs({ name }: { name: string }) {
       {managers.map(([label, command]) => (
         <Tab key={label} value={label}>
           <CodeBlock>
-            <Pre>{command(url)}</Pre>
+            {/* The command is plain text, so unlike highlighted code it has no padded lines of its own. */}
+            <Pre className="ps-4">{command(url)}</Pre>
           </CodeBlock>
         </Tab>
       ))}

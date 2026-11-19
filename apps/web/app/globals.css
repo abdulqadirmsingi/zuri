@@ -74,3 +74,13 @@ body {
     will-change: transform;
   }
 }
+
+/* Callouts: no coloured accent line down the left side. The line is a decorative 2px element, and
+ * the box reserves a little extra padding for it, so that padding is reset to match the others. */
+div[role="none"][class*="callout-color"] {
+  display: none;
+}
+
+div:has(> div[role="none"][class*="callout-color"]) {
+  padding-inline-start: 0.75rem;
+}
