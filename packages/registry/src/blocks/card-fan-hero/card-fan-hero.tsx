@@ -93,7 +93,14 @@ export function CardFanHero({
               >
                 <figure className="m-0 overflow-hidden rounded-2xl border border-border bg-background shadow-lg">
                   <div className="aspect-[3/4] bg-muted">{card.media}</div>
-                  <figcaption className="px-3 py-2 text-start text-sm font-medium">
+                  <figcaption
+                    className={cn(
+                      "px-3 py-2 text-sm font-medium",
+                      // The next card overlaps this card's edge nearest the middle, so push the label
+                      // toward the outer edge where it stays visible.
+                      offset < 0 ? "text-start" : offset > 0 ? "text-end" : "text-center",
+                    )}
+                  >
                     {card.label}
                   </figcaption>
                 </figure>

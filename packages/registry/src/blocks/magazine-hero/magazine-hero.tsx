@@ -75,22 +75,25 @@ export function MagazineHero({
           ) : null}
         </div>
 
-        <figure className="relative m-0 min-w-0 lg:col-span-5">
-          {/* A solid block behind and to one side of the frame. Decorative; it carries no text. */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent sm:translate-x-4 sm:translate-y-4"
-          />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-border bg-muted">
-            {media}
+        <figure className="m-0 min-w-0 lg:col-span-5">
+          {/* The offset block and the badge hang off this wrapper, not the figure, so the caption is never covered. */}
+          <div className="relative">
+            {/* A solid block behind and to one side of the frame. Decorative; it carries no text. */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-accent sm:translate-x-4 sm:translate-y-4"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-border bg-muted">
+              {media}
+            </div>
+            {badge ? (
+              <span className="absolute -start-2 bottom-8 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg sm:-start-6">
+                {badge}
+              </span>
+            ) : null}
           </div>
-          {badge ? (
-            <span className="absolute -start-2 bottom-8 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-lg sm:-start-6">
-              {badge}
-            </span>
-          ) : null}
           {caption ? (
-            <figcaption className="mt-5 text-sm text-muted-foreground">{caption}</figcaption>
+            <figcaption className="mt-8 text-sm text-muted-foreground">{caption}</figcaption>
           ) : null}
         </figure>
       </div>

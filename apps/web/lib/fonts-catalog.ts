@@ -1,9 +1,3 @@
-/**
- * The fonts library's data. Every entry is an open font under the SIL Open Font Licence 1.1,
- * verified against the Google Fonts repository (each sits under its `ofl/` directory), with the
- * designer, copyright line and axes taken from that repository's metadata. Only fonts whose
- * licence allows free use and redistribution may be added here.
- */
 export type FontCategory = "sans" | "serif" | "mono" | "display";
 export type FontUse = "headings" | "body" | "ui" | "numbers" | "code";
 
