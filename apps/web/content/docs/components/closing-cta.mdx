@@ -1,0 +1,56 @@
+---
+title: Closing call to action
+description: A panel at the foot of a page with a heading, a line of text and actions.
+---
+
+<Preview>
+  <Demo name="shell-cta" />
+</Preview>
+
+Use `ClosingCta` as the last thing before the footer, to give people one clear next step.
+
+## Installation
+
+<InstallTabs name="closing-cta" />
+
+## Usage
+
+```tsx
+import { ClosingCta } from "@/components/ui/closing-cta";
+
+<ClosingCta title="Ready to start?" description="Join the next intake." actions={<a href="/apply">Apply now</a>} />
+```
+
+## Accent tone
+
+<Preview>
+  <Demo name="shell-cta-accent" />
+</Preview>
+
+On the accent fill, use a button coloured with `--accent-foreground` (dark in both themes), as here. The default primary button turns light in dark mode, so it can disappear against saffron.
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "title", type: "ReactNode", description: "The heading. Required." },
+    { name: "description", type: "ReactNode", description: "One line of supporting text." },
+    { name: "actions", type: "ReactNode", description: "Buttons or links. Put the main action first." },
+    { name: "tone", type: '"default" | "accent"', default: '"default"', description: "A bordered panel, or one filled with the accent colour." },
+    { name: "headingLevel", type: "2 | 3", default: "2", description: "The heading level." },
+  ]}
+/>
+
+## Accessibility
+
+- A region named by its heading.
+- The accent panel uses `--accent-foreground` for text, which meets AA contrast on saffron in both themes.
+- The description is dimmed to 80%; keep it short, and don't put essential information only there.
+
+## Tokens used
+
+`--accent`, `--accent-foreground`, `--muted`, `--border`, `--foreground`.
+
+## Known limitations
+
+- One call to action only: it has no second panel or form layout.

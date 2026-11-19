@@ -61,6 +61,7 @@ import {
   SwitchDefault,
   SwitchStates,
 } from "./selection-demos";
+import { CtaAccentDemo, CtaDemo, FooterDemo, HeaderDemo, HeadingDemo } from "./shell-demos";
 import { ThemeSwitchLabelled, ThemeSwitchStyles } from "./theme-switch-demos";
 import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
 
@@ -73,6 +74,11 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "shell-header": HeaderDemo,
+  "shell-footer": FooterDemo,
+  "shell-heading": HeadingDemo,
+  "shell-cta": CtaDemo,
+  "shell-cta-accent": CtaAccentDemo,
   "hero-split": HeroSplit,
   "hero-split-start": HeroSplitStart,
   "hero-magazine": HeroMagazine,
