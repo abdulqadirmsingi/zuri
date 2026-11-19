@@ -1,6 +1,6 @@
 # Zuri brand assets
 
-Original artwork made for Zuri: a Z built from two bars joined by a saffron diagonal.
+Original artwork made for Zuri: a Z of two slanted-cut bars joined by a saffron diagonal, one fast stroke.
 
 | File                                          | Use                                                                                                        |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -13,4 +13,4 @@ Original artwork made for Zuri: a Z built from two bars joined by a saffron diag
 | `*.png`                                       | Transparent PNG exports; icons at 16–1024 px, 180 px for Apple touch, 192 and 512 px for web app manifests |
 
 Colours: ink `#121212`, saffron `#F99532` (the `--accent` token), white `#FFFFFF`.
-Keep clear space around the mark of at least the height of one bar, and don't recolour the diagonal.
+Keep clear space around the mark of at least the height of one bar, and don't recolour the diagonal or straighten the cut ends.
