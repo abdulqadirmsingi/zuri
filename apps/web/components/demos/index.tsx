@@ -59,6 +59,7 @@ import {
   SwitchDefault,
   SwitchStates,
 } from "./selection-demos";
+import { ThemeSwitchLabelled, ThemeSwitchStyles } from "./theme-switch-demos";
 import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
 
 const demos: Record<string, () => ReactNode> = {
@@ -70,6 +71,8 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "theme-switch-styles": ThemeSwitchStyles,
+  "theme-switch-labelled": ThemeSwitchLabelled,
   "user-menu-default": UserMenuDefault,
   "user-menu-name": UserMenuWithName,
   "expanding-default": ExpandingDefault,
