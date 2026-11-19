@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FontsBrowser } from "./fonts-browser";
 import { fontsWithFaces } from "./fonts-faces";
 
@@ -17,6 +18,11 @@ export default function FontsPage() {
         </h1>
         <p className="mt-3 text-lg text-muted-foreground">
           Open fonts, free to use. Type your own text to preview them, then pick one.
+        </p>
+        <p className="mt-4">
+          <Link href="/fonts/pairings" className="text-sm font-medium underline underline-offset-4">
+            Try heading and body font pairings
+          </Link>
         </p>
       </header>
       <FontsBrowser fonts={fonts} />

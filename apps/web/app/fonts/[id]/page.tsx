@@ -13,7 +13,8 @@ import {
   LICENCE_NAME,
   LICENCE_URL,
 } from "@/lib/fonts-catalog";
-import { glyphRows, weightName, weightSteps } from "@/lib/fonts-preview";
+import { pairingHref, pairingsFor } from "@/lib/fonts-pairing";
+import { clampWeight, glyphRows, weightName, weightSteps } from "@/lib/fonts-preview";
 import { applySnippet, nextFontSnippet } from "@/lib/fonts-snippets";
 import { CodeBlock } from "../code-block";
 import { fontsWithFaces } from "../fonts-faces";
@@ -56,7 +57,8 @@ export default async function FontPage({ params }: PageProps<"/fonts/[id]">) {
   if (!font) notFound();
   const face = { fontFamily: font.cssFamily };
   const category = fontCategories.find((c) => c.value === font.category)?.label ?? font.category;
-  const pairs = font.pairsWith.map((pid) => findFont(pid)).filter((f) => f !== undefined);
+  const all = fontsWithFaces();
+  const pairings = pairingsFor(font);
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-12 px-4 pb-24 pt-10 sm:px-8 sm:pt-14">
@@ -190,20 +192,47 @@ export default async function FontPage({ params }: PageProps<"/fonts/[id]">) {
         </p>
       </Section>
 
-      {pairs.length > 0 ? (
+      {pairings.length > 0 ? (
         <Section id="pairs" title="Pairs well with">
-          <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
-            {pairs.map((p) => (
-              <li key={p.id}>
-                <Link
-                  href={`/fonts/${p.id}`}
-                  className={buttonVariants({ variant: "outline", shape: "pill" })}
-                >
-                  {p.family}
-                </Link>
-              </li>
-            ))}
+          <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-4 p-0">
+            {pairings.map(({ heading, body }) => {
+              const h = all.find((f) => f.id === heading.id);
+              const b = all.find((f) => f.id === body.id);
+              return (
+                <li key={`${heading.id}-${body.id}`} className="min-w-0">
+                  <Link
+                    href={pairingHref(heading.id, body.id)}
+                    className="flex h-full flex-col gap-3 rounded-2xl border border-border p-5 transition-colors duration-[var(--duration-base)] hover:border-control-border hover:bg-muted/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none"
+                  >
+                    <span className="text-sm font-medium">
+                      {heading.family} + {body.family}
+                    </span>
+                    <span aria-hidden="true" className="flex flex-col gap-2">
+                      <span
+                        className="block text-2xl leading-tight"
+                        style={{ fontFamily: h?.cssFamily, fontWeight: clampWeight(heading, 700) }}
+                      >
+                        Send money in seconds
+                      </span>
+                      <span
+                        className="block text-sm leading-relaxed text-muted-foreground"
+                        style={{ fontFamily: b?.cssFamily }}
+                      >
+                        A phone is now a wallet. People pay school fees and send money home.
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
+          <p className="m-0 text-sm text-muted-foreground">
+            Pick any two fonts in the{" "}
+            <Link className="underline underline-offset-4" href="/fonts/pairings">
+              pairing tool
+            </Link>
+            .
+          </p>
         </Section>
       ) : null}
     </main>

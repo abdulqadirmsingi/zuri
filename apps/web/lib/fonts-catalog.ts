@@ -67,7 +67,7 @@ export const fontsCatalog: FontEntry[] = [
     summary: "A characterful grotesque with optical size, width and weight axes.",
     bestFor:
       "Headlines and hero text. The optical-size axis keeps small sizes sturdy and large sizes expressive.",
-    pairsWith: ["instrument-sans", "martian-mono"],
+    pairsWith: ["instrument-sans", "martian-mono", "source-serif-4"],
     inZuri: "Headlines on this site",
   },
   {
@@ -135,7 +135,7 @@ export const fontsCatalog: FontEntry[] = [
     uses: ["headings", "body"],
     summary: "A grotesque with quirky details that give pages a human, editorial voice.",
     bestFor: "Marketing and editorial pages: headings with personality, and readable body copy.",
-    pairsWith: ["martian-mono"],
+    pairsWith: ["martian-mono", "instrument-sans"],
   },
   {
     id: "fraunces",
@@ -185,7 +185,7 @@ export const fontsCatalog: FontEntry[] = [
     uses: ["headings"],
     summary: "A wide, rounded display face with a bold, modern, slightly futuristic feel.",
     bestFor: "Hero headlines, logos and short bold statements. It is too wide for long text.",
-    pairsWith: ["instrument-sans", "figtree"],
+    pairsWith: ["instrument-sans", "figtree", "source-serif-4"],
   },
   {
     id: "syne",
