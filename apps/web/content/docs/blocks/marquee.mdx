@@ -1,0 +1,72 @@
+---
+title: Marquee
+description: A row of logos or quotes that scrolls sideways forever, with a pause button.
+---
+
+<Preview>
+  <Demo name="marquee-default" />
+</Preview>
+
+Use `Marquee` for a strip of partner names, logos or short quotes, where the number of items is more than fits on screen. It pauses while hovered or focused and has a pause button. Under reduced motion it stops scrolling and shows the items wrapped, so nothing is hidden.
+
+Use it sparingly: moving content competes for attention, and anything important should also exist somewhere that does not move.
+
+## Installation
+
+<InstallTabs name="marquee" />
+
+This also adds two small keyframes (`zuri-marquee` and `zuri-marquee-rtl`) to your CSS.
+
+## Usage
+
+```tsx
+import { Marquee } from "@/components/ui/marquee";
+
+<Marquee>
+  <ul className="flex list-none flex-wrap gap-8 p-0">
+    <li>Northwind</li>
+    <li>Baobab Labs</li>
+  </ul>
+</Marquee>
+```
+
+Wrap the items in a list, so a screen reader announces them as one, and give the list `flex-wrap`: it has no effect while scrolling, but it is what lets the items wrap into rows under reduced motion. The component renders the content a second time to make the loop seamless, and hides that copy from assistive technology.
+
+## Direction and speed
+
+<Preview>
+  <Demo name="marquee-reverse" />
+</Preview>
+
+## Props
+
+It extends the native `<div>` props (except `children`) and spreads them onto the root, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "children", type: "ReactNode", description: "The items to scroll. Required." },
+    { name: "duration", type: "number", default: "30", description: "Seconds for one full loop. Larger is slower." },
+    { name: "reverse", type: "boolean", default: "false", description: "Scroll the other way." },
+    { name: "repeat", type: "number", default: "1", description: "How many times each half repeats the children. Raise it when the items are narrower than the container, so there is never a gap." },
+    { name: "fade", type: "boolean", default: "true", description: "Fade both ends into the background." },
+    { name: "pausable", type: "boolean", default: "true", description: "Show the pause button." },
+    { name: "labels", type: "{ pause: string; play: string }", default: '{ pause: "Pause scrolling", play: "Resume scrolling" }', description: "The button's names, for translation." },
+  ]}
+/>
+
+## Accessibility
+
+- **Moving content must be pausable** (WCAG 2.2.2). It pauses on hover and while anything inside has focus, and the button pauses it for everyone, including touch and keyboard users. The button reports its state with `aria-pressed`. Only set `pausable={false}` if the content is not essential **and** you provide another way to stop it.
+- Under `prefers-reduced-motion` it does not scroll at all: the items wrap into a centred block, the second copy and the button are removed.
+- The duplicate copy is `aria-hidden`, so items are not read twice. Links in the duplicate are not focusable by keyboard either, because assistive technology ignores hidden content, but they can still be clicked: don't rely on interactive items here.
+- The edge fade is a mask, so it never covers text with a colour.
+
+## Tokens used
+
+`--muted-foreground`, `--foreground`, `--ring`.
+
+## Known limitations
+
+- The loop is horizontal only, and it follows the reading direction (it flips in right-to-left layouts).
+- Item widths are not measured. If your items are very narrow, raise `repeat` so each half is wider than the container.
+- A very long loop with many images costs paint time; keep the item count modest and give images a fixed size.
