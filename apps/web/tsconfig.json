@@ -7,6 +7,11 @@
     "paths": {
       "@/components/ui/button": ["../../packages/registry/src/actions/button/button"],
       "@/components/ui/input": ["../../packages/registry/src/inputs/input/input"],
+      "@/components/ui/avatar": ["../../packages/registry/src/display/avatar/avatar"],
+      "@/components/ui/dialog": ["../../packages/registry/src/overlays/dialog/dialog"],
+      "@/components/ui/dropdown-menu": [
+        "../../packages/registry/src/overlays/dropdown-menu/dropdown-menu"
+      ],
       "@/*": ["./*"],
       "@registry/*": ["../../packages/registry/src/*"]
     }

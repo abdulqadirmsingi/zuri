@@ -73,6 +73,14 @@ describe("Popover", () => {
     expect(panel.className).not.toContain("w-72");
   });
 
+  it("limits its height to the space available, so tall content scrolls inside it", async () => {
+    render(<Example />);
+    await userEvent.click(screen.getByRole("button", { name: "Filters" }));
+    const panel = await screen.findByRole("dialog");
+    expect(panel.className).toContain("max-h-[var(--radix-popover-content-available-height)]");
+    expect(panel.className).toContain("overflow-y-auto");
+  });
+
   it("has no axe violations while open", async () => {
     render(<Example />);
     await userEvent.click(screen.getByRole("button", { name: "Filters" }));

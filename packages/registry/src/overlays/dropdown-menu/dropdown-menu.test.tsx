@@ -195,6 +195,15 @@ describe("DropdownMenu", () => {
     expect(screen.queryByRole("button", { name: "Outside" })).toBeNull();
   });
 
+  // Regression: a tall menu on a short screen had items that could not be reached.
+  it("limits its height to the space available, so a long menu scrolls inside itself", async () => {
+    render(<Example />);
+    await userEvent.click(screen.getByRole("button", { name: "Actions" }));
+    const menu = await screen.findByRole("menu");
+    expect(menu.className).toContain("max-h-[var(--radix-dropdown-menu-content-available-height)]");
+    expect(menu.className).toContain("overflow-y-auto");
+  });
+
   it("styles a destructive item", async () => {
     render(<Example />);
     await userEvent.click(screen.getByRole("button", { name: "Actions" }));

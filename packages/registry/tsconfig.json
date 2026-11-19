@@ -5,6 +5,9 @@
     "paths": {
       "@/components/ui/button": ["./src/actions/button/button"],
       "@/components/ui/input": ["./src/inputs/input/input"],
+      "@/components/ui/avatar": ["./src/display/avatar/avatar"],
+      "@/components/ui/dialog": ["./src/overlays/dialog/dialog"],
+      "@/components/ui/dropdown-menu": ["./src/overlays/dropdown-menu/dropdown-menu"],
       "@/*": ["./src/*"]
     }
   },

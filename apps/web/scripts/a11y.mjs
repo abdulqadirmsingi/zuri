@@ -27,6 +27,7 @@ const pages = [
   "/docs/components/tabs",
   "/docs/components/accordion",
   "/docs/components/breadcrumbs",
+  "/docs/components/user-menu",
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/textarea",

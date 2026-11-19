@@ -772,6 +772,30 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:ui",
+      "title": "User menu",
+      "description": "An account menu with identity, links, theme and status choices and sign out; a bottom sheet on narrow screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/user-menu/user-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/avatar.json",
+        "__REGISTRY_URL__/dropdown-menu.json",
+        "__REGISTRY_URL__/dialog.json"
+      ]
     }
   ]
 }

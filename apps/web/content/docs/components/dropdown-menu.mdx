@@ -63,7 +63,7 @@ Also exported: `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuGroup`
 - The trigger is a button with `aria-haspopup="menu"` and `aria-expanded`. Enter, Space or Arrow Down open it.
 - Inside: Arrow keys move, Home and End jump to the first and last item, typing a letter jumps to a matching item, Enter or Space chooses, and Escape closes and returns focus to the trigger. Disabled items are skipped.
 - Items have `role="menuitem"`, checkboxes `menuitemcheckbox` and radios `menuitemradio`, with their checked state announced. The check mark and dot are decorative.
-- Each item is at least 36 pixels tall.
+- Each item is at least 36 pixels tall. If the screen is too short for the whole menu, it scrolls inside itself instead of running off the screen.
 - Shortcut text is only a hint. It does not bind any keys, so bind them yourself.
 
 The menu is **not modal** by default, following the WAI-ARIA menu button pattern. Radix's modal mode hides the rest of the page from screen readers while its links and buttons stay focusable, which accessibility checkers (axe's `aria-hidden-focus` rule) report as an error. Without it the menu still closes on Escape or an outside click. Set `modal` if you need the page locked.
