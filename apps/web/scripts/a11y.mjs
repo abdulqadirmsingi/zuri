@@ -20,6 +20,7 @@ const pages = [
   "/docs/components/theme-switch",
   "/docs/components/expanding-button-group",
   "/docs/components/bottom-nav",
+  "/docs/components/swell-nav",
   "/docs/components/dialog",
   "/docs/components/popover",
   "/docs/components/tooltip",

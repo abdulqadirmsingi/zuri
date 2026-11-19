@@ -1057,6 +1057,51 @@
         "__REGISTRY_URL__/site-header.json",
         "__REGISTRY_URL__/split-hero.json"
       ]
+    },
+    {
+      "name": "swell-nav",
+      "type": "registry:ui",
+      "title": "Swell nav",
+      "description": "A bottom bar whose surface swells into a dome under the active item, with a saffron bubble that slides like liquid.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/swell-nav/swell-nav.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-swell-stretch": {
+          "0%": {
+            "transform": "scale(1)"
+          },
+          "35%": {
+            "transform": "scale(1.28, 0.82)"
+          },
+          "70%": {
+            "transform": "scale(0.94, 1.06)"
+          },
+          "100%": {
+            "transform": "scale(1)"
+          }
+        },
+        "@keyframes zuri-swell-pop": {
+          "from": {
+            "opacity": "0",
+            "transform": "scale(0.4) rotate(-40deg)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none"
+          }
+        }
+      }
     }
   ]
 }

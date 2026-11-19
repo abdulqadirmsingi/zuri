@@ -1,0 +1,79 @@
+---
+title: Swell nav
+description: A bottom bar whose surface swells into a dome under the active item, with a saffron bubble that slides like liquid.
+---
+
+<Preview>
+  <Demo name="swell-nav-default" />
+</Preview>
+
+Use `SwellNav` as the main navigation of a phone-sized layout, with two to five destinations. The bar's own surface swells into a dome under the active item and a saffron bubble holds its icon. Choosing another item slides the dome across and stretches it for a moment, as if the bar were liquid. Try it above.
+
+For a quieter, pill-shaped alternative see [Bottom nav](/docs/components/bottom-nav).
+
+## Installation
+
+<InstallTabs name="swell-nav" />
+
+This also adds two small keyframes (`zuri-swell-stretch` and `zuri-swell-pop`) to your CSS.
+
+## Usage
+
+Place it at the bottom of the screen and leave about 4rem of free space above it, where the dome and bubble rise. That space does not block taps on the page behind.
+
+```tsx
+import { SwellNav } from "@/components/ui/swell-nav";
+
+<div className="fixed inset-x-0 bottom-0">
+  <SwellNav
+    items={[
+      { id: "home", label: "Home", icon: <HomeIcon />, href: "/" },
+      { id: "search", label: "Search", icon: <SearchIcon />, href: "/search" },
+      { id: "me", label: "Profile", icon: <UserIcon />, href: "/me" },
+    ]}
+    defaultValue="home"
+  />
+</div>
+```
+
+Give an item an `href` and it becomes a link with `aria-current="page"`; without one it is a button. Control it with `value` and `onValueChange`, or let it manage itself with `defaultValue`.
+
+## Four items
+
+<Preview>
+  <Demo name="swell-nav-four" />
+</Preview>
+
+## Props
+
+It extends the native `<nav>` props (except `children`) and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "items", type: "{ id: string; label: string; icon: ReactNode; href?: string }[]", description: "The destinations. Two to five work best. Required." },
+    { name: "value", type: "string", description: "The active item's id, when controlled." },
+    { name: "defaultValue", type: "string", description: "The initially active id when uncontrolled. Defaults to the first item." },
+    { name: "onValueChange", type: "(id: string) => void", description: "Called when an item is chosen." },
+    { name: "aria-label", type: "string", default: '"Primary"', description: "Names the navigation landmark. Change it if the page has more than one." },
+  ]}
+/>
+
+## Accessibility
+
+- A `<nav>` landmark, with a real link or button per item, so **Tab**, **Enter** and **Space** work with no extra code and each item has a visible focus ring.
+- Every item shows its text label, which is also its accessible name. The icons are decorative and hidden from assistive technology, as is the dome.
+- The current item has `aria-current` (`"page"` for links, `"true"` for buttons).
+- Motion uses the duration tokens, so under `prefers-reduced-motion` the dome jumps with no stretch. It only moves `translate`, `transform` and `opacity`.
+- Items are at least 64px tall and a fifth of the width at five items, well above the 24px minimum.
+- It adds the phone's bottom safe-area inset, so it clears the home indicator.
+
+## Tokens used
+
+`--background`, `--border`, `--foreground`, `--muted-foreground`, `--accent`, `--accent-foreground`, `--ring`, `--duration-base`, `--duration-slow`, `--ease-out`.
+
+## Known limitations
+
+- It does not hide when scrolling or show badges. For those, use [Bottom nav](/docs/components/bottom-nav) or wrap it yourself.
+- Labels are one line and truncate. Keep them short (about 8 characters) at five items on a 320px screen.
+- It is built for the bottom of the screen. Placed anywhere else, the dome would point the wrong way.
+- Not tested on a real phone: touch feel and the safe-area padding are only checked in a desktop browser.

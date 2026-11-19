@@ -63,6 +63,7 @@ import {
   SwitchStates,
 } from "./selection-demos";
 import { CtaAccentDemo, CtaDemo, FooterDemo, HeaderDemo, HeadingDemo } from "./shell-demos";
+import { SwellNavDefault, SwellNavFour } from "./swell-nav-demos";
 import { ThemeSwitchLabelled, ThemeSwitchStyles } from "./theme-switch-demos";
 import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
 
@@ -73,6 +74,8 @@ const demos: Record<string, () => ReactNode> = {
   "button-states": ButtonStates,
   "button-icons": ButtonIcons,
   "button-loading": ButtonLoading,
+  "swell-nav-default": SwellNavDefault,
+  "swell-nav-four": SwellNavFour,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
   "marquee-default": MarqueeDefault,
