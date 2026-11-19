@@ -796,6 +796,25 @@
         "__REGISTRY_URL__/dropdown-menu.json",
         "__REGISTRY_URL__/dialog.json"
       ]
+    },
+    {
+      "name": "theme-switch",
+      "type": "registry:ui",
+      "title": "Theme switch",
+      "description": "A light and dark toggle with an optional animated page change using the View Transitions API.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/actions/theme-switch/theme-switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
     }
   ]
 }
