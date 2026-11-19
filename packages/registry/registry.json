@@ -979,6 +979,56 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/dialog.json"]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:block",
+      "title": "Marquee",
+      "description": "A row of logos or quotes that scrolls sideways forever, with a pause button.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/marquee/marquee.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["motion"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-marquee": {
+          "to": {
+            "transform": "translateX(-50%)"
+          }
+        },
+        "@keyframes zuri-marquee-rtl": {
+          "to": {
+            "transform": "translateX(50%)"
+          }
+        }
+      }
+    },
+    {
+      "name": "reveal",
+      "type": "registry:block",
+      "title": "Reveal",
+      "description": "Fades content in as it scrolls into view, and never hides what is already on screen.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/reveal/reveal.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["motion"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     }
   ]
 }

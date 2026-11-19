@@ -202,6 +202,18 @@
   }
 }
 
+@keyframes zuri-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes zuri-marquee-rtl {
+  to {
+    transform: translateX(50%);
+  }
+}
+
 /* Progressive blur edge (see the progressive-blur component). The blur layers are dropped where
  * backdrop-filter is not supported and when someone prefers reduced transparency, so it degrades
  * to no blur (or to a plain fade, if the component's `fade` is on) instead of a hard edge. The
