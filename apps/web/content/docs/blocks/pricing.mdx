@@ -1,0 +1,56 @@
+---
+title: Pricing
+description: Plans side by side. Every name, price and link comes from you.
+---
+
+<Preview>
+  <Demo name="shell-pricing" />
+</Preview>
+
+Use `Pricing` to compare a few plans. It holds **no prices of its own**: the names, figures, periods and links are all props, so nothing in the block can disagree with what you really charge. The demo above uses placeholder text on purpose.
+
+## Installation
+
+<InstallTabs name="pricing" />
+
+## Usage
+
+```tsx
+import { Pricing } from "@/components/ui/pricing";
+
+<Pricing
+  plans={[
+    { id: "free", name: "Free", price: "Free", features: ["All free components"], action: <a href="/docs">Start</a> },
+    { id: "pro", name: "Pro", price: "Soon", featured: true, action: <a href="/waitlist">Join the waitlist</a> },
+  ]}
+/>
+```
+
+The price is shown exactly as you pass it, so write the currency yourself. For money, format with `Intl.NumberFormat` from integer minor units, never from floating-point numbers.
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "plans", type: "PricingPlan[]", description: "The plans to show. Required." },
+    { name: "headingLevel", type: "3 | 4", default: "3", description: "The level of each plan's heading." },
+  ]}
+/>
+
+Each plan takes `id`, `name`, `price`, `period`, `description`, `features`, `action`, `featured` and `badge`.
+
+## Accessibility
+
+- Plans are a list; each is an article named by its heading.
+- The featured plan is not marked by colour alone: give it a `badge` such as "Most chosen" so the emphasis is also in text.
+- The filled plan pairs `--primary` with `--primary-foreground`. Buttons placed on it need their own contrast, as in the demo.
+- Ticks are decorative; the feature text carries the meaning.
+
+## Tokens used
+
+`--primary`, `--primary-foreground`, `--muted`, `--border`, `--foreground`.
+
+## Known limitations
+
+- No billing toggle (monthly or yearly) and no comparison table; pass the figure you want to show.
+- Payment is never handled here. The `action` is your own link or button.

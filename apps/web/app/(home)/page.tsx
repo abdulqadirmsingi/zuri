@@ -1,4 +1,5 @@
 import { Marquee } from "@registry/blocks/marquee/marquee";
+import { Pricing } from "@registry/blocks/pricing/pricing";
 import Image from "next/image";
 import Link from "next/link";
 import { demoFor } from "@/components/demos";
@@ -168,6 +169,54 @@ export default function Home() {
                   </Link>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Plans. Free is true today; Pro has no price yet, and none is invented. */}
+          <section aria-labelledby="plans-title" className="border-t border-border">
+            <div className={`${wrap} py-24 lg:py-32`}>
+              <h2
+                id="plans-title"
+                className="m-0 mb-4 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+              >
+                Free to copy.
+              </h2>
+              <p className="m-0 mb-12 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+                Everything here is yours the moment you install it. Pro will add more, once it is
+                ready.
+              </p>
+              <Pricing
+                className="max-w-4xl"
+                plans={[
+                  {
+                    id: "free",
+                    name: "Open source",
+                    price: "Free",
+                    period: "MIT licence",
+                    features: [
+                      "Every component and block on this site",
+                      "Copied into your project, so you own the code",
+                      "No account needed",
+                    ],
+                    action: (
+                      <Link
+                        href="/docs/installation"
+                        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      >
+                        Start installing
+                      </Link>
+                    ),
+                  },
+                  {
+                    id: "pro",
+                    name: "Pro",
+                    price: "Not priced yet",
+                    badge: "Coming later",
+                    description:
+                      "Extra items under a commercial licence. Plans and prices will be announced here.",
+                  },
+                ]}
+              />
             </div>
           </section>
         </main>

@@ -54,6 +54,8 @@ const pages = [
   "/docs/blocks/site-footer",
   "/docs/blocks/section-heading",
   "/docs/blocks/closing-cta",
+  "/docs/blocks/pricing",
+  "/docs/blocks/testimonials",
   "/docs/blocks/marquee",
   "/docs/blocks/reveal",
   "/docs/components/kbd",
