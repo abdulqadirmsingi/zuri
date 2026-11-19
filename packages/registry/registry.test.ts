@@ -77,4 +77,28 @@ describe("registry.json", () => {
       }
     }
   });
+
+  // Regression guard: a component that relies on a zuri-* class for a fallback (such as
+  // .zuri-pblur hiding its blur layers) must ship that class's CSS, or the fallback silently
+  // does nothing in a user's project.
+  it("ships the CSS for every zuri-* class its component source relies on", () => {
+    const tokens = items.find((i) => i.name === "zuri-tokens") as
+      | { css?: Record<string, unknown> }
+      | undefined;
+    const defined = (css: Record<string, unknown> | undefined) => JSON.stringify(css ?? {});
+    for (const item of items as (Item & {
+      files?: { path: string }[];
+      css?: Record<string, unknown>;
+    })[]) {
+      for (const file of item.files ?? []) {
+        const source = readFileSync(file.path, "utf8");
+        for (const m of source.matchAll(/["' ](zuri-[a-z-]+)["' ]/g)) {
+          const cls = `.${m[1]}`;
+          if (/^zuri-(rise|shake|accordion-up|accordion-down)$/.test(m[1] ?? "")) continue; // keyframe names
+          const found = defined(item.css).includes(cls) || defined(tokens?.css).includes(cls);
+          expect(found, `${item.name} uses ${cls} but no CSS defines it`).toBe(true);
+        }
+      }
+    }
+  });
 });

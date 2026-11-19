@@ -201,3 +201,19 @@
     transform: translateX(0.2rem);
   }
 }
+
+/* Progressive blur edge (see the progressive-blur component). The blur layers are dropped where
+ * backdrop-filter is not supported and when someone prefers reduced transparency, so it degrades
+ * to no blur (or to a plain fade, if the component's `fade` is on) instead of a hard edge. The
+ * registry item for the component ships the same rules for installed projects. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .zuri-pblur > [data-pblur-layer] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .zuri-pblur > [data-pblur-layer] {
+    display: none;
+  }
+}
