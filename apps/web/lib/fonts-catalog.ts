@@ -137,6 +137,72 @@ export const fontsCatalog: FontEntry[] = [
     bestFor: "Marketing and editorial pages: headings with personality, and readable body copy.",
     pairsWith: ["martian-mono"],
   },
+  {
+    id: "fraunces",
+    family: "Fraunces",
+    category: "serif",
+    designer: "Undercase Type, Phaedra Charles, Flavia Zimbardi",
+    copyright:
+      "Copyright 2018 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces)",
+    sourceUrl: "https://github.com/undercasetype/Fraunces",
+    weights: { min: 100, max: 900 },
+    axes: ["wght", "opsz", "SOFT", "WONK"],
+    subsets: ["latin", "latin-ext", "vietnamese"],
+    uses: ["headings", "body"],
+    summary: 'A soft, old-style serif with optical size, softness and a quirky "wonk" axis.',
+    bestFor:
+      "Editorial headings and warm, characterful body text. Large sizes show off its soft curves.",
+    pairsWith: ["instrument-sans", "figtree"],
+  },
+  {
+    id: "source-serif-4",
+    family: "Source Serif 4",
+    category: "serif",
+    designer: "Frank Grießhammer",
+    copyright:
+      "Copyright 2014 The Source Serif 4 Project Authors (https://github.com/adobe-fonts/source-serif)",
+    sourceUrl: "https://github.com/adobe-fonts/source-serif",
+    weights: { min: 200, max: 900 },
+    axes: ["wght", "opsz"],
+    subsets: ["cyrillic", "cyrillic-ext", "greek", "latin", "latin-ext", "vietnamese"],
+    uses: ["body", "headings"],
+    summary: "A clear, workmanlike serif with an optical size axis, made for long reading.",
+    bestFor:
+      "Articles, documentation and anything read at length, with headings in the same family.",
+    pairsWith: ["instrument-sans", "martian-mono"],
+  },
+  {
+    id: "unbounded",
+    family: "Unbounded",
+    category: "display",
+    designer: "NaN",
+    copyright:
+      "Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)",
+    sourceUrl: "https://github.com/googlefonts/unbounded",
+    weights: { min: 200, max: 900 },
+    axes: ["wght"],
+    subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext", "vietnamese"],
+    uses: ["headings"],
+    summary: "A wide, rounded display face with a bold, modern, slightly futuristic feel.",
+    bestFor: "Hero headlines, logos and short bold statements. It is too wide for long text.",
+    pairsWith: ["instrument-sans", "figtree"],
+  },
+  {
+    id: "syne",
+    family: "Syne",
+    category: "display",
+    designer: "Bonjour Monde, Lucas Descroix, George Triantafyllakos",
+    copyright:
+      "Copyright 2017 The Syne Project Authors (https://gitlab.com/bonjour-monde/fonderie/syne-typeface)",
+    sourceUrl: "https://gitlab.com/bonjour-monde/fonderie/syne-typeface",
+    weights: { min: 400, max: 800 },
+    axes: ["wght"],
+    subsets: ["greek", "latin", "latin-ext"],
+    uses: ["headings"],
+    summary: "An expressive display family whose heaviest weights become extra wide and dramatic.",
+    bestFor: "Posters, event pages and bold headings where the type itself is the design.",
+    pairsWith: ["instrument-sans", "martian-mono"],
+  },
 ];
 
 export function findFont(id: string): FontEntry | undefined {
