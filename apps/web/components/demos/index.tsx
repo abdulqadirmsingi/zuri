@@ -59,6 +59,7 @@ import {
   SwitchDefault,
   SwitchStates,
 } from "./selection-demos";
+import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
 
 const demos: Record<string, () => ReactNode> = {
   "button-default": ButtonDefault,
@@ -69,6 +70,8 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "user-menu-default": UserMenuDefault,
+  "user-menu-name": UserMenuWithName,
   "expanding-default": ExpandingDefault,
   "expanding-async": ExpandingAsync,
   "expanding-small": ExpandingSmall,
