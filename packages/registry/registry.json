@@ -903,6 +903,82 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "section-heading",
+      "type": "registry:block",
+      "title": "Section heading",
+      "description": "The title block that opens a page section: eyebrow, heading and description.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/section-heading/section-heading.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "closing-cta",
+      "type": "registry:block",
+      "title": "Closing call to action",
+      "description": "A panel at the foot of a page with a heading, a line of text and actions.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/closing-cta/closing-cta.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "site-footer",
+      "type": "registry:block",
+      "title": "Site footer",
+      "description": "A page footer with a brand, labelled link columns and a legal line.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/site-footer/site-footer.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "site-header",
+      "type": "registry:block",
+      "title": "Site header",
+      "description": "A header with brand, links and actions, that turns into a modal menu on small screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/site-header/site-header.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/dialog.json"]
     }
   ]
 }
