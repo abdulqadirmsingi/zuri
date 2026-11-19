@@ -957,6 +957,44 @@
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
     },
     {
+      "name": "pricing",
+      "type": "registry:block",
+      "title": "Pricing",
+      "description": "Plans side by side. Every name, price and link comes from you.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/pricing/pricing.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "testimonials",
+      "type": "registry:block",
+      "title": "Testimonials",
+      "description": "Short attributed quotes in a staggered grid.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/testimonials/testimonials.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
       "name": "site-footer",
       "type": "registry:block",
       "title": "Site footer",

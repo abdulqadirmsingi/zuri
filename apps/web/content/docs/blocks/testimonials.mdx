@@ -1,0 +1,50 @@
+---
+title: Testimonials
+description: Short attributed quotes in a staggered grid.
+---
+
+<Preview>
+  <Demo name="shell-testimonials" />
+</Preview>
+
+Use `Testimonials` to show what real people said. The quotes in the demo are **samples** to show the layout; do not ship them. Publish only quotes that are real, attributed and agreed to.
+
+## Installation
+
+<InstallTabs name="testimonials" />
+
+## Usage
+
+```tsx
+import { Testimonials } from "@/components/ui/testimonials";
+
+<Testimonials
+  items={[
+    { id: "1", quote: "It saved us a week.", name: "Name Surname", role: "Company" },
+  ]}
+/>
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "items", type: "Testimonial[]", description: "The quotes. Required." },
+  ]}
+/>
+
+Each item takes `id`, `quote`, `name`, `role` and `avatar`.
+
+## Accessibility
+
+- Each quote is a `figure` with a `blockquote` and a `figcaption`.
+- The avatar is hidden from assistive technology; the name is always text.
+- Columns flow top to bottom, so reading order follows the list.
+
+## Tokens used
+
+`--muted`, `--border`, `--foreground`, `--muted-foreground`.
+
+## Known limitations
+
+- A column layout, not a carousel: with many quotes, show a handful.

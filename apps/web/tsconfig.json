@@ -13,6 +13,10 @@
         "../../packages/registry/src/overlays/dropdown-menu/dropdown-menu"
       ],
       "@/components/ui/closing-cta": ["../../packages/registry/src/blocks/closing-cta/closing-cta"],
+      "@/components/ui/pricing": ["../../packages/registry/src/blocks/pricing/pricing"],
+      "@/components/ui/testimonials": [
+        "../../packages/registry/src/blocks/testimonials/testimonials"
+      ],
       "@/components/ui/marquee": ["../../packages/registry/src/blocks/marquee/marquee"],
       "@/components/ui/reveal": ["../../packages/registry/src/blocks/reveal/reveal"],
       "@/components/ui/section-heading": [

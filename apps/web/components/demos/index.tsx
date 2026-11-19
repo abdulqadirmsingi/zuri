@@ -63,7 +63,15 @@ import {
   SwitchDefault,
   SwitchStates,
 } from "./selection-demos";
-import { CtaAccentDemo, CtaDemo, FooterDemo, HeaderDemo, HeadingDemo } from "./shell-demos";
+import {
+  CtaAccentDemo,
+  CtaDemo,
+  FooterDemo,
+  HeaderDemo,
+  HeadingDemo,
+  PricingDemo,
+  TestimonialsDemo,
+} from "./shell-demos";
 import { SwellNavDefault, SwellNavFour } from "./swell-nav-demos";
 import { ThemeSwitchLabelled, ThemeSwitchStyles } from "./theme-switch-demos";
 import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
@@ -91,6 +99,8 @@ const demos: Record<string, () => ReactNode> = {
   "shell-heading": HeadingDemo,
   "shell-cta": CtaDemo,
   "shell-cta-accent": CtaAccentDemo,
+  "shell-pricing": PricingDemo,
+  "shell-testimonials": TestimonialsDemo,
   "hero-split": HeroSplit,
   "hero-split-start": HeroSplitStart,
   "hero-magazine": HeroMagazine,
