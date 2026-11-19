@@ -150,4 +150,27 @@ describe("Tabs", () => {
     // Both examples reuse the same ids' prefixes; each Radix instance generates its own.
     expect((await axe(container)).violations).toEqual([]);
   });
+
+  // Regression: the indicator was sized from getBoundingClientRect, which includes a CSS scale on
+  // any ancestor (the home page shows tabs at 1.3x), so the pill came out wider than its tab.
+  it("sizes the indicator from layout pixels, ignoring transforms on ancestors", () => {
+    vi.spyOn(HTMLElement.prototype, "offsetLeft", "get").mockReturnValue(4);
+    vi.spyOn(HTMLElement.prototype, "offsetWidth", "get").mockReturnValue(80);
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue({
+      left: 999,
+      width: 400,
+      right: 1399,
+      top: 0,
+      bottom: 0,
+      height: 0,
+      x: 999,
+      y: 0,
+      toJSON: () => ({}),
+    });
+    const { container } = render(<Example />);
+    const indicator = container.querySelector<HTMLElement>("[aria-hidden='true'].absolute");
+    expect(indicator?.style.width).toBe("80px");
+    expect(indicator?.style.transform).toBe("translateX(4px)");
+    vi.restoreAllMocks();
+  });
 });

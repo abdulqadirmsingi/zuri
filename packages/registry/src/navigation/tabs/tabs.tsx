@@ -27,10 +27,10 @@ export function TabsList({ className, variant = "pill", children, ...props }: Ta
     const list = listRef.current;
     const active = list?.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
     if (!list || !active) return setBox(null);
-    const a = active.getBoundingClientRect();
-    const l = list.getBoundingClientRect();
-    // Relative to the list's content box, including any horizontal scroll.
-    setBox({ x: a.left - l.left - list.clientLeft + list.scrollLeft, w: a.width });
+    // Layout offsets, not getBoundingClientRect: the rects include any CSS transform on an
+    // ancestor (a scaled or rotated demo, a zoomed page), but the indicator is positioned in the
+    // list's own untransformed pixels, so rects made it the wrong size and place.
+    setBox({ x: active.offsetLeft, w: active.offsetWidth });
   }, []);
 
   useLayoutEffect(() => {
