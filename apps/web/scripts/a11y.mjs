@@ -41,6 +41,7 @@ const pages = [
   "/docs/components/separator",
   "/docs/components/spinner",
   "/docs/components/skeleton",
+  "/docs/components/progressive-blur",
   "/docs/components/kbd",
   "/docs/components/progress",
   "/docs/components/card",
