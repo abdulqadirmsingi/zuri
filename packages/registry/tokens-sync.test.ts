@@ -117,7 +117,9 @@ describe("zuri-tokens registry item matches packages/tokens", () => {
       for (const m of readFileSync(file, "utf8").matchAll(/var\((--[a-z0-9-]+)/g))
         used.set(m[1] as string, file);
     for (const [name, file] of used) {
-      if (name.startsWith("--tw-") || own.has(name)) continue;
+      // --tw-* is Tailwind's own, and --radix-* is supplied by Radix at runtime (e.g. the height
+      // available to a menu); neither is a Zuri token to ship.
+      if (name.startsWith("--tw-") || name.startsWith("--radix-") || own.has(name)) continue;
       expect(declared.has(name), `${name} (used in ${file})`).toBe(true);
     }
   });
