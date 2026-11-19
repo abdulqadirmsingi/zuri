@@ -53,3 +53,24 @@ body {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
 }
+
+/* The docs sidebar must stay put however the page is scrolled or pulled.
+ *
+ * 1. Trackpads "rubber-band" when you pull the page past its top or bottom. The whole page moves,
+ *    and a sticky element such as the sidebar moves with it ("it moves up a little"). Turning
+ *    overscroll off for the page stops the bounce. (The sidebar's own list keeps its own
+ *    scrolling; it already contains its overscroll.)
+ * 2. During momentum scrolling a sticky element can lag a frame behind the page and then snap.
+ *    Giving the sticky column its own compositing layer keeps it steady. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Desktop only: a transformed ancestor becomes the containing block for position: fixed
+ * descendants, and on phones the sidebar is a fixed drawer that must keep covering the screen. */
+@media (min-width: 768px) {
+  div:has(> #nd-sidebar) {
+    will-change: transform;
+  }
+}
