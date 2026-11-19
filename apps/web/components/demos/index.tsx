@@ -48,6 +48,7 @@ import {
 } from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
+import { BlurBoth, BlurBottom, BlurSide } from "./progressive-blur-demos";
 import {
   CheckboxDefault,
   CheckboxStates,
@@ -71,6 +72,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-loading": ButtonLoading,
   "bottom-nav-default": BottomNavDefault,
   "bottom-nav-glass": BottomNavGlass,
+  "blur-bottom": BlurBottom,
+  "blur-both": BlurBoth,
+  "blur-side": BlurSide,
   "theme-switch-styles": ThemeSwitchStyles,
   "theme-switch-labelled": ThemeSwitchLabelled,
   "user-menu-default": UserMenuDefault,
