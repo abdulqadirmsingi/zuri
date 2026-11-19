@@ -1,7 +1,3 @@
-// Audits the docs pages with axe (WCAG 2.2 AA) in light and dark mode, in a real browser.
-// Usage: start the site (pnpm dev or pnpm --filter web start), then `pnpm --filter web a11y`.
-// BASE_URL defaults to http://localhost:3000; CHROME_PATH points at a Chromium binary if
-// Playwright's own download is not installed.
 import AxeBuilder from "@axe-core/playwright";
 import { chromium } from "playwright";
 
@@ -11,6 +7,8 @@ const pages = [
   "/fonts",
   "/fonts/figtree",
   "/fonts/martian-mono",
+  "/fonts/fraunces",
+  "/fonts/unbounded",
   "/docs",
   "/docs/installation",
   "/docs/theming",

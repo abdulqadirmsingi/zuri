@@ -10,7 +10,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 ## Fonts
 
-All five fonts are published by their authors under the SIL Open Font License 1.1 (checked on 2026-11-18: each sits in the `ofl/` directory of https://github.com/google/fonts with `license: "OFL"`). They are self-hosted through `next/font`, so visitors make no request to Google. The fonts are not modified. The copyright line for each is kept here, and the licence text follows.
+All nine fonts are published by their authors under the SIL Open Font License 1.1 (checked on 2026-11-18 and, for the last four, 2026-11-19: each sits in the `ofl/` directory of https://github.com/google/fonts with `license: "OFL"`). They are self-hosted through `next/font`, so visitors make no request to Google. The fonts are not modified. The copyright line for each is kept here, and the licence text follows.
 
 ### Bricolage Grotesque
 
@@ -40,6 +40,30 @@ All five fonts are published by their authors under the SIL Open Font License 1.
 
 - Designer: Familjen STHLM AB
 - Copyright 2021 The Familjen Grotesk Project Authors (https://github.com/Familjen-Sthlm/Familjen-Grotesk)
+- Use in Zuri: Listed in the fonts library
+
+### Fraunces
+
+- Designer: Undercase Type, Phaedra Charles, Flavia Zimbardi
+- Copyright 2018 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces)
+- Use in Zuri: Listed in the fonts library
+
+### Source Serif 4
+
+- Designer: Frank Grießhammer
+- Copyright 2014 The Source Serif 4 Project Authors (https://github.com/adobe-fonts/source-serif)
+- Use in Zuri: Listed in the fonts library
+
+### Unbounded
+
+- Designer: NaN
+- Copyright 2022 The Unbounded Project Authors (https://github.com/googlefonts/unbounded)
+- Use in Zuri: Listed in the fonts library
+
+### Syne
+
+- Designer: Bonjour Monde, Lucas Descroix, George Triantafyllakos
+- Copyright 2017 The Syne Project Authors (https://gitlab.com/bonjour-monde/fonderie/syne-typeface)
 - Use in Zuri: Listed in the fonts library
 
 ### SIL Open Font License 1.1 (applies to each font above)
