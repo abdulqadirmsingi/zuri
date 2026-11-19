@@ -1029,6 +1029,34 @@
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "landing-starter",
+      "type": "registry:block",
+      "title": "Landing page starter",
+      "description": "A complete landing page built from Zuri blocks: header, hero, partners, features, steps, call to action and footer.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/landing-starter/landing-starter.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/closing-cta.json",
+        "__REGISTRY_URL__/marquee.json",
+        "__REGISTRY_URL__/reveal.json",
+        "__REGISTRY_URL__/section-heading.json",
+        "__REGISTRY_URL__/site-footer.json",
+        "__REGISTRY_URL__/site-header.json",
+        "__REGISTRY_URL__/split-hero.json"
+      ]
     }
   ]
 }

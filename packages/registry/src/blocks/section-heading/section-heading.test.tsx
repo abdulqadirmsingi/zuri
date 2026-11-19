@@ -18,6 +18,10 @@ describe("SectionHeading", () => {
     expect(screen.getByText("Learn")).toBeTruthy();
     expect(screen.getByText("Details")).toBeTruthy();
   });
+  it("puts titleId on the heading so a section can be named by it", () => {
+    render(<SectionHeading title="Courses" titleId="courses-title" />);
+    expect(screen.getByRole("heading").id).toBe("courses-title");
+  });
   it("centres its text when asked", () => {
     const { container } = render(<SectionHeading title="T" align="center" />);
     expect((container.firstChild as HTMLElement).className).toContain("text-center");
