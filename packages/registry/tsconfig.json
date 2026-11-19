@@ -15,6 +15,7 @@
       "@/components/ui/site-footer": ["./src/blocks/site-footer/site-footer"],
       "@/components/ui/site-header": ["./src/blocks/site-header/site-header"],
       "@/components/ui/split-hero": ["./src/blocks/split-hero/split-hero"],
+      "@/components/ui/popover": ["./src/overlays/popover/popover"],
       "@/*": ["./src/*"]
     }
   },

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -88,5 +88,24 @@ describe("Select", () => {
       expect((await axe(container)).violations).toEqual([]);
       unmount();
     }
+  });
+
+  // Regression: a mouse click on a <select> left a black focus ring around it.
+  it("hides the focus ring after a mouse click and brings it back on a key press", async () => {
+    render(
+      <Select aria-label="Country">
+        <option>One</option>
+        <option>Two</option>
+      </Select>,
+    );
+    const select = screen.getByRole("combobox", { name: "Country" });
+    expect(select.getAttribute("data-pointer")).toBeNull();
+    fireEvent.pointerDown(select);
+    expect(select.getAttribute("data-pointer")).toBe("true");
+    fireEvent.keyDown(select, { key: "ArrowDown" });
+    expect(select.getAttribute("data-pointer")).toBeNull();
+    fireEvent.pointerDown(select);
+    fireEvent.blur(select);
+    expect(select.getAttribute("data-pointer")).toBeNull();
   });
 });

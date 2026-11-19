@@ -50,6 +50,7 @@ import {
 } from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
+import { PickerDefault, PickerInline, PickerSearch } from "./picker-demos";
 import { BlurBoth, BlurBottom, BlurSide } from "./progressive-blur-demos";
 import {
   CheckboxDefault,
@@ -74,6 +75,9 @@ const demos: Record<string, () => ReactNode> = {
   "button-states": ButtonStates,
   "button-icons": ButtonIcons,
   "button-loading": ButtonLoading,
+  "picker-default": PickerDefault,
+  "picker-search": PickerSearch,
+  "picker-inline": PickerInline,
   "swell-nav-default": SwellNavDefault,
   "swell-nav-four": SwellNavFour,
   "bottom-nav-default": BottomNavDefault,
@@ -156,4 +160,20 @@ export function Demo({ name }: { name: string }) {
   if (!Component) throw new Error(`Unknown demo: ${name}`);
   // Rendered as a component (not called) so a demo may be a client component.
   return <Component />;
+}
+
+/** Names that do not follow the `<name>-default` pattern. */
+const demoAliases: Record<string, string> = {
+  "password-strength": "password-default",
+  "expanding-button-group": "expanding-default",
+  "progressive-blur": "blur-bottom",
+  avatar: "avatar-group",
+  "theme-switch": "theme-switch-styles",
+};
+
+/** The name of a demo that shows the registry item `name`, if there is one. */
+export function demoFor(name: string): string | undefined {
+  if (Object.hasOwn(demoAliases, name)) return demoAliases[name];
+  if (Object.hasOwn(demos, `${name}-default`)) return `${name}-default`;
+  return Object.keys(demos).find((k) => k.startsWith(`${name}-`));
 }

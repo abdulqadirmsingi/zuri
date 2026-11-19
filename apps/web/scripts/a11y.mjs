@@ -39,6 +39,7 @@ const pages = [
   "/docs/components/switch",
   "/docs/components/radio-group",
   "/docs/components/select",
+  "/docs/components/picker",
   "/docs/components/badge",
   "/docs/components/separator",
   "/docs/components/spinner",

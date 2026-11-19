@@ -15,6 +15,7 @@
     "switch",
     "radio-group",
     "select",
+    "picker",
     "badge",
     "separator",
     "spinner",

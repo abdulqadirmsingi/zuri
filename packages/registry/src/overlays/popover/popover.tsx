@@ -3,6 +3,7 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
+import { useQuietFocusRestore } from "@/lib/focus-modality";
 import { cn } from "@/lib/utils";
 
 /** Compose with PopoverTrigger and PopoverContent. */
@@ -38,16 +39,23 @@ export function PopoverContent({
   variant,
   sideOffset = 8,
   collisionPadding = 8,
+  children,
+  onCloseAutoFocus,
   ...props
 }: PopoverContentProps) {
+  const quiet = useQuietFocusRestore(onCloseAutoFocus);
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         sideOffset={sideOffset}
         collisionPadding={collisionPadding}
         className={cn(contentVariants({ variant }), className)}
+        onCloseAutoFocus={quiet.onCloseAutoFocus}
         {...props}
-      />
+      >
+        <span hidden ref={quiet.probe} />
+        {children}
+      </PopoverPrimitive.Content>
     </PopoverPrimitive.Portal>
   );
 }

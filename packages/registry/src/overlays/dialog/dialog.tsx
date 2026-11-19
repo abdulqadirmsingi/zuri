@@ -3,6 +3,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
+import { useQuietFocusRestore } from "@/lib/focus-modality";
 import { cn } from "@/lib/utils";
 
 /** Compose with DialogTrigger, DialogContent, DialogTitle and DialogDescription. */
@@ -42,12 +43,19 @@ export function DialogContent({
   variant,
   closeLabel = "Close",
   children,
+  onCloseAutoFocus,
   ...props
 }: DialogContentProps) {
+  const quiet = useQuietFocusRestore(onCloseAutoFocus);
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="fixed inset-0 z-[var(--z-overlay)] bg-foreground/40 transition-opacity duration-[var(--duration-base)] starting:opacity-0" />
-      <DialogPrimitive.Content className={cn(contentVariants({ variant }), className)} {...props}>
+      <DialogPrimitive.Content
+        className={cn(contentVariants({ variant }), className)}
+        onCloseAutoFocus={quiet.onCloseAutoFocus}
+        {...props}
+      >
+        <span hidden ref={quiet.probe} />
         {children}
         <DialogPrimitive.Close
           aria-label={closeLabel}

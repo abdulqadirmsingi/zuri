@@ -2,6 +2,7 @@
 
 import * as MenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentProps } from "react";
+import { useQuietFocusRestore } from "@/lib/focus-modality";
 import { cn } from "@/lib/utils";
 
 /** Compose with DropdownMenuTrigger and DropdownMenuContent, then items inside the content. */
@@ -30,8 +31,11 @@ export function DropdownMenuContent({
   className,
   sideOffset = 6,
   collisionPadding = 8,
+  children,
+  onCloseAutoFocus,
   ...props
 }: ComponentProps<typeof MenuPrimitive.Content>) {
+  const quiet = useQuietFocusRestore(onCloseAutoFocus);
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Content
@@ -41,8 +45,12 @@ export function DropdownMenuContent({
           "z-[var(--z-dropdown)] min-w-44 max-w-[calc(100vw-1rem)] max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto rounded-xl border border-border bg-background p-1 text-sm text-foreground shadow-lg transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-fast)] ease-[var(--ease-out)] starting:scale-95 starting:opacity-0",
           className,
         )}
+        onCloseAutoFocus={quiet.onCloseAutoFocus}
         {...props}
-      />
+      >
+        <span hidden ref={quiet.probe} />
+        {children}
+      </MenuPrimitive.Content>
     </MenuPrimitive.Portal>
   );
 }

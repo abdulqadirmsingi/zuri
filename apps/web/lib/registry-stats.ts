@@ -6,6 +6,7 @@ interface Item {
   type: string;
   title: string;
   description?: string;
+  categories?: string[];
   dependencies?: string[];
 }
 

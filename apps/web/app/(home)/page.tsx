@@ -1,7 +1,7 @@
 import { Marquee } from "@registry/blocks/marquee/marquee";
 import Image from "next/image";
 import Link from "next/link";
-import { Demo } from "@/components/demos";
+import { demoFor } from "@/components/demos";
 import { Builder, type BuilderItem } from "@/components/home/builder";
 import { HomeFooter } from "@/components/home/home-footer";
 import { ThemeLab } from "@/components/home/theme-lab";
@@ -15,15 +15,42 @@ import starterShot from "@/public/home/starter.jpg";
 const wrap = "mx-auto w-full max-w-[88rem] px-4 sm:px-8";
 const label = "m-0 font-mono text-xs uppercase tracking-wider text-muted-foreground";
 
-// The words offered in the hero sentence, and the live demo that goes with each.
-const choices = [
-  { id: "dialog", word: "a dialog", demo: "dialog-default", scale: 1.6 },
-  { id: "dropdown-menu", word: "a dropdown menu", demo: "dropdown-menu-default", scale: 1.6 },
-  { id: "tabs", word: "some tabs", demo: "tabs-default", scale: 1.3 },
-  { id: "switch", word: "a switch", demo: "switch-default", scale: 1.6 },
-  { id: "accordion", word: "an accordion", demo: "accordion-default", scale: 1.1 },
-  { id: "select", word: "a select", demo: "select-default", scale: 1.3 },
-];
+/** How the sentence names a component, when "a" plus its title would read wrongly. */
+const phrases: Record<string, string> = {
+  tabs: "some tabs",
+  breadcrumbs: "some breadcrumbs",
+  progress: "a progress bar",
+  kbd: "a keyboard key",
+  "empty-state": "an empty state",
+  "zuri-tokens": "some tokens",
+};
+
+/** Small components look lost on the stage at their normal size, so they are shown larger. */
+const scales: Record<string, number> = {
+  button: 1.6,
+  badge: 1.8,
+  switch: 1.6,
+  checkbox: 1.6,
+  "radio-group": 1.4,
+  dialog: 1.6,
+  "alert-dialog": 1.6,
+  popover: 1.6,
+  tooltip: 1.6,
+  "dropdown-menu": 1.6,
+  "copy-button": 1.5,
+  kbd: 1.8,
+  spinner: 1.8,
+  tabs: 1.3,
+  select: 1.3,
+  picker: 1.3,
+};
+
+const titleCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const phrase = (id: string, title: string) => {
+  if (phrases[id]) return phrases[id];
+  const word = title.toLowerCase();
+  return `${/^[aeiou]/.test(word) ? "an" : "a"} ${word}`;
+};
 
 const shots = [
   {
@@ -58,13 +85,21 @@ const shots = [
 
 export default function Home() {
   const stats = registryStats();
-  const builderItems: BuilderItem[] = choices.map((c) => ({
-    id: c.id,
-    word: c.word,
-    demo: <Demo name={c.demo} />,
-    command: `npx shadcn@latest add ${siteUrl}/r/${c.id}.json`,
-    scale: c.scale,
-  }));
+  // Every component that has a live demo, so the list grows by itself as the registry does.
+  const builderItems: BuilderItem[] = stats.items.flatMap((i) => {
+    const demo = demoFor(i.name);
+    if (!demo) return [];
+    return [
+      {
+        id: i.name,
+        phrase: phrase(i.name, i.title),
+        group: titleCase(i.categories?.[0] ?? "other"),
+        demo,
+        scale: scales[i.name] ?? 1,
+        command: `npx shadcn@latest add ${siteUrl}/r/${i.name}.json`,
+      },
+    ];
+  });
 
   return (
     <>
@@ -78,7 +113,7 @@ export default function Home() {
             <p className={`${label} mb-6`}>
               {stats.count} components · {stats.blocks} blocks · finish the sentence
             </p>
-            <Builder items={builderItems} />
+            <Builder items={builderItems} initialId="dialog" />
           </section>
 
           {/* The names, big */}

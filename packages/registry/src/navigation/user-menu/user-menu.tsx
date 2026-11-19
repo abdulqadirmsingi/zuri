@@ -22,6 +22,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { focusQuietly, lastInputWasPointer, useFocusModality } from "@/lib/focus-modality";
 import { cn } from "@/lib/utils";
 
 export type UserStatus = "available" | "busy" | "away";
@@ -310,6 +311,7 @@ export function UserMenu({
   messages: messagesProp,
   className,
 }: UserMenuProps) {
+  useFocusModality();
   const messages: UserMenuMessages = {
     ...defaultUserMenuMessages,
     ...messagesProp,
@@ -453,7 +455,11 @@ export function UserMenu({
             // return focus to; without this, focus would be lost to <body> when it closes.
             onCloseAutoFocus={(event) => {
               event.preventDefault();
-              triggerRef.current?.focus();
+              const trigger = triggerRef.current;
+              if (!trigger) return;
+              // After a mouse or touch interaction, return focus without drawing a ring.
+              if (lastInputWasPointer()) focusQuietly(trigger);
+              else trigger.focus();
             }}
             className="bottom-0 start-0 top-auto w-full max-w-none translate-x-0 translate-y-0 gap-3 rounded-b-none rounded-t-2xl pb-[max(1.5rem,env(safe-area-inset-bottom))] starting:translate-y-full starting:scale-100 rtl:translate-x-0"
           >

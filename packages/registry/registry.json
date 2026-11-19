@@ -539,7 +539,10 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
     },
     {
       "name": "popover",
@@ -563,7 +566,10 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
     },
     {
       "name": "tooltip",
@@ -606,7 +612,11 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/button.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
     },
     {
       "name": "dropdown-menu",
@@ -625,7 +635,10 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
     },
     {
       "name": "tabs",
@@ -794,7 +807,8 @@
         "__REGISTRY_URL__/zuri-tokens.json",
         "__REGISTRY_URL__/avatar.json",
         "__REGISTRY_URL__/dropdown-menu.json",
-        "__REGISTRY_URL__/dialog.json"
+        "__REGISTRY_URL__/dialog.json",
+        "__REGISTRY_URL__/focus-modality.json"
       ]
     },
     {
@@ -1102,6 +1116,43 @@
           }
         }
       }
+    },
+    {
+      "name": "focus-modality",
+      "type": "registry:lib",
+      "title": "Focus modality",
+      "description": "Returns focus quietly after a mouse click, so closing a menu or dialog does not leave a stray focus ring.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/lib/focus-modality.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "categories": ["lib"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      }
+    },
+    {
+      "name": "picker",
+      "type": "registry:ui",
+      "title": "Picker",
+      "description": "A dropdown made of our own parts instead of the operating system's, with search, groups and full keyboard support.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/picker/picker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/popover.json"]
     }
   ]
 }

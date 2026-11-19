@@ -21,6 +21,8 @@
       "@/components/ui/site-footer": ["../../packages/registry/src/blocks/site-footer/site-footer"],
       "@/components/ui/site-header": ["../../packages/registry/src/blocks/site-header/site-header"],
       "@/components/ui/split-hero": ["../../packages/registry/src/blocks/split-hero/split-hero"],
+      "@/components/ui/popover": ["../../packages/registry/src/overlays/popover/popover"],
+      "@/lib/focus-modality": ["../../packages/registry/src/lib/focus-modality"],
       "@/*": ["./*"],
       "@registry/*": ["../../packages/registry/src/*"]
     }
