@@ -42,7 +42,7 @@ The menu only **reports** the theme choice. Applying it to the page (a class on 
 
 ## Narrow screens
 
-Under 640 pixels wide the same content opens as a **bottom sheet** instead of a menu, which is easier to reach with a thumb. Resize your browser window narrower than 640 pixels to see it (the preview's width buttons only change the frame, not the window).
+Under 640 pixels wide the same content opens as a **bottom sheet** instead of a menu, which is easier to reach with a thumb. Pull the **handle or the header** down to dismiss it: the sheet follows your finger, then slides away if you pulled it more than about a third of its height or flicked it quickly, and springs back otherwise. Escape and the close button work too, so dragging is never the only way out. Resize your browser window narrower than 640 pixels to see it (the preview's width buttons only change the frame, not the window).
 
 ## Signing out
 
@@ -68,6 +68,7 @@ Return a promise from `onSignOut` and the item shows "Signing out…" and ignore
 ## Accessibility
 
 - **Wide screens:** the trigger is a button with `aria-haspopup="menu"`. The popup is a real `role="menu"` built on [Dropdown menu](/docs/components/dropdown-menu), so arrow keys, Home and End, typing a letter, Enter and Escape all work, and focus returns to the trigger on close. Theme and status are menu radio items with their checked state announced, and choosing one keeps the menu open so the change is visible.
+- **Dragging** is an extra gesture for pointer and touch users, not the only way out. The handle is decorative and hidden from assistive technology. Keyboard and screen reader users close the sheet with Escape or the close button, and focus returns to the trigger either way. The release animation uses the `--duration-*` tokens, so it is near-instant under `prefers-reduced-motion`.
 - **Narrow screens:** the sheet is a `role="dialog"` named by the person's name and described by their email, built on [Dialog](/docs/components/dialog). Focus moves in, is trapped there, and returns to the trigger on close. Theme and status are labelled groups of pressed buttons. Escape and the close button dismiss it.
 - The trigger's name says who the account is and, when shown, the status ("Account menu, Asha Juma, Busy"). The presence dot differs by **shape** as well as colour: solid for available, barred for busy, hollow for away.
 - The picture in the identity header is decorative, since the name beside it says the same thing, and is hidden from assistive technology. Shortcut text is read as part of the item ("Profile Ctrl P"), so what is on screen matches the spoken name, but it only shows the shortcut: it does not bind any keys.
@@ -81,7 +82,7 @@ Return a promise from `onSignOut` and the item shows "Signing out…" and ignore
 ## Known limitations
 
 - The highlight does not glide between rows; it jumps, as in [Dropdown menu](/docs/components/dropdown-menu).
-- The bottom sheet is a dialog with an overlay: you cannot drag it down to dismiss it yet.
+- Only the handle and header are the drag area, so the rows below stay clickable and the sheet's own list can scroll. Dragging from further down the sheet does nothing.
 - Whether it shows the menu or the sheet is decided by the window width, not by whether the device is a phone.
 - Theme and status are reported, not applied or saved. Your app owns both.
 - No translations are bundled; pass your own through `messages`.
