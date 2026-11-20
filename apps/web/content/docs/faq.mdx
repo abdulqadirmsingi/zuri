@@ -1,0 +1,44 @@
+---
+title: FAQ
+description: Short answers about licence, installing, updating, frameworks and privacy.
+---
+
+## What does "you own the code" mean?
+
+Installing a component copies its source file into your project. There is no Zuri package to keep in `node_modules`. You can read it, change it and delete what you don't need.
+
+## What is the licence?
+
+The free components and blocks are under the MIT licence; see `LICENSE` in the repository. Pro items, when they exist, will have their own commercial licence, which is not written yet.
+
+## How much does it cost?
+
+Everything on this site is free today. Pro has no price yet, and none is stated anywhere until it is decided.
+
+## Do I need shadcn?
+
+The install command uses the shadcn CLI, so your project needs a `components.json`. Without it, you can copy a component's file by hand from its docs page and add the packages it lists.
+
+## Which frameworks work?
+
+Components target React 19 and Tailwind CSS v4. They are built to work in Next.js App Router, Vite and Remix, but the site is only tested in Next.js so far, so treat other setups as unverified.
+
+## How do I update a component?
+
+Run the install command again. The CLI asks before overwriting, so your own edits are not lost silently. Because the code is yours, you decide whether to take a change.
+
+## Which packages do components add?
+
+Only what the component's page lists, such as Radix primitives, `class-variance-authority`, `clsx` and `tailwind-merge`. The CLI installs them for you.
+
+## Do the components handle payments?
+
+Payment-related components, if you add any, are presentation only. They never store or send card or mobile-money details; your backend or payment provider does that.
+
+## Are the components accessible?
+
+They are built toward WCAG 2.2 AA: keyboard use, visible focus, names and states, and reduced motion. Every page is run through an automated checker, which catches only some problems. Each page lists its keyboard and screen reader notes, and complex widgets have not all been tested with real screen readers.
+
+## What do you count?
+
+Each request for a registry item is counted, with no IP address and no cookies. See [Installation](/docs/installation).
