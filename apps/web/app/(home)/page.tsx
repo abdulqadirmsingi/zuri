@@ -5,6 +5,7 @@ import Link from "next/link";
 import { demoFor } from "@/components/demos";
 import { Builder, type BuilderItem } from "@/components/home/builder";
 import { HomeFooter } from "@/components/home/home-footer";
+import { InstallCommand } from "@/components/home/install-command";
 import { Shelves } from "@/components/home/shelves";
 import { ThemeLab } from "@/components/home/theme-lab";
 import { registryStats } from "@/lib/registry-stats";
@@ -183,6 +184,50 @@ export default function Home() {
                 Pick a shelf.
               </h2>
               <Shelves shelves={stats.shelves} />
+            </div>
+          </section>
+
+          {/* Three steps. The commands are the real ones. */}
+          <section aria-labelledby="steps-title" className="border-t border-border">
+            <div className={`${wrap} py-24 lg:py-32`}>
+              <h2
+                id="steps-title"
+                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+              >
+                Three steps, then it is yours.
+              </h2>
+              <ol className="m-0 grid list-none gap-10 p-0 lg:grid-cols-3">
+                {[
+                  {
+                    title: "Set up shadcn",
+                    text: "Once per project. Skip it if you already have a components.json.",
+                    command: "npx shadcn@latest init",
+                  },
+                  {
+                    title: "Add a component",
+                    text: "The file is copied into your project, along with the packages it needs.",
+                    command: `npx shadcn@latest add ${siteUrl}/r/button.json`,
+                  },
+                  {
+                    title: "Change it",
+                    text: "It is your code now. Edit it, restyle it, delete what you don't need.",
+                  },
+                ].map((step, i) => (
+                  <li key={step.title} className="flex flex-col gap-4">
+                    <span
+                      aria-hidden="true"
+                      className="font-display text-7xl font-semibold leading-none text-accent-ink"
+                    >
+                      {i + 1}
+                    </span>
+                    <h3 className="m-0 text-xl font-semibold tracking-tight">{step.title}</h3>
+                    <p className="m-0 text-pretty leading-relaxed text-muted-foreground">
+                      {step.text}
+                    </p>
+                    {step.command ? <InstallCommand command={step.command} /> : null}
+                  </li>
+                ))}
+              </ol>
             </div>
           </section>
 
