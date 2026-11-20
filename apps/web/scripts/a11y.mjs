@@ -13,6 +13,7 @@ const pages = [
   "/docs",
   "/docs/installation",
   "/docs/theming",
+  "/docs/faq",
   "/docs/components",
   "/docs/blocks",
   "/docs/components/button",
