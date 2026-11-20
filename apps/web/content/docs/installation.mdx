@@ -5,8 +5,12 @@ description: Add a Zuri component to an existing shadcn project.
 
 ## Requirements
 
-- A project set up with the shadcn CLI (it has a `components.json`). If not, run `npx shadcn@latest init` first.
+- A project set up with the shadcn CLI (it has a `components.json`). If not, run `npx shadcn@latest init -b radix` first.
 - React 19 and Tailwind CSS v4.
+
+<Callout type="warn" title="Choose the Radix base">
+  Zuri components are built on Radix. Recent versions of `shadcn init -d` default to a Base UI style (`base-nova`), and the CLI then rewrites `asChild` into Base UI's `render` prop, which breaks the site header, picker and user menu with type errors. Initialise with `-b radix` (or pick a Radix style such as `radix-nova`) and everything installs cleanly.
+</Callout>
 
 ## Add a component
 
