@@ -145,14 +145,39 @@ describe("Button", () => {
     expect(className).toContain("motion-reduce:active:scale-100");
   });
 
+  it("offers the alternative styles, each with its own look", () => {
+    const { rerender } = render(<Button variant="accent">x</Button>);
+    const cls = () => screen.getByRole("button").className;
+    expect(cls()).toContain("bg-accent");
+    expect(cls()).toContain("text-accent-foreground");
+    rerender(<Button variant="soft">x</Button>);
+    expect(cls()).toContain("bg-muted");
+    rerender(<Button variant="link">x</Button>);
+    expect(cls()).toContain("underline");
+    rerender(<Button variant="brutal">x</Button>);
+    expect(cls()).toContain("shadow-[3px_3px_0_0_var(--foreground)]");
+    expect(cls()).toContain("motion-reduce:hover:translate-x-0");
+    rerender(<Button variant="wipe">x</Button>);
+    expect(cls()).toContain("hover:before:scale-x-100");
+    expect(cls()).toContain("motion-reduce:before:transition-none");
+  });
+
   describe("axe", () => {
-    it.each(["default", "outline", "ghost", "glass", "destructive"] as const)(
-      "has no violations (%s)",
-      async (variant: NonNullable<ButtonProps["variant"]>) => {
-        const { container } = render(<Button variant={variant}>Label</Button>);
-        expect((await axe(container)).violations).toEqual([]);
-      },
-    );
+    it.each([
+      "default",
+      "outline",
+      "ghost",
+      "glass",
+      "destructive",
+      "accent",
+      "soft",
+      "link",
+      "brutal",
+      "wipe",
+    ] as const)("has no violations (%s)", async (variant: NonNullable<ButtonProps["variant"]>) => {
+      const { container } = render(<Button variant={variant}>Label</Button>);
+      expect((await axe(container)).violations).toEqual([]);
+    });
     it("has no violations when loading or icon-only", async () => {
       const { container } = render(
         <>
