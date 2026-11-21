@@ -7,7 +7,7 @@ description: Fades content in as it scrolls into view, and never hides what is a
   <Demo name="reveal-stagger" />
 </Preview>
 
-Use `Reveal` to bring page sections in as people scroll to them. The demo above fades in as you scroll it into view; scroll up and reload to see it again.
+Use `Reveal` to bring page sections in as people scroll to them. Press **Replay** above to watch the cards arrive. In your own page they play as the content scrolls into view. If your system is set to reduce motion, nothing animates and the content just appears.
 
 Content is fully visible until the page has loaded, so it works without JavaScript and search engines see everything. Anything already on screen when the page loads is left alone, so there is no flash.
 
@@ -47,6 +47,7 @@ It extends the native `<div>` props and spreads them onto the element, including
     { name: "from", type: '"up" | "fade" | "start" | "end"', default: '"up"', description: "How it arrives." },
     { name: "delay", type: "number", default: "0", description: "Milliseconds to wait before starting. Use steps of 60 to 120 to stagger siblings." },
     { name: "threshold", type: "number", default: "0.15", description: "The fraction of the element that must be visible before it reveals, from 0 to 1." },
+    { name: "animateOnScreen", type: "boolean", default: "false", description: "Also animate content that is already on screen at mount. Off by default, so the page doesn't flash on load. The demos on this page turn it on." },
     { name: "once", type: "boolean", default: "true", description: "Reveal once, or hide again when it scrolls out of view." },
     { name: "as", type: "ElementType", default: '"div"', description: 'The element to render, for example "li" or "section".' },
   ]}

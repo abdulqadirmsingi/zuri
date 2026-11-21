@@ -12,6 +12,11 @@ export interface RevealProps extends ComponentProps<"div"> {
   threshold?: number;
   /** Reveal once (default) or hide again when it scrolls out of view. */
   once?: boolean;
+  /**
+   * Also animate when already on screen at mount. By default such content is left alone so the
+   * page doesn't flash; turn this on for something that should always play, like a demo.
+   */
+  animateOnScreen?: boolean;
   /** The element to render. Defaults to "div". */
   as?: ElementType;
 }
@@ -33,6 +38,7 @@ export function Reveal({
   delay = 0,
   threshold = 0.15,
   once = true,
+  animateOnScreen = false,
   as: Tag = "div",
   className,
   style,
@@ -50,7 +56,7 @@ export function Reveal({
     const rect = el.getBoundingClientRect();
     // Already on screen when the page loads: leave it alone, so there is no flash.
     const onScreen = rect.top < window.innerHeight && rect.bottom > 0;
-    if (!onScreen) setState("hidden");
+    if (!onScreen || animateOnScreen) setState("hidden");
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -64,7 +70,16 @@ export function Reveal({
       },
       { threshold },
     );
-    io.observe(el);
+    // Content that was already on screen would otherwise flip to visible in the same frame it was
+    // hidden, and the browser would never paint the hidden state, so nothing would animate.
+    let start = 0;
+    if (animateOnScreen && onScreen) {
+      start = requestAnimationFrame(() => {
+        start = requestAnimationFrame(() => io.observe(el));
+      });
+    } else {
+      io.observe(el);
+    }
 
     // A jump past the element (the End key, an anchor link further down) moves it from below the
     // view to above it without ever intersecting, so the observer stays silent and it would stay
@@ -84,9 +99,10 @@ export function Reveal({
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
+      cancelAnimationFrame(start);
       io.disconnect();
     };
-  }, [once, threshold]);
+  }, [once, threshold, animateOnScreen]);
 
   return (
     <Tag
@@ -95,7 +111,8 @@ export function Reveal({
       style={{ ...style, transitionDelay: state === "visible" && delay ? `${delay}ms` : undefined }}
       className={cn(
         "transition-[opacity,transform,translate,scale,rotate] duration-[var(--duration-slow)] ease-[var(--ease-out)]",
-        state === "hidden" && hidden[from],
+        // Hiding is instant: only the way in is animated, so a replay starts from fully hidden.
+        state === "hidden" && ["transition-none", hidden[from]],
         className,
       )}
       {...props}

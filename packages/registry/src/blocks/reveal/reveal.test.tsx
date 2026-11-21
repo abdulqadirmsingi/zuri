@@ -124,4 +124,21 @@ describe("Reveal", () => {
     const { container } = render(<Reveal>Hello</Reveal>);
     expect(container.firstElementChild?.getAttribute("data-reveal")).toBe("visible");
   });
+  it("animates content that is already on screen only when animateOnScreen is set", async () => {
+    setup({ top: 100 });
+    const plain = render(<Reveal>Hello</Reveal>);
+    expect((plain.container.firstElementChild as HTMLElement).getAttribute("data-reveal")).toBe(
+      "visible",
+    );
+    plain.unmount();
+    const { container } = render(<Reveal animateOnScreen>Hello</Reveal>);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el.getAttribute("data-reveal")).toBe("hidden");
+    // The observer starts two frames later, so the hidden state is painted first.
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 60));
+      callback([{ isIntersecting: true }]);
+    });
+    expect(el.getAttribute("data-reveal")).toBe("visible");
+  });
 });
