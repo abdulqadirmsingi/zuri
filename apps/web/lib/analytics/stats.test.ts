@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { type InstallEventInsert, installEvents } from "@/db/schema";
 import { createTestDb } from "@/test/pglite";
-import { getOverview } from "./stats";
+import { formatCount } from "./format-count";
+import { getOverview, getPublicInstalls } from "./stats";
 
 const now = new Date("2026-11-18T12:00:00Z");
 const hoursAgo = (h: number) => new Date(now.getTime() - h * 3_600_000);
@@ -51,5 +52,26 @@ describe("getOverview", () => {
     const { db } = await createTestDb();
     await db.insert(installEvents).values(ev({ country: null }));
     expect((await getOverview(db, [], now)).byCountry).toEqual([{ country: "unknown", unique: 1 }]);
+  });
+});
+
+describe("getPublicInstalls", () => {
+  it("stays hidden below the threshold and shows the de-duplicated total above it", async () => {
+    const { db } = await createTestDb();
+    await db
+      .insert(installEvents)
+      .values(Array.from({ length: 9 }, (_, i) => ev({ visitorHash: `v${i}` })));
+    expect(await getPublicInstalls(db)).toBeNull();
+    await db.insert(installEvents).values([ev({ visitorHash: "v9" }), ev({ visitorHash: "v9" })]);
+    expect(await getPublicInstalls(db)).toBe(10);
+  });
+});
+
+describe("formatCount", () => {
+  it("rounds down to a short label", () => {
+    expect(formatCount(12)).toBe("12");
+    expect(formatCount(1234)).toBe("1.2k");
+    expect(formatCount(1999)).toBe("1.9k");
+    expect(formatCount(12_500)).toBe("12k");
   });
 });

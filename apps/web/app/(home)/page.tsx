@@ -6,6 +6,7 @@ import { demoFor } from "@/components/demos";
 import { Builder, type BuilderItem } from "@/components/home/builder";
 import { HomeFooter } from "@/components/home/home-footer";
 import { InstallCommand } from "@/components/home/install-command";
+import { InstallCount } from "@/components/home/install-count";
 import { Shelves } from "@/components/home/shelves";
 import { ThemeLab } from "@/components/home/theme-lab";
 import { registryStats } from "@/lib/registry-stats";
@@ -115,6 +116,7 @@ export default function Home() {
             </h1>
             <p className={`${label} mb-6`}>
               {stats.count} components · {stats.blocks} blocks · finish the sentence
+              <InstallCount />
             </p>
             <Builder items={builderItems} initialId="dialog" />
           </section>
