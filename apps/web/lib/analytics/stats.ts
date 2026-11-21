@@ -96,3 +96,12 @@ export async function getOverview(
     neverInstalled: knownComponents.filter((c) => !seen.has(c)).sort(),
   };
 }
+
+/** Below this the number would make the site look empty, so it is not shown (ANALYTICS.md §6). */
+export const MIN_PUBLIC_INSTALLS = 10;
+
+/** The one number shown publicly: de-duplicated installs, or null while it is too small to show. */
+export async function getPublicInstalls(db: Db): Promise<number | null> {
+  const { unique } = await totalsSince(db, null);
+  return unique >= MIN_PUBLIC_INSTALLS ? unique : null;
+}
