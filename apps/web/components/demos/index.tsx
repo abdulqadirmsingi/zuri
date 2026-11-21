@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { BottomNavDefault, BottomNavGlass } from "./bottom-nav-demos";
 import {
+  ButtonAlternatives,
   ButtonDefault,
   ButtonIcons,
   ButtonLoading,
@@ -83,6 +84,7 @@ const demos: Record<string, () => ReactNode> = {
   "button-states": ButtonStates,
   "button-icons": ButtonIcons,
   "button-loading": ButtonLoading,
+  "button-alternatives": ButtonAlternatives,
   "picker-default": PickerDefault,
   "picker-search": PickerSearch,
   "picker-inline": PickerInline,

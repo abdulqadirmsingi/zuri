@@ -122,7 +122,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "An accessible button with default, outline, ghost and glass variants.",
+      "description": "An accessible button with ten styles (default, accent, outline, soft, ghost, link, destructive, brutal, wipe and glass), sizes and a loading state.",
       "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
@@ -132,7 +132,7 @@
       ],
       "categories": ["actions"],
       "meta": {
-        "version": "0.2.0",
+        "version": "0.3.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
