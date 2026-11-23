@@ -9,7 +9,7 @@ import {
   ButtonStates,
   ButtonVariants,
 } from "./button-demos";
-import { CopyButtonDefault } from "./copy-button-demos";
+import { CopyButtonDefault, CopyButtonRecipes, CopyButtonStyles } from "./copy-button-demos";
 import {
   BadgeVariants,
   KbdDefault,
@@ -134,6 +134,8 @@ const demos: Record<string, () => ReactNode> = {
   "popover-default": PopoverDefault,
   "tooltip-default": TooltipDefault,
   "copy-button-default": CopyButtonDefault,
+  "copy-button-styles": CopyButtonStyles,
+  "copy-button-recipes": CopyButtonRecipes,
   "checkbox-default": CheckboxDefault,
   "checkbox-states": CheckboxStates,
   "switch-default": SwitchDefault,
