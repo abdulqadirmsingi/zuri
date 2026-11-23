@@ -1,0 +1,144 @@
+---
+title: Phone input
+description: A phone number field with a searchable country picker, grouped digits, paste detection and E.164 output, in joined, split and chip layouts.
+---
+
+<Preview>
+  <Demo name="phone-input-default" />
+</Preview>
+
+Use `PhoneInput` wherever you ask for a phone number, especially for people in more than one country. It keeps the number as digits, shows it grouped, and reports it in **E.164** form (`+255712345678`), which is what SMS and payment services expect. The country defaults to Tanzania (+255).
+
+<Callout type="warn" title="Presentation only">
+  This component never stores, logs or sends the number anywhere. It reports the value through `onValueChange`; your own server decides what to do with it. It checks **length only** (8 to 15 digits), not whether a number exists. For real validation use a library such as libphonenumber on your server.
+</Callout>
+
+## Installation
+
+<InstallTabs name="phone-input" />
+
+This also installs [Input](/docs/components/input), [Input group](/docs/components/input-group) and [Picker](/docs/components/picker), which it is built on.
+
+## Usage
+
+```tsx
+import { Field } from "@/components/ui/field";
+import { PhoneInput } from "@/components/ui/phone-input";
+
+<Field label="Phone number">
+  {(control) => (
+    <PhoneInput
+      {...control}
+      name="phone"
+      defaultCountry="TZ"
+      onValueChange={(e164, { valid }) => save(e164, valid)}
+    />
+  )}
+</Field>
+```
+
+`name` adds a hidden field holding the E.164 number, so a plain HTML form submits the clean value rather than the grouped text on screen.
+
+## What it does for you
+
+- **Country picker.** A searchable list: type a name, an ISO code or a dial code ("254" finds Kenya). Common countries come first.
+- **Paste-friendly.** Pasting `+254 712 345 678` or `00254 712 345 678` switches the country to Kenya and fills the number. Pasting a local number just fills it.
+- **Grouped digits.** `712345678` shows as `712 345 678`. The caret stays after the digit you were typing. The grouping is plain threes for readability, not a national format.
+- **One leading zero is dropped from the E.164 value** (`0712…` becomes `+255712…`), because in many countries it is only used inside the country. The screen still shows what was typed. Turn it off with `stripLeadingZero={false}` for countries where the zero stays.
+- **Never too long.** Input stops at 15 digits in total, the E.164 maximum.
+
+## Layouts
+
+Three ways to arrange the same field. All work with every look below.
+
+<Preview>
+  <Demo name="phone-input-layouts" />
+</Preview>
+
+- **`joined`** (default): the country button and the number share one control, with a divider.
+- **`split`**: two separate fields side by side, when you want the country to stand on its own.
+- **`chip`**: a saffron chip with just the dial code sits inside the field, the quietest of the three.
+
+## Looks and sizes
+
+It takes the same `variant` (`default`, `soft`, `underline`, `glass`) and `size` as [Input](/docs/components/input). `showName` adds the country's name beside the code.
+
+<Preview>
+  <Demo name="phone-input-looks" />
+</Preview>
+
+## Flags
+
+No flags ship with Zuri: emoji flags do not draw on every system, and flag artwork is yours to license. Each country shows its two-letter code in a small neutral tile. To use flags, supply them:
+
+```tsx
+<PhoneInput renderFlag={(iso) => <img src={`/flags/${iso}.svg`} alt="" width={20} height={14} />} />
+```
+
+## Your own countries
+
+The built-in list is a starting point, not every country. Pass `countries` to add, remove or translate:
+
+```tsx
+<PhoneInput
+  countries={[
+    { iso: "TZ", name: "Tanzania", dial: "255" },
+    { iso: "KE", name: "Kenya", dial: "254" },
+  ]}
+  preferred={["TZ"]}
+/>
+```
+
+Where a dial code is shared (the US and Canada both use +1), list each country separately; pasting keeps the country you already have if it matches.
+
+## Props
+
+`PhoneInput` extends native `<input>` props (except `value`, `onChange`, `size` and `type`) and puts them on the number field, including `ref` and `id`. `className` goes on the outer control.
+
+<PropsTable
+  rows={[
+    { name: "value / defaultValue", type: "string", description: "The number in E.164 form, or an empty string. Controlled or uncontrolled." },
+    { name: "onValueChange", type: "(e164: string, details: { country: string; national: string; valid: boolean }) => void", description: "Called on every change. `valid` is a length check only." },
+    { name: "defaultCountry", type: "string", default: '"TZ"', description: "ISO code shown first." },
+    { name: "countries", type: "Country[]", description: "The list to offer: { iso, name, dial }. Defaults to a built-in list." },
+    { name: "preferred", type: "string[]", default: '["TZ","KE","UG","RW"]', description: "ISO codes listed first, under Common." },
+    { name: "layout", type: '"joined" | "split" | "chip"', default: '"joined"', description: "How the country button and the number are arranged." },
+    { name: "variant", type: '"default" | "soft" | "underline" | "glass"', default: '"default"', description: "The surface, as on Input." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "The height, as on Input." },
+    { name: "showName", type: "boolean", default: "false", description: "Also show the country's name on the button." },
+    { name: "renderFlag", type: "(iso: string) => ReactNode", description: "Draw a flag or any mark for a country. None ships by default." },
+    { name: "stripLeadingZero", type: "boolean", default: "true", description: "Drop one leading 0 from the E.164 value." },
+    { name: "invalid", type: "boolean", description: "Sets aria-invalid on the number and a danger border. Field sets this for you." },
+    { name: "name", type: "string", description: "Adds a hidden field with the E.164 number for form submission." },
+    { name: "countryLabel / searchLabel / emptyText", type: "string", description: 'Words for the country button, its search box and the empty list. Translate them here.' },
+  ]}
+/>
+
+## Accessibility
+
+- The number is a native `<input type="tel">` with `inputmode="tel"` and `autocomplete="tel-national"`, so phones show the right keypad and browsers can fill it. Give it a label (see [Field](/docs/components/field)).
+- The country button is a labelled combobox that says what it shows, for example "Country: TZ +255, Tanzania", so the visible text is part of its name. The list is a listbox with a search box; arrow keys, Enter and Escape work as in [Picker](/docs/components/picker).
+- The two-letter tile and any flag are decorative and hidden from assistive technology; the country's name is in the option text.
+- The focus ring appears on the country button for keyboard users. The number field shows a single darker border and a soft halo when focused, around the whole control in joined and chip layouts.
+- An invalid field keeps its red border while focused, and should also show an error message in text (use [Field](/docs/components/field)).
+- Targets are at least 24 pixels; the chip is 28 pixels high, and the default country button is 40.
+- The button and list use the `--duration-*` tokens through [Popover](/docs/components/popover), which go to nearly zero under reduced motion.
+
+## Tokens used
+
+The same as Input and Picker, plus `--accent` and `--accent-foreground` for the chip.
+
+## Known limitations
+
+- **Length check only.** It does not know each country's number plan. Validate on your server.
+- **Generic grouping.** Digits are grouped in threes, not in each country's own pattern.
+- **A starting list, not all countries.** About 60 are built in; add yours with `countries`.
+- **Leading zero rule is global.** `stripLeadingZero` applies to every country in the list.
+- Not for extensions, or for numbers that are not international (short codes).
+- It is a client component.
+
+## Source
+
+Three files are copied: the component below, plus `phone-number.ts` (digit helpers) and `countries.ts` (the list). The component is shown here.
+
+<Source name="phone-input" />

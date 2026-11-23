@@ -51,6 +51,10 @@ export interface PickerProps
   panelClassName?: string;
   /** Replaces the default chevron. */
   icon?: ReactNode;
+  /** Draws the chosen option in the button. The option's label is still its accessible name. */
+  renderValue?: (option: PickerOption) => ReactNode;
+  /** Draws each option in the list. The row stays one option for assistive technology. */
+  renderOption?: (option: PickerOption, state: { selected: boolean }) => ReactNode;
 }
 
 const chevron = (
@@ -104,6 +108,8 @@ export function Picker({
   panelClassName,
   panelLabel = "Options",
   icon = chevron,
+  renderValue,
+  renderOption,
   className,
   disabled,
   id,
@@ -234,7 +240,7 @@ export function Picker({
           {...props}
         >
           <span className={cn("truncate", !selected && !inline && "text-muted-foreground")}>
-            {selected?.label ?? placeholder}
+            {selected ? (renderValue ? renderValue(selected) : selected.label) : placeholder}
           </span>
           {inline ? (
             <span aria-hidden="true" className="text-[0.28em] text-accent-ink">
@@ -279,7 +285,7 @@ export function Picker({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
-            className="mb-1 min-h-9 w-full rounded-md border border-border bg-background px-2.5 text-sm focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring"
+            className="mb-1 min-h-9 w-full rounded-md border border-border bg-background px-2.5 text-sm focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-foreground/10 focus-visible:outline-none"
           />
         ) : null}
         <div
@@ -322,7 +328,11 @@ export function Picker({
                       o.value === current && "font-medium",
                     )}
                   >
-                    <span className="truncate">{o.label}</span>
+                    {renderOption ? (
+                      renderOption(o, { selected: o.value === current })
+                    ) : (
+                      <span className="truncate">{o.label}</span>
+                    )}
                     {o.value === current ? tick : null}
                   </div>
                 ))}

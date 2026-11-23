@@ -85,4 +85,13 @@ describe("Input", () => {
     expect(cls()).toContain("px-0");
     expect(cls()).not.toContain("rounded-md");
   });
+
+  it("marks focus with a single border and halo, not an offset black outline", () => {
+    render(<Input aria-label="x" />);
+    const cls = screen.getByRole("textbox").className;
+    expect(cls).toContain("focus-visible:border-ring");
+    expect(cls).toContain("focus-visible:outline-none");
+    expect(cls).not.toContain("outline-offset");
+    expect(cls).not.toContain("focus-visible:outline-2");
+  });
 });

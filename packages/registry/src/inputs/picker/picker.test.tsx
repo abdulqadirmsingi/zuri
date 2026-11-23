@@ -189,4 +189,22 @@ describe("Picker", () => {
     const list = await screen.findByRole("listbox");
     expect((await axe(list.parentElement as HTMLElement)).violations).toEqual([]);
   });
+
+  it("can draw the value and the options its own way", async () => {
+    render(
+      <Picker
+        aria-label="Country"
+        defaultValue="tz"
+        options={[
+          { value: "tz", label: "Tanzania" },
+          { value: "ke", label: "Kenya" },
+        ]}
+        renderValue={(o) => <b data-testid="value">{o.value.toUpperCase()}</b>}
+        renderOption={(o) => <i>{`${o.value}:${o.label}`}</i>}
+      />,
+    );
+    expect(screen.getByTestId("value").textContent).toBe("TZ");
+    await userEvent.click(screen.getByRole("combobox", { name: "Country" }));
+    expect(screen.getByText("ke:Kenya")).toBeTruthy();
+  });
 });

@@ -195,6 +195,38 @@
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/input.json"]
     },
     {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "title": "Phone input",
+      "description": "A phone number field with a searchable country picker, grouped digits, paste detection and E.164 output.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/phone-input/phone-input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/inputs/phone-input/phone-number.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/inputs/phone-input/countries.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/input.json",
+        "__REGISTRY_URL__/input-group.json",
+        "__REGISTRY_URL__/picker.json"
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",

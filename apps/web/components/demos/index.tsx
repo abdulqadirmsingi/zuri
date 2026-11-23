@@ -58,6 +58,7 @@ import {
 } from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
+import { PhoneInputDefault, PhoneInputLayouts, PhoneInputLooks } from "./phone-input-demos";
 import { PickerDefault, PickerInline, PickerSearch } from "./picker-demos";
 import { BlurBoth, BlurBottom, BlurSide } from "./progressive-blur-demos";
 import {
@@ -180,6 +181,9 @@ const demos: Record<string, () => ReactNode> = {
   "input-group-default": InputGroupDefault,
   "input-group-buttons": InputGroupButtons,
   "input-group-looks": InputGroupLooks,
+  "phone-input-default": PhoneInputDefault,
+  "phone-input-layouts": PhoneInputLayouts,
+  "phone-input-looks": PhoneInputLooks,
   "textarea-default": TextareaDefault,
   "textarea-states": TextareaStates,
   "field-default": FieldDefault,

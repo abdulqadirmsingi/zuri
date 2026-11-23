@@ -47,4 +47,13 @@ describe("Textarea", () => {
     );
     expect((await axe(container)).violations).toEqual([]);
   });
+
+  it("marks focus with a single border and halo, not an offset black outline", () => {
+    render(<Textarea aria-label="x" />);
+    const cls = screen.getByRole("textbox").className;
+    expect(cls).toContain("focus-visible:border-ring");
+    expect(cls).toContain("focus-visible:outline-none");
+    expect(cls).not.toContain("outline-offset");
+    expect(cls).not.toContain("focus-visible:outline-2");
+  });
 });

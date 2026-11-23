@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -172,5 +172,25 @@ describe("Tabs", () => {
     expect(indicator?.style.width).toBe("80px");
     expect(indicator?.style.transform).toBe("translateX(4px)");
     vi.restoreAllMocks();
+  });
+
+  it("hides the focus ring after a mouse click and brings it back for the keyboard", async () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabsList>
+          <TabsTrigger value="a">One</TabsTrigger>
+          <TabsTrigger value="b">Two</TabsTrigger>
+        </TabsList>
+      </Tabs>,
+    );
+    const one = screen.getByRole("tab", { name: "One" });
+    expect(one.className).toContain("data-[pointer]:focus-visible:outline-none");
+    fireEvent.pointerDown(one);
+    expect(one.hasAttribute("data-pointer")).toBe(true);
+    fireEvent.keyDown(one, { key: "ArrowRight" });
+    expect(one.hasAttribute("data-pointer")).toBe(false);
+    fireEvent.pointerDown(one);
+    fireEvent.blur(one);
+    expect(one.hasAttribute("data-pointer")).toBe(false);
   });
 });

@@ -17,6 +17,8 @@
       "@/components/ui/testimonials": [
         "../../packages/registry/src/blocks/testimonials/testimonials"
       ],
+      "@/components/ui/input-group": ["../../packages/registry/src/inputs/input-group/input-group"],
+      "@/components/ui/picker": ["../../packages/registry/src/inputs/picker/picker"],
       "@/components/ui/marquee": ["../../packages/registry/src/blocks/marquee/marquee"],
       "@/components/ui/reveal": ["../../packages/registry/src/blocks/reveal/reveal"],
       "@/components/ui/section-heading": [

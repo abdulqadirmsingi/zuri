@@ -34,6 +34,7 @@ const pages = [
   "/docs/components/label",
   "/docs/components/input",
   "/docs/components/input-group",
+  "/docs/components/phone-input",
   "/docs/components/textarea",
   "/docs/components/field",
   "/docs/components/password-strength",

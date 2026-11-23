@@ -27,7 +27,10 @@ describe("InputGroup", () => {
     const group = container.firstElementChild as HTMLElement;
     expect(group.className).toContain("border");
     expect(group.className).toContain("[&_input]:border-0");
-    expect(group.className).toContain("focus-within:outline-2");
+    expect(group.className).toContain(
+      "has-[input:focus-visible:not([aria-invalid=true])]:border-ring",
+    );
+    expect(group.className).not.toContain("outline-2");
   });
 
   it("shows the danger border when the input inside is invalid", () => {
@@ -78,5 +81,16 @@ describe("InputGroup", () => {
       </InputGroup>,
     );
     expect((await axe(container)).violations).toEqual([]);
+  });
+
+  it("dims the whole group when its input is disabled", () => {
+    const { container } = render(
+      <InputGroup>
+        <Input aria-label="Amount" disabled />
+      </InputGroup>,
+    );
+    expect((container.firstElementChild as HTMLElement).className).toContain(
+      "has-[input:disabled]:opacity-50",
+    );
   });
 });
