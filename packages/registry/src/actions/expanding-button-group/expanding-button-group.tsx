@@ -40,7 +40,12 @@ export interface ExpandingButtonGroupProps
   actions: readonly ExpandingAction[];
   /** The action whose label shows at rest. Defaults to the first one that is not disabled. */
   restingId?: string;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
+  /**
+   * "default" is an outlined pill whose open button is filled with the primary colour; "soft" has
+   * a muted fill and no border; "accent" is outlined with the open button in saffron.
+   */
+  variant?: "default" | "soft" | "accent";
   /** Called with the id whenever an action starts, before its own `onPress`. */
   onAction?: (id: string) => void;
   /** How long the success message stays, in milliseconds. Defaults to 1400. */
@@ -50,6 +55,13 @@ export interface ExpandingButtonGroupProps
 const sizes = {
   sm: "h-8 min-w-8 px-2 text-xs",
   md: "h-10 min-w-10 px-3 text-sm",
+  lg: "h-12 min-w-12 px-4 text-base",
+} as const;
+
+const surfaces = {
+  default: "border border-border bg-background",
+  soft: "bg-muted",
+  accent: "border border-border bg-background",
 } as const;
 
 const isPromise = (value: unknown): value is Promise<unknown> =>
@@ -67,6 +79,7 @@ export function ExpandingButtonGroup({
   actions,
   restingId,
   size = "md",
+  variant = "default",
   onAction,
   successDuration = 1400,
   className,
@@ -214,7 +227,8 @@ export function ExpandingButtonGroup({
         setFocused(null);
       }}
       className={cn(
-        "inline-flex max-w-full items-center gap-1 rounded-full border border-border bg-background p-1",
+        "inline-flex max-w-full items-center gap-1 rounded-full p-1",
+        surfaces[variant],
         className,
       )}
       {...props}
@@ -229,6 +243,7 @@ export function ExpandingButtonGroup({
             tabIndex={tabStop === action.id ? 0 : -1}
             data-expanded={isOpen || undefined}
             data-variant={action.variant ?? "default"}
+            data-tone={variant}
             aria-disabled={action.disabled || undefined}
             aria-busy={busy === action.id || undefined}
             onClick={() => onClick(action)}
@@ -249,6 +264,8 @@ export function ExpandingButtonGroup({
               "group inline-flex shrink-0 items-center justify-center rounded-full font-medium text-muted-foreground transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-out)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none",
               sizes[size],
               "data-[expanded]:bg-primary data-[expanded]:text-primary-foreground",
+              // Scoped to non-danger actions so a danger button keeps its own colour when open.
+              "data-[tone=accent]:data-[variant=default]:data-[expanded]:bg-accent data-[tone=accent]:data-[variant=default]:data-[expanded]:text-accent-foreground",
               "data-[variant=danger]:text-danger data-[variant=danger]:data-[expanded]:bg-danger data-[variant=danger]:data-[expanded]:text-primary-foreground",
               "aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
               "aria-busy:cursor-progress",
