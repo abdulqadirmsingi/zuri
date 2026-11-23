@@ -33,6 +33,7 @@ const pages = [
   "/docs/components/user-menu",
   "/docs/components/label",
   "/docs/components/input",
+  "/docs/components/input-group",
   "/docs/components/textarea",
   "/docs/components/field",
   "/docs/components/password-strength",

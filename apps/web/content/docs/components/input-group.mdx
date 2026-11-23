@@ -1,0 +1,96 @@
+---
+title: Input group
+description: Wraps an input with an icon, prefix, suffix or button on either side, so they read as one control.
+---
+
+<Preview>
+  <Demo name="input-group-default" />
+</Preview>
+
+Use `InputGroup` when a field needs something beside it: a search icon, a country code like +255, a unit like TZS, or a button to show a password or clear the text. The group draws the border and the focus ring, and the input inside is made borderless, so the pieces look like one control.
+
+## Installation
+
+<InstallTabs name="input-group" />
+
+This also installs [Input](/docs/components/input), which it is built on.
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input";
+import { InputGroup } from "@/components/ui/input-group";
+import { Label } from "@/components/ui/label";
+
+<Label htmlFor="amount">Amount</Label>
+<InputGroup end={<span>TZS</span>}>
+  <Input id="amount" inputMode="numeric" />
+</InputGroup>
+```
+
+Give the **input** its label, as usual. The group has no name of its own.
+
+## Buttons at either end
+
+A button in `start` or `end` needs its own accessible name, and a toggle needs `aria-pressed`.
+
+<Preview>
+  <Demo name="input-group-buttons" />
+</Preview>
+
+```tsx
+<InputGroup
+  end={
+    <Button variant="ghost" size="icon-sm" aria-label="Show password" aria-pressed={shown} onClick={toggle}>
+      <EyeIcon />
+    </Button>
+  }
+>
+  <Input id="pass" type={shown ? "text" : "password"} autoComplete="new-password" />
+</InputGroup>
+```
+
+## Looks and sizes
+
+It takes the same `variant` and `size` as [Input](/docs/components/input). An invalid input inside turns the group's border red by itself.
+
+<Preview>
+  <Demo name="input-group-looks" />
+</Preview>
+
+## Props
+
+`InputGroup` extends native `<div>` props (except `children`) and spreads them onto the wrapper, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "children", type: "ReactNode", description: "The field: an `Input`, or any native `<input>`. Required." },
+    { name: "start", type: "ReactNode", description: "Content before the field: an icon or a short prefix." },
+    { name: "end", type: "ReactNode", description: "Content after the field: a unit or a button." },
+    { name: "variant", type: '"default" | "soft" | "underline" | "glass"', default: '"default"', description: "The surface, as on Input." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "The height, as on Input." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- The input inside keeps its own label and is the only focusable field. The group is a plain `div` with no role.
+- The focus ring appears around the whole group when the input has focus.
+- Icons are decorative: give them `aria-hidden="true"`. A text prefix or suffix such as "+255" is visible but is not part of the input's name, so say the unit in the label too (for example "Amount in TZS") when it matters.
+- Buttons inside need an `aria-label` when they show only an icon, and a toggle needs `aria-pressed`. They are 32 pixels at the smallest size, above the 24-pixel WCAG minimum.
+- Invalid state comes from the input's own `aria-invalid`; the red border is not the only signal when you also show an error message (see [Field](/docs/components/field)).
+
+## Tokens used
+
+The same as Input, plus `--muted-foreground` for the ends.
+
+## Known limitations
+
+- It makes the first `<input>` inside borderless with a descendant selector, so put one field in the group.
+- It does not connect a label to the input for you. Use `htmlFor` and `id`, or build the field with [Field](/docs/components/field).
+- Not for a `<textarea>` or `<select>`.
+
+## Source
+
+<Source name="input-group" />
