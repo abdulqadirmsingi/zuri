@@ -142,7 +142,7 @@
       "type": "registry:ui",
       "title": "Label",
       "description": "A native label.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
           "path": "src/inputs/label/label.tsx",
@@ -151,7 +151,7 @@
       ],
       "categories": ["inputs"],
       "meta": {
-        "version": "0.1.0",
+        "version": "0.2.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]

@@ -1,6 +1,6 @@
 ---
 title: Label
-description: A native label that names a form control.
+description: A native label that names a form control, with required and optional markers, three looks and three sizes.
 ---
 
 <Preview>
@@ -22,6 +22,23 @@ import { Label } from "@/components/ui/label";
 <Input id="phone" />
 ```
 
+## Looks
+
+<Preview>
+  <Demo name="label-looks" />
+</Preview>
+
+- **`required`** adds a red asterisk. It is decorative, so also put `required` on the input itself; that is what assistive technology reads.
+- **`optional`** adds "(optional)" after the text. It is part of the label, so screen readers read it too. Marking the few optional fields is often clearer than starring every required one.
+- **`variant`**: `default`, `caps` (small capitals in the mono face, for dense forms) or `muted`.
+- **`size`**: `sm`, `md` or `lg`. Match it to the input's size.
+
+```tsx
+<Label htmlFor="name" required>Full name</Label>
+<Label htmlFor="nick" optional>Nickname</Label>
+<Label htmlFor="phone" variant="caps" size="sm">Phone number</Label>
+```
+
 ## Props
 
 `Label` extends all native `<label>` props and spreads them onto the element.
@@ -29,6 +46,10 @@ import { Label } from "@/components/ui/label";
 <PropsTable
   rows={[
     { name: "htmlFor", type: "string", description: "The id of the control it names. Without it (or nesting), the label names nothing." },
+    { name: "required", type: "boolean", description: "Adds a decorative red asterisk. Put `required` on the control too." },
+    { name: "optional", type: "boolean", description: 'Adds "(optional)" after the text. Ignored when `required` is set.' },
+    { name: "variant", type: '"default" | "caps" | "muted"', default: '"default"', description: "The look of the text." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "The text size." },
     { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
   ]}
 />
@@ -37,10 +58,11 @@ import { Label } from "@/components/ui/label";
 
 - It is a native `<label>`, so clicking it focuses the control and screen readers announce it as the control's name.
 - A label is required for every input. A placeholder is not a label.
+- The asterisk is hidden from assistive technology; the control's own `required` attribute carries the meaning. Don't rely on colour alone: the asterisk is a shape, and "(optional)" is text.
 
 ## Tokens used
 
-`--foreground`.
+`--foreground`, `--muted-foreground`, `--danger`.
 
 ## Known limitations
 

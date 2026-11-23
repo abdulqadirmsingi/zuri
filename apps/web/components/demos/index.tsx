@@ -41,6 +41,7 @@ import {
   InputSizes,
   InputVariants,
   LabelDefault,
+  LabelLooks,
   TextareaDefault,
   TextareaStates,
 } from "./input-demos";
@@ -171,6 +172,7 @@ const demos: Record<string, () => ReactNode> = {
   "empty-state-default": EmptyStateDefault,
   "stat-default": StatDefault,
   "label-default": LabelDefault,
+  "label-looks": LabelLooks,
   "input-default": InputDefault,
   "input-variants": InputVariants,
   "input-sizes": InputSizes,

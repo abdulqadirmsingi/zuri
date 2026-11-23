@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Label 0.2.0: `required` and `optional` markers, `variant` (default, caps, muted) and `size`.
 - Expanding button group 0.2.0: `variant` (default, soft, accent) and a large size.
 - Theme switch 0.2.0: `curtain` and `diagonal` page transitions, plus a Light/System/Dark recipe in the docs.
 - Button 0.3.0: five new styles (`accent`, `soft`, `link`, `brutal`, `wipe`) and a docs section of copyable alternatives.
