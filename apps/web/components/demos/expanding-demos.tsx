@@ -86,3 +86,20 @@ export function ExpandingSmall() {
     />
   );
 }
+
+const mixed = [
+  { id: "reply", label: "Reply", icon: icons.reply },
+  { id: "share", label: "Share", icon: icons.share, successLabel: "Link copied" },
+  { id: "delete", label: "Delete", icon: icons.trash, variant: "danger" as const },
+];
+
+export function ExpandingLooks() {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <ExpandingButtonGroup aria-label="Default look" actions={mixed} />
+      <ExpandingButtonGroup aria-label="Soft look" variant="soft" actions={mixed} />
+      <ExpandingButtonGroup aria-label="Accent look" variant="accent" actions={mixed} />
+      <ExpandingButtonGroup aria-label="Large" size="lg" variant="accent" actions={mixed} />
+    </div>
+  );
+}

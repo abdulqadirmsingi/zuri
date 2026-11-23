@@ -273,6 +273,26 @@ describe("ExpandingButtonGroup", () => {
     expect(bar.getAttribute("data-x")).toBe("1");
   });
 
+  it("offers soft and accent looks and a large size", () => {
+    const { rerender } = render(<ExpandingButtonGroup aria-label="x" actions={make()} />);
+    const bar = () => screen.getByRole("toolbar");
+    expect(bar().className).toContain("border-border");
+    rerender(<ExpandingButtonGroup aria-label="x" variant="soft" actions={make()} />);
+    expect(bar().className).toContain("bg-muted");
+    expect(bar().className).not.toContain("border-border");
+    rerender(<ExpandingButtonGroup aria-label="x" variant="accent" size="lg" actions={make()} />);
+    const reply = screen.getByRole("button", { name: "Reply" });
+    expect(reply.getAttribute("data-tone")).toBe("accent");
+    expect(reply.className).toContain(
+      "data-[tone=accent]:data-[variant=default]:data-[expanded]:bg-accent",
+    );
+    expect(reply.className).toContain("h-12");
+    // A danger action keeps its own colour even in the accent look.
+    expect(screen.getByRole("button", { name: "Delete" }).getAttribute("data-variant")).toBe(
+      "danger",
+    );
+  });
+
   it("has no axe violations (rest, success, danger, disabled)", async () => {
     const { container } = render(
       <ExpandingButtonGroup

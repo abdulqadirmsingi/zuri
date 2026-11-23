@@ -1,6 +1,6 @@
 ---
 title: Expanding button group
-description: A pill of icon buttons where one shows its label, with in-place confirmation and a two-tap flow on touch.
+description: A pill of icon buttons where one shows its label, in default, soft and accent looks, with in-place confirmation and a two-tap flow on touch.
 ---
 
 <Preview>
@@ -38,7 +38,18 @@ Return a promise from `onPress` to show a busy state until it settles. Return `f
   <Demo name="expanding-async" />
 </Preview>
 
-## Smaller
+## Looks
+
+`variant` changes the surface: `default` is outlined with a black open button, `soft` has a muted fill and no border, and `accent` is outlined with a saffron open button. A `danger` action keeps its own colour in every look.
+
+<Preview>
+  <Demo name="expanding-looks" />
+</Preview>
+
+## Sizes
+
+
+`size` is `sm`, `md` or `lg`.
 
 <Preview>
   <Demo name="expanding-small" />
@@ -52,7 +63,8 @@ Return a promise from `onPress` to show a busy state until it settles. Return `f
   rows={[
     { name: "actions", type: "ExpandingAction[]", description: "The buttons. Each has id, label, icon, and optionally onPress, successLabel, variant and disabled." },
     { name: "restingId", type: "string", description: "The action whose label shows at rest. Defaults to the first one that is not disabled." },
-    { name: "size", type: '"sm" | "md"', default: '"md"', description: "32 or 40 pixel buttons." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "32, 40 or 48 pixel buttons." },
+    { name: "variant", type: '"default" | "soft" | "accent"', default: '"default"', description: "The surface and the colour of the open button." },
     { name: "onAction", type: "(id: string) => void", description: "Called with the id whenever an action starts, before its own onPress." },
     { name: "successDuration", type: "number", default: "1400", description: "Milliseconds the success message stays." },
     { name: "successLabel", type: "string", description: "On an action. The past-tense word shown in place after it works, with the icon turning into a check." },
@@ -74,7 +86,7 @@ Return a promise from `onPress` to show a busy state until it settles. Return `f
 
 ## Tokens used
 
-`--background`, `--border`, `--primary`, `--primary-foreground`, `--muted-foreground`, `--foreground`, `--danger`, `--ring`, `--duration-base`, `--duration-slow`, `--ease-out`.
+`--background`, `--border`, `--muted`, `--primary`, `--primary-foreground`, `--accent`, `--accent-foreground`, `--muted-foreground`, `--foreground`, `--danger`, `--ring`, `--duration-base`, `--duration-slow`, `--ease-out`.
 
 ## Known limitations
 

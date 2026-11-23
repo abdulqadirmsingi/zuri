@@ -26,7 +26,12 @@ import {
   EmptyStateDefault,
   StatDefault,
 } from "./display-demos-2";
-import { ExpandingAsync, ExpandingDefault, ExpandingSmall } from "./expanding-demos";
+import {
+  ExpandingAsync,
+  ExpandingDefault,
+  ExpandingLooks,
+  ExpandingSmall,
+} from "./expanding-demos";
 import { HeroFan, HeroMagazine, HeroSplit, HeroSplitStart } from "./hero-demos";
 import {
   FieldDefault,
@@ -124,6 +129,7 @@ const demos: Record<string, () => ReactNode> = {
   "expanding-default": ExpandingDefault,
   "expanding-async": ExpandingAsync,
   "expanding-small": ExpandingSmall,
+  "expanding-looks": ExpandingLooks,
   "password-default": PasswordDefault,
   "password-error": PasswordWithError,
   "password-reworded": PasswordReworded,
