@@ -132,6 +132,18 @@ describe("ThemeSwitch", () => {
     expect(keyframes.clipPath).toEqual(["inset(0 0 100% 0)", "inset(0 0 0 0)"]);
   });
 
+  it.each([
+    ["curtain", ["inset(0 50% 0 50%)", "inset(0 0 0 0)"]],
+    ["diagonal", ["polygon(0 0, 0 0, 0 0)", "polygon(0 0, 200% 0, 0 200%)"]],
+  ] as const)("runs the %s transition", async (transition, expected) => {
+    const { animate } = mockViewTransitions();
+    render(<ThemeSwitch transition={transition} />);
+    await userEvent.click(screen.getByRole("button"));
+    await waitFor(() => expect(animate).toHaveBeenCalledOnce());
+    const [keyframes] = animate.mock.calls[0] as [{ clipPath: string[] }];
+    expect(keyframes.clipPath).toEqual(expected);
+  });
+
   it("leaves the browser's own cross-fade alone for a fade", async () => {
     const { start, animate } = mockViewTransitions();
     render(<ThemeSwitch transition="fade" />);

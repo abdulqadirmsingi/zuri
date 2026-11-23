@@ -9,10 +9,11 @@ export type ThemeMode = "light" | "dark";
 
 /**
  * How the page changes. "circle" spreads outward from the button, "wipe" sweeps down from the
- * top, "fade" cross-fades, and "none" switches at once. Browsers without the View Transitions API,
+ * top, "curtain" opens from the middle sideways, "diagonal" sweeps from the top corner, "fade"
+ * cross-fades, and "none" switches at once. Browsers without the View Transitions API,
  * and people who ask for reduced motion, always get "none".
  */
-export type ThemeTransition = "circle" | "wipe" | "fade" | "none";
+export type ThemeTransition = "circle" | "wipe" | "curtain" | "diagonal" | "fade" | "none";
 
 export interface ThemeSwitchProps
   extends Omit<ButtonProps, "children" | "onClick" | "loading" | "type"> {
@@ -137,10 +138,14 @@ export function ThemeSwitch({
       const view = doc.startViewTransition(() => flushSync(() => apply(next)));
       await view.ready;
       if (transition !== "fade") {
-        const frames =
-          transition === "circle"
-            ? [`circle(0px at ${x}px ${y}px)`, `circle(${reach}px at ${x}px ${y}px)`]
-            : ["inset(0 0 100% 0)", "inset(0 0 0 0)"];
+        // Each pair has the same shape on both ends, so the browser can interpolate it.
+        const frames = {
+          circle: [`circle(0px at ${x}px ${y}px)`, `circle(${reach}px at ${x}px ${y}px)`],
+          wipe: ["inset(0 0 100% 0)", "inset(0 0 0 0)"],
+          curtain: ["inset(0 50% 0 50%)", "inset(0 0 0 0)"],
+          // A triangle from the top corner whose legs grow until it covers the whole screen.
+          diagonal: ["polygon(0 0, 0 0, 0 0)", "polygon(0 0, 200% 0, 0 200%)"],
+        }[transition];
         document.documentElement.animate(
           { clipPath: frames },
           {

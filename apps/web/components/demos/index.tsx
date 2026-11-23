@@ -74,7 +74,12 @@ import {
   TestimonialsDemo,
 } from "./shell-demos";
 import { SwellNavDefault, SwellNavFour } from "./swell-nav-demos";
-import { ThemeSwitchLabelled, ThemeSwitchStyles } from "./theme-switch-demos";
+import {
+  ThemeSegmented,
+  ThemeSwitchLabelled,
+  ThemeSwitchLooks,
+  ThemeSwitchStyles,
+} from "./theme-switch-demos";
 import { UserMenuDefault, UserMenuWithName } from "./user-menu-demos";
 
 const demos: Record<string, () => ReactNode> = {
@@ -112,6 +117,8 @@ const demos: Record<string, () => ReactNode> = {
   "blur-side": BlurSide,
   "theme-switch-styles": ThemeSwitchStyles,
   "theme-switch-labelled": ThemeSwitchLabelled,
+  "theme-switch-looks": ThemeSwitchLooks,
+  "theme-segmented": ThemeSegmented,
   "user-menu-default": UserMenuDefault,
   "user-menu-name": UserMenuWithName,
   "expanding-default": ExpandingDefault,
