@@ -31,6 +31,14 @@ export default defineConfig({
         replacement: path.resolve(import.meta.dirname, "src/blocks/closing-cta/closing-cta"),
       },
       {
+        find: "@/components/ui/input-group",
+        replacement: path.resolve(import.meta.dirname, "src/inputs/input-group/input-group"),
+      },
+      {
+        find: "@/components/ui/picker",
+        replacement: path.resolve(import.meta.dirname, "src/inputs/picker/picker"),
+      },
+      {
         find: "@/components/ui/marquee",
         replacement: path.resolve(import.meta.dirname, "src/blocks/marquee/marquee"),
       },

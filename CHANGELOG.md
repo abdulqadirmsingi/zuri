@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Phone input 0.1.0: searchable country picker, grouped digits, paste detection, E.164 output; joined, split and chip layouts. Picker 0.2.0 gains `renderValue` and `renderOption`.
+- Text fields (Input, Textarea, Input group, Picker search) no longer draw the heavy black outline on focus: a single border change and a soft halo instead.
 - Input 0.2.0: `soft` and `underline` looks. New Input group 0.1.0: an icon, prefix, suffix or button beside an input.
 - Label 0.2.0: `required` and `optional` markers, `variant` (default, caps, muted) and `size`.
 - Expanding button group 0.2.0: `variant` (default, soft, accent) and a large size.

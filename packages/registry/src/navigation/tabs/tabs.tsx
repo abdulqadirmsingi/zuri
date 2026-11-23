@@ -83,11 +83,33 @@ export function TabsList({ className, variant = "pill", children, ...props }: Ta
   );
 }
 
-export function TabsTrigger({ className, ...props }: ComponentProps<typeof TabsPrimitive.Trigger>) {
+export function TabsTrigger({
+  className,
+  onPointerDown,
+  onKeyDown,
+  onBlur,
+  ...props
+}: ComponentProps<typeof TabsPrimitive.Trigger>) {
+  // After a mouse click the browser still treats the tab as keyboard-focused, which drew the ring.
+  // Remember that the last input was the pointer, and show the ring again as soon as a key is used.
+  const [pointer, setPointer] = useState(false);
   return (
     <TabsPrimitive.Trigger
+      data-pointer={pointer || undefined}
+      onPointerDown={(e) => {
+        onPointerDown?.(e);
+        setPointer(true);
+      }}
+      onKeyDown={(e) => {
+        onKeyDown?.(e);
+        setPointer(false);
+      }}
+      onBlur={(e) => {
+        onBlur?.(e);
+        setPointer(false);
+      }}
       className={cn(
-        "relative z-10 inline-flex min-h-9 shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-foreground motion-reduce:transition-none",
+        "relative z-10 inline-flex min-h-9 shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-[pointer]:focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-foreground motion-reduce:transition-none",
         className,
       )}
       {...props}

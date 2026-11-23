@@ -9,6 +9,7 @@
     "label",
     "input",
     "input-group",
+    "phone-input",
     "textarea",
     "field",
     "password-strength",
