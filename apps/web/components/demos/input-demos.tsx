@@ -14,6 +14,43 @@ export function LabelDefault() {
   );
 }
 
+export function LabelLooks() {
+  return (
+    <div className={stack}>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="lbl-req" required>
+          Full name
+        </Label>
+        <Input id="lbl-req" required autoComplete="name" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="lbl-opt" optional>
+          Nickname
+        </Label>
+        <Input id="lbl-opt" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="lbl-caps" variant="caps" size="sm">
+          Phone number
+        </Label>
+        <Input id="lbl-caps" type="tel" autoComplete="tel" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="lbl-muted" variant="muted">
+          Company
+        </Label>
+        <Input id="lbl-muted" autoComplete="organization" />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="lbl-lg" size="lg">
+          Email address
+        </Label>
+        <Input id="lbl-lg" type="email" size="lg" autoComplete="email" />
+      </div>
+    </div>
+  );
+}
+
 export function InputDefault() {
   return <Input aria-label="Full name" placeholder="Asha Juma" className="max-w-sm" />;
 }
