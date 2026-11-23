@@ -825,7 +825,7 @@
       ],
       "categories": ["actions"],
       "meta": {
-        "version": "0.1.0",
+        "version": "0.2.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
