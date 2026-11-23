@@ -45,6 +45,7 @@ import {
   TextareaDefault,
   TextareaStates,
 } from "./input-demos";
+import { InputGroupButtons, InputGroupDefault, InputGroupLooks } from "./input-group-demos";
 import { AlertDialogDefault, DropdownMenuChoices, DropdownMenuDefault } from "./menu-demos";
 import { MarqueeDefault, MarqueeReverse, RevealDirections, RevealStagger } from "./motion-demos";
 import {
@@ -176,6 +177,9 @@ const demos: Record<string, () => ReactNode> = {
   "input-default": InputDefault,
   "input-variants": InputVariants,
   "input-sizes": InputSizes,
+  "input-group-default": InputGroupDefault,
+  "input-group-buttons": InputGroupButtons,
+  "input-group-looks": InputGroupLooks,
   "textarea-default": TextareaDefault,
   "textarea-states": TextareaStates,
   "field-default": FieldDefault,

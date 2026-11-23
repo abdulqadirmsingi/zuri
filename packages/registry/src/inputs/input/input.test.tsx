@@ -73,4 +73,16 @@ describe("Input", () => {
       unmount();
     }
   });
+
+  it("offers soft and underline looks", () => {
+    const { rerender } = render(<Input aria-label="x" variant="soft" />);
+    const cls = () => screen.getByRole("textbox").className;
+    expect(cls()).toContain("bg-muted");
+    expect(cls()).toContain("border-transparent");
+    rerender(<Input aria-label="x" variant="underline" />);
+    expect(cls()).toContain("border-b");
+    expect(cls()).toContain("rounded-none");
+    expect(cls()).toContain("px-0");
+    expect(cls()).not.toContain("rounded-md");
+  });
 });

@@ -61,6 +61,8 @@ export function InputVariants() {
       <Input aria-label="Default" placeholder="Default" />
       <Input aria-label="Invalid" placeholder="Invalid" invalid />
       <Input aria-label="Disabled" placeholder="Disabled" disabled />
+      <Input variant="soft" aria-label="Soft" placeholder="Soft" />
+      <Input variant="underline" aria-label="Underline" placeholder="Underline" />
       {/* Glass needs something behind it to blur. */}
       <span className="rounded-lg bg-linear-to-br from-accent to-primary p-4">
         <Input variant="glass" aria-label="Glass" placeholder="Glass" />

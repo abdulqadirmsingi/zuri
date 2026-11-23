@@ -160,7 +160,7 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "A native text input with default and glass variants and an invalid state.",
+      "description": "A native text input with default, soft, underline and glass looks and an invalid state.",
       "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
@@ -170,10 +170,29 @@
       ],
       "categories": ["inputs"],
       "meta": {
-        "version": "0.1.0",
+        "version": "0.2.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input group",
+      "description": "Wraps an input with an icon, prefix, suffix or button on either side.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/input-group/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/input.json"]
     },
     {
       "name": "textarea",

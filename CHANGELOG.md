@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Input 0.2.0: `soft` and `underline` looks. New Input group 0.1.0: an icon, prefix, suffix or button beside an input.
 - Label 0.2.0: `required` and `optional` markers, `variant` (default, caps, muted) and `size`.
 - Expanding button group 0.2.0: `variant` (default, soft, accent) and a large size.
 - Theme switch 0.2.0: `curtain` and `diagonal` page transitions, plus a Light/System/Dark recipe in the docs.

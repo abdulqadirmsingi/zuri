@@ -8,6 +8,10 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "border-control-border bg-background",
+        // A filled field with no visible border, for calm forms.
+        soft: "border-transparent bg-muted",
+        // Only a line underneath, for minimal and inline forms.
+        underline: "border-0 border-b border-control-border bg-transparent",
         glass: "zuri-glass",
       },
       size: {
@@ -16,6 +20,8 @@ const inputVariants = cva(
         lg: "min-h-12 rounded-lg px-4 text-base",
       },
     },
+    // After the sizes, so the square corners and flush padding win over each size's own.
+    compoundVariants: [{ variant: "underline", class: "rounded-none px-0" }],
     defaultVariants: { variant: "default", size: "md" },
   },
 );
