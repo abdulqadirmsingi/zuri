@@ -39,9 +39,6 @@ export function HomeFooter() {
     <footer className="dark overflow-hidden bg-background text-foreground">
       <div className="mx-auto grid w-full max-w-[88rem] gap-14 px-4 pt-24 sm:px-8 lg:grid-cols-[1.3fr_1fr]">
         <div className="flex flex-col gap-6">
-          <p className="m-0 font-mono text-xs uppercase tracking-wider text-muted-foreground">
-            Start small
-          </p>
           <h2 className="m-0 max-w-xl text-balance font-display text-5xl font-semibold leading-[1] tracking-tight sm:text-6xl">
             Take one component. See how it feels.
           </h2>

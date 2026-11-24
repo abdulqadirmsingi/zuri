@@ -1,17 +1,17 @@
-import { Marquee } from "@registry/blocks/marquee/marquee";
 import { Pricing } from "@registry/blocks/pricing/pricing";
 import { Reveal } from "@registry/blocks/reveal/reveal";
-import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { demoFor } from "@/components/demos";
-import { Bento } from "@/components/home/bento";
 import { Builder, type BuilderItem } from "@/components/home/builder";
+import { Hero } from "@/components/home/hero";
 import { HomeFooter } from "@/components/home/home-footer";
-import { InstallCommand } from "@/components/home/install-command";
-import { InstallCount } from "@/components/home/install-count";
 import { NightCta } from "@/components/home/night-cta";
+import { PagesShowcase, type Shot } from "@/components/home/pages-showcase";
 import { Shelves } from "@/components/home/shelves";
+import { SmoothScroll } from "@/components/home/smooth-scroll";
 import { ThemeLab } from "@/components/home/theme-lab";
+import { Workflow } from "@/components/home/workflow";
 import { registryStats } from "@/lib/registry-stats";
 import { siteUrl } from "@/lib/shared";
 import fanShot from "@/public/home/fan.jpg";
@@ -19,8 +19,7 @@ import magazineShot from "@/public/home/magazine.jpg";
 import splitShot from "@/public/home/split.jpg";
 import starterShot from "@/public/home/starter.jpg";
 
-const wrap = "mx-auto w-full max-w-[88rem] px-4 sm:px-8";
-const label = "m-0 font-mono text-xs uppercase tracking-wider text-muted-foreground";
+const wrap = "mx-auto w-full max-w-[84rem] px-5 sm:px-12";
 
 /** How the sentence names a component, when "a" plus its title would read wrongly. */
 const phrases: Record<string, string> = {
@@ -59,36 +58,58 @@ const phrase = (id: string, title: string) => {
   return `${/^[aeiou]/.test(word) ? "an" : "a"} ${word}`;
 };
 
-const shots = [
+const shots: Shot[] = [
   {
+    id: "starter",
     src: starterShot,
     alt: "A landing page built from Zuri blocks, with a header, a split hero and a headline about learning skills.",
-    title: "Landing page starter",
+    title: "Landing starter",
+    text: "A whole landing page: header, hero, sections and footer.",
     href: "/docs/blocks/landing-starter",
-    className: "lg:col-span-7",
   },
   {
+    id: "magazine",
     src: magazineShot,
     alt: "The magazine hero: a very large headline beside a tall picture with a saffron block behind it.",
     title: "Magazine hero",
+    text: "A very large headline beside a tall picture.",
     href: "/docs/blocks/magazine-hero",
-    className: "lg:col-span-5 lg:mt-24",
   },
   {
+    id: "split",
     src: splitShot,
     alt: "The split hero: a headline, two buttons and three figures beside a large picture.",
     title: "Split hero",
+    text: "Headline, actions and figures beside an image.",
     href: "/docs/blocks/split-hero",
-    className: "lg:col-span-5",
   },
   {
+    id: "fan",
     src: fanShot,
     alt: "The card fan hero: a centred headline over five cards fanned out in an arc.",
     title: "Card fan hero",
+    text: "A centred headline over a fan of cards.",
     href: "/docs/blocks/card-fan-hero",
-    className: "lg:col-span-7 lg:-mt-12",
   },
 ];
+
+const builtOn = ["React 19", "TypeScript", "Tailwind CSS v4", "Radix primitives", "shadcn CLI"];
+
+const h2 =
+  "m-0 text-balance font-display text-[clamp(2.5rem,5.5vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.035em]";
+
+/** A white sheet on the paper background: the page's main content surface. */
+function Sheet({ children, id, label }: { children: ReactNode; id?: string; label: string }) {
+  return (
+    <section
+      id={id}
+      aria-labelledby={label}
+      className="mx-3 scroll-mt-20 rounded-[2.25rem] bg-background sm:mx-5"
+    >
+      <div className={`${wrap} py-24 lg:py-32`}>{children}</div>
+    </section>
+  );
+}
 
 export default function Home() {
   const stats = registryStats();
@@ -108,202 +129,144 @@ export default function Home() {
     ];
   });
 
+  const figures = [
+    { value: stats.count, label: "Components" },
+    { value: stats.blocks, label: "Page blocks" },
+    { value: stats.shelves.length, label: "Categories" },
+  ];
+
   return (
     <>
+      <SmoothScroll />
       <ThemeLab>
-        <main>
-          {/* Hero: one sentence you finish yourself. The choice re-themes the whole page. */}
-          <section aria-labelledby="hero-title" className={`${wrap} pt-12 pb-24 lg:pt-16`}>
-            <h1 id="hero-title" className="sr-only">
-              Zuri: React components you copy, then own
-            </h1>
-            <p className={`${label} mb-6`}>
-              {stats.count} components · {stats.blocks} blocks · finish the sentence
-              <InstallCount />
-            </p>
-            <Builder items={builderItems} initialId="dialog" />
+        <main className="flex flex-col gap-3 bg-paper pb-3 sm:gap-5 sm:pb-5">
+          <Hero />
+
+          <section aria-label="Built on" className={`${wrap} py-10`}>
+            <ul className="m-0 flex list-none flex-wrap items-center justify-center gap-x-10 gap-y-3 p-0 font-display text-lg font-semibold tracking-tight text-muted-foreground">
+              {builtOn.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
           </section>
 
-          {/* The names, big */}
-          <section aria-label="Components in the registry" className="border-y border-border py-8">
-            <Marquee duration={70}>
-              <ul className="m-0 flex list-none flex-wrap gap-10 p-0">
-                {stats.names.map((name) => (
-                  <li
-                    key={name}
-                    className="whitespace-nowrap font-display text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none tracking-tight"
-                  >
-                    {name}
-                    <span aria-hidden="true" className="ms-10 text-accent">
-                      /
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Marquee>
-          </section>
+          <Sheet id="how" label="how-title">
+            <Reveal className="mb-20 flex flex-col items-center gap-5 text-center lg:mb-28">
+              <h2 id="how-title" className={`${h2} max-w-4xl`}>
+                From install to shipped, one file at a time.
+              </h2>
+              <p className="m-0 max-w-xl text-pretty text-lg text-muted-foreground">
+                No framework to adopt and no theme to fight. Take the part you need and keep going.
+              </p>
+            </Reveal>
+            <Workflow />
+          </Sheet>
 
-          {/* What you get, in four soft cards */}
-          <section aria-labelledby="bento-title" className={`${wrap} py-24 lg:py-32`}>
+          {/* A statement, not a testimonial: nothing here is attributed to anyone. */}
+          <section aria-label="Why Zuri" className={`${wrap} py-24 lg:py-36`}>
             <Reveal>
-              <h2
-                id="bento-title"
-                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-              >
-                Everything you need to ship.
+              <p className="m-0 mx-auto max-w-5xl text-balance text-center font-display text-[clamp(2rem,4.6vw,4rem)] font-semibold leading-[1.05] tracking-[-0.035em] text-muted-foreground/60">
+                Every component is <span className="text-foreground">one file you can read</span> in
+                a minute. No runtime to update, no styles to override,{" "}
+                <span className="text-foreground">nothing hidden.</span>
+              </p>
+            </Reveal>
+          </section>
+
+          <section aria-labelledby="pages-title" className="py-8">
+            <Reveal className={`${wrap} mb-12 flex flex-col items-center gap-5 text-center`}>
+              <h2 id="pages-title" className={`${h2} max-w-3xl`}>
+                Whole pages, not just parts.
+              </h2>
+              <p className="m-0 max-w-xl text-pretty text-lg text-muted-foreground">
+                Blocks are complete sections built from the same components. Install one and edit
+                the words.
+              </p>
+            </Reveal>
+            <PagesShowcase shots={shots} />
+          </section>
+
+          <section aria-label="The registry in numbers" className={`${wrap} py-20`}>
+            <ul className="m-0 grid list-none gap-3 p-0 sm:grid-cols-3">
+              {figures.map((f, i) => (
+                <Reveal
+                  as="li"
+                  key={f.label}
+                  delay={i * 80}
+                  className="flex flex-col items-center gap-2 rounded-[1.75rem] bg-background px-6 py-10"
+                >
+                  <span className="font-display text-6xl font-semibold tracking-[-0.04em]">
+                    {f.value}
+                  </span>
+                  <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                    {f.label}
+                  </span>
+                </Reveal>
+              ))}
+            </ul>
+          </section>
+
+          <Sheet label="play-title">
+            <Reveal className="mb-12 flex flex-col gap-4">
+              <h2 id="play-title" className={`${h2} max-w-3xl`}>
+                Try it on before you take it.
               </h2>
             </Reveal>
-            <Bento count={stats.count} command={`npx shadcn@latest add ${siteUrl}/r/button.json`} />
-          </section>
+            <Builder items={builderItems} initialId="dialog" />
+          </Sheet>
 
-          {/* Page blocks, as pictures */}
-          <section aria-labelledby="pages-title" className="overflow-hidden">
-            <div className={`${wrap} py-24 lg:py-32`}>
-              <Reveal>
-                <h2
-                  id="pages-title"
-                  className="m-0 mb-14 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-                >
-                  Whole pages, too.
-                </h2>
-              </Reveal>
-              <div className="grid gap-x-8 gap-y-12 lg:grid-cols-12">
-                {shots.map((s) => (
-                  <Reveal key={s.title} className={s.className}>
-                    <Link
-                      href={s.href}
-                      className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                    >
-                      <figure className="m-0">
-                        <div className="overflow-hidden rounded-2xl border border-border bg-muted">
-                          <Image
-                            src={s.src}
-                            alt={s.alt}
-                            sizes="(min-width: 1024px) 58vw, 100vw"
-                            className="block h-auto w-full transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                          />
-                        </div>
-                        <figcaption className="mt-4 flex items-center justify-between font-mono text-xs uppercase tracking-wider">
-                          <span>{s.title}</span>
-                          <span aria-hidden="true">→</span>
-                        </figcaption>
-                      </figure>
-                    </Link>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Everything, by shelf. Counts and links come from the registry. */}
-          <section aria-labelledby="shelves-title" className="border-t border-border">
-            <div className={`${wrap} py-24 lg:py-32`}>
-              <Reveal>
-                <h2
-                  id="shelves-title"
-                  className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-                >
-                  Pick a shelf.
-                </h2>
-              </Reveal>
-              <Shelves shelves={stats.shelves} />
-            </div>
-          </section>
-
-          {/* Three steps. The commands are the real ones. */}
-          <section aria-labelledby="steps-title" className="border-t border-border">
-            <div className={`${wrap} py-24 lg:py-32`}>
-              <Reveal>
-                <h2
-                  id="steps-title"
-                  className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-                >
-                  Three steps, then it is yours.
-                </h2>
-              </Reveal>
-              <ol className="m-0 grid list-none gap-10 p-0 lg:grid-cols-3">
-                {[
-                  {
-                    title: "Set up shadcn",
-                    text: "Once per project. Skip it if you already have a components.json.",
-                    command: "npx shadcn@latest init",
-                  },
-                  {
-                    title: "Add a component",
-                    text: "The file is copied into your project, along with the packages it needs.",
-                    command: `npx shadcn@latest add ${siteUrl}/r/button.json`,
-                  },
-                  {
-                    title: "Change it",
-                    text: "It is your code now. Edit it, restyle it, delete what you don't need.",
-                  },
-                ].map((step, i) => (
-                  <li key={step.title} className="flex flex-col gap-4">
-                    <span
-                      aria-hidden="true"
-                      className="font-display text-7xl font-semibold leading-none text-accent-ink"
-                    >
-                      {i + 1}
-                    </span>
-                    <h3 className="m-0 text-xl font-semibold tracking-tight">{step.title}</h3>
-                    <p className="m-0 text-pretty leading-relaxed text-muted-foreground">
-                      {step.text}
-                    </p>
-                    {step.command ? <InstallCommand command={step.command} /> : null}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </section>
+          <Sheet label="shelves-title">
+            <Reveal className="mb-12">
+              <h2 id="shelves-title" className={`${h2} max-w-3xl`}>
+                Every part, on its shelf.
+              </h2>
+            </Reveal>
+            <Shelves shelves={stats.shelves} />
+          </Sheet>
 
           {/* Plans. Free is true today; Pro has no price yet, and none is invented. */}
-          <section aria-labelledby="plans-title" className="border-t border-border">
-            <div className={`${wrap} py-24 lg:py-32`}>
-              <Reveal>
-                <h2
-                  id="plans-title"
-                  className="m-0 mb-4 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-                >
-                  Free to copy.
-                </h2>
-              </Reveal>
-              <p className="m-0 mb-12 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+          <section aria-labelledby="plans-title" className={`${wrap} py-24 lg:py-32`}>
+            <Reveal className="mb-12 flex flex-col items-center gap-4 text-center">
+              <h2 id="plans-title" className={h2}>
+                Free to copy.
+              </h2>
+              <p className="m-0 max-w-xl text-pretty text-lg text-muted-foreground">
                 Everything here is yours the moment you install it. Pro will add more, once it is
                 ready.
               </p>
-              <Pricing
-                className="max-w-4xl"
-                plans={[
-                  {
-                    id: "free",
-                    name: "Open source",
-                    price: "Free",
-                    period: "MIT licence",
-                    features: [
-                      "Every component and block on this site",
-                      "Copied into your project, so you own the code",
-                      "No account needed",
-                    ],
-                    action: (
-                      <Link
-                        href="/docs/installation"
-                        className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                      >
-                        Start installing
-                      </Link>
-                    ),
-                  },
-                  {
-                    id: "pro",
-                    name: "Pro",
-                    price: "Not priced yet",
-                    badge: "Coming later",
-                    description:
-                      "Extra items under a commercial licence. Plans and prices will be announced here.",
-                  },
-                ]}
-              />
-            </div>
+            </Reveal>
+            <Pricing
+              className="mx-auto max-w-4xl"
+              plans={[
+                {
+                  id: "free",
+                  name: "Open source",
+                  price: "Free",
+                  period: "MIT licence",
+                  features: [
+                    "Every component and block on this site",
+                    "Copied into your project, so you own the code",
+                    "No account needed",
+                  ],
+                  action: (
+                    <Link
+                      href="/docs/installation"
+                      className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    >
+                      Start installing
+                    </Link>
+                  ),
+                },
+                {
+                  id: "pro",
+                  name: "Pro",
+                  price: "Not priced yet",
+                  badge: "Coming later",
+                  description:
+                    "Extra items under a commercial licence. Plans and prices will be announced here.",
+                },
+              ]}
+            />
           </section>
         </main>
       </ThemeLab>
