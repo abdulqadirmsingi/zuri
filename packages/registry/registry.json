@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "zuri",
-  "homepage": "https://zuri.dev",
+  "homepage": "https://components.abdulqadirmsingi.com",
   "items": [
     {
       "name": "zuri-tokens",

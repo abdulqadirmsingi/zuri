@@ -8,7 +8,7 @@
 
 - A public website where anyone can browse components, see live previews (light/dark), read the code, copy it, and install it.
 - Components are distributed as a **shadcn-compatible registry**: users run
-  `npx shadcn@latest add https://zuri.dev/r/<component>.json`
+  `npx shadcn@latest add https://components.abdulqadirmsingi.com/r/<component>.json`
   and the source lands in their project (they own the code). A small number of headless pieces (hooks, utilities, tokens) are also published to **npm** as `@zuri/*` packages.
 - Free core under **MIT**. A separate **Pro** tier (premium blocks and templates) that is gated behind an API key and sold through a merchant-of-record payment provider.
 - Built-in **analytics**: I must be able to see how many times each component was installed, which ones are popular, where traffic comes from, and how people use the docs site (see `ANALYTICS.md`).

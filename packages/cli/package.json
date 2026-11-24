@@ -1,0 +1,40 @@
+{
+  "name": "zuri",
+  "version": "0.1.0",
+  "description": "Install Zuri components into your project: npx zuri add <component>",
+  "keywords": [
+    "react",
+    "components",
+    "shadcn",
+    "registry",
+    "tailwind",
+    "fintech",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Abdulqadir Mohammed Msingi",
+  "homepage": "https://components.abdulqadirmsingi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdulqadirmsingi/zuri.git",
+    "directory": "packages/cli"
+  },
+  "type": "module",
+  "bin": {
+    "zuri": "./bin/zuri.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test src/cli.test.js"
+  }
+}
