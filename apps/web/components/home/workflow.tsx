@@ -21,7 +21,7 @@ function Dots({ on }: { on: number[] }) {
 const code = "font-mono text-[0.8rem] leading-7 sm:text-sm";
 
 const terminal = (
-  <pre className={`m-0 overflow-x-auto p-6 ${code}`}>
+  <pre className={`m-0 whitespace-pre-wrap break-words p-6 ${code}`}>
     <span className="text-muted-foreground">$ </span>npx zuri add password-strength{"\n"}
     <span className="text-success">✔</span> Checking registry.{"\n"}
     <span className="text-success">✔</span> Installing dependencies.{"\n"}
@@ -31,7 +31,7 @@ const terminal = (
 );
 
 const tokens = (
-  <pre className={`m-0 overflow-x-auto p-6 ${code}`}>
+  <pre className={`m-0 whitespace-pre-wrap break-words p-6 ${code}`}>
     <span className="text-muted-foreground">{"/* tokens.css */"}</span>
     {"\n"}:root {"{\n"}
     {"  "}--accent: oklch(0.76 0.16 60);{" "}
@@ -109,11 +109,11 @@ export function Workflow() {
       {steps.map((s, i) => (
         <li
           key={s.id}
-          className={`grid items-center gap-10 lg:gap-16 ${i % 2 ? "lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"}`}
+          className={`grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:gap-16 ${i % 2 ? "lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]"}`}
         >
           <Reveal
             from={i % 2 ? "end" : "start"}
-            className={`flex flex-col gap-4 ${i % 2 ? "lg:order-2" : ""}`}
+            className={`flex min-w-0 flex-col gap-4 ${i % 2 ? "lg:order-2" : ""}`}
           >
             <Dots on={s.dots} />
             <h3 className="m-0 font-display text-4xl font-semibold tracking-tight">{s.title}</h3>
@@ -128,7 +128,7 @@ export function Workflow() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={100} className={i % 2 ? "lg:order-1" : ""}>
+          <Reveal delay={100} className={`min-w-0 ${i % 2 ? "lg:order-1" : ""}`}>
             <Frame glow={s.frame.glow} title={s.frame.title}>
               {s.frame.body}
             </Frame>
