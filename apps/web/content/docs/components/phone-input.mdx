@@ -1,6 +1,6 @@
 ---
 title: Phone input
-description: A phone number field with a searchable country picker, grouped digits, paste detection and E.164 output, in joined, split and chip layouts.
+description: A phone number field with a searchable country picker, flags, grouped digits, paste detection and E.164 output, in joined, split and chip layouts, or without a dropdown.
 ---
 
 <Preview>
@@ -49,7 +49,7 @@ import { PhoneInput } from "@/components/ui/phone-input";
 
 ## Layouts
 
-Three ways to arrange the same field. All work with every look below.
+Three ways to arrange the field with a country dropdown. All work with every look below.
 
 <Preview>
   <Demo name="phone-input-layouts" />
@@ -58,6 +58,24 @@ Three ways to arrange the same field. All work with every look below.
 - **`joined`** (default): the country button and the number share one control, with a divider.
 - **`split`**: two separate fields side by side, when you want the country to stand on its own.
 - **`chip`**: a saffron chip with just the dial code sits inside the field, the quietest of the three.
+
+## Without a dropdown
+
+Most phone fields should offer the country dropdown, because people type numbers from different countries. When yours doesn't need it, there are two alternatives:
+
+<Preview>
+  <Demo name="phone-input-fixed" />
+</Preview>
+
+- **`fixed`** shows the country's flag and code as plain text, set by `defaultCountry`. It is not a control and is not in the tab order. Use it when everyone is in one country but the code should still be visible.
+- **`plain`** is only the number field. Use it when the country is obvious from the page. The E.164 value still starts with the `defaultCountry` code.
+
+```tsx
+<PhoneInput layout="fixed" defaultCountry="KE" />
+<PhoneInput layout="plain" />
+```
+
+In both, pasting a full international number is read only if it is for the same country; another country's number is left as pasted, since the country cannot change.
 
 ## Looks and sizes
 
@@ -69,7 +87,15 @@ It takes the same `variant` (`default`, `soft`, `underline`, `glass`) and `size`
 
 ## Flags
 
-No flags ship with Zuri: emoji flags do not draw on every system, and flag artwork is yours to license. Each country shows its two-letter code in a small neutral tile. To use flags, supply them:
+Each country shows its **flag**, in the button and in the list. The flags are emoji: plain text made from two letters, so there are no images to ship, no requests to make and no artwork to license. They are drawn by the device's own emoji font.
+
+<Callout type="warn" title="Windows">
+  Windows does not draw flag emoji. There the two letters of the country code show instead (for example "TZ"), which still tells people which country it is. If you need the same flags everywhere, supply images with `renderFlag`.
+</Callout>
+
+Prefer a neutral look? `flags="code"` shows the two-letter code in a small tile on every system.
+
+To use your own flag artwork (images you have the right to use), draw it yourself:
 
 ```tsx
 <PhoneInput renderFlag={(iso) => <img src={`/flags/${iso}.svg`} alt="" width={20} height={14} />} />
@@ -102,11 +128,12 @@ Where a dial code is shared (the US and Canada both use +1), list each country s
     { name: "defaultCountry", type: "string", default: '"TZ"', description: "ISO code shown first." },
     { name: "countries", type: "Country[]", description: "The list to offer: { iso, name, dial }. Defaults to a built-in list." },
     { name: "preferred", type: "string[]", default: '["TZ","KE","UG","RW"]', description: "ISO codes listed first, under Common." },
-    { name: "layout", type: '"joined" | "split" | "chip"', default: '"joined"', description: "How the country button and the number are arranged." },
+    { name: "layout", type: '"joined" | "split" | "chip" | "fixed" | "plain"', default: '"joined"', description: "joined, split and chip have the country dropdown. fixed shows the code as plain text; plain is only the number." },
     { name: "variant", type: '"default" | "soft" | "underline" | "glass"', default: '"default"', description: "The surface, as on Input." },
     { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "The height, as on Input." },
     { name: "showName", type: "boolean", default: "false", description: "Also show the country's name on the button." },
-    { name: "renderFlag", type: "(iso: string) => ReactNode", description: "Draw a flag or any mark for a country. None ships by default." },
+    { name: "flags", type: '"emoji" | "code"', default: '"emoji"', description: "Mark each country with its flag emoji, or with its two-letter code in a tile." },
+    { name: "renderFlag", type: "(iso: string) => ReactNode", description: "Draw your own mark for a country, such as a flag image. Overrides `flags`." },
     { name: "stripLeadingZero", type: "boolean", default: "true", description: "Drop one leading 0 from the E.164 value." },
     { name: "invalid", type: "boolean", description: "Sets aria-invalid on the number and a danger border. Field sets this for you." },
     { name: "name", type: "string", description: "Adds a hidden field with the E.164 number for form submission." },
@@ -118,7 +145,7 @@ Where a dial code is shared (the US and Canada both use +1), list each country s
 
 - The number is a native `<input type="tel">` with `inputmode="tel"` and `autocomplete="tel-national"`, so phones show the right keypad and browsers can fill it. Give it a label (see [Field](/docs/components/field)).
 - The country button is a labelled combobox that says what it shows, for example "Country: TZ +255, Tanzania", so the visible text is part of its name. The list is a listbox with a search box; arrow keys, Enter and Escape work as in [Picker](/docs/components/picker).
-- The two-letter tile and any flag are decorative and hidden from assistive technology; the country's name is in the option text.
+- The flag, the code tile and any image you supply are decorative and hidden from assistive technology; the country's name is in the option text. The button's name always contains the text written on it, such as "+255".
 - The focus ring appears on the country button for keyboard users. The number field shows a single darker border and a soft halo when focused, around the whole control in joined and chip layouts.
 - An invalid field keeps its red border while focused, and should also show an error message in text (use [Field](/docs/components/field)).
 - Targets are at least 24 pixels; the chip is 28 pixels high, and the default country button is 40.
@@ -132,6 +159,7 @@ The same as Input and Picker, plus `--accent` and `--accent-foreground` for the 
 
 - **Length check only.** It does not know each country's number plan. Validate on your server.
 - **Generic grouping.** Digits are grouped in threes, not in each country's own pattern.
+- **Flag emoji depend on the device.** Windows shows letters instead of flags (see above).
 - **A starting list, not all countries.** About 60 are built in; add yours with `countries`.
 - **Leading zero rule is global.** `stripLeadingZero` applies to every country in the list.
 - Not for extensions, or for numbers that are not international (short codes).

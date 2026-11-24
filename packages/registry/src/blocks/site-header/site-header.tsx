@@ -93,7 +93,7 @@ export function SiteHeader({
             <DialogTrigger asChild>
               <button
                 type="button"
-                className="inline-flex size-11 items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden"
+                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden"
               >
                 <svg
                   aria-hidden="true"

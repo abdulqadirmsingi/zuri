@@ -58,7 +58,12 @@ import {
 } from "./navigation-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
-import { PhoneInputDefault, PhoneInputLayouts, PhoneInputLooks } from "./phone-input-demos";
+import {
+  PhoneInputDefault,
+  PhoneInputLayouts,
+  PhoneInputLooks,
+  PhoneInputNoDropdown,
+} from "./phone-input-demos";
 import { PickerDefault, PickerInline, PickerSearch } from "./picker-demos";
 import { BlurBoth, BlurBottom, BlurSide } from "./progressive-blur-demos";
 import {
@@ -184,6 +189,7 @@ const demos: Record<string, () => ReactNode> = {
   "phone-input-default": PhoneInputDefault,
   "phone-input-layouts": PhoneInputLayouts,
   "phone-input-looks": PhoneInputLooks,
+  "phone-input-fixed": PhoneInputNoDropdown,
   "textarea-default": TextareaDefault,
   "textarea-states": TextareaStates,
   "field-default": FieldDefault,

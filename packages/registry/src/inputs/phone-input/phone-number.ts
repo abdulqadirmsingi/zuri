@@ -43,3 +43,14 @@ export function isPlausible(e164: string): boolean {
   const length = digitsOf(e164).length;
   return length >= MIN_DIGITS && length <= MAX_DIGITS;
 }
+
+/**
+ * The flag emoji for an ISO 3166-1 alpha-2 code ("TZ" becomes 🇹🇿). It is plain text, made from two
+ * regional-indicator letters, so it needs no image and no request. Systems without flag artwork
+ * (Windows) show the two letters in boxes instead, which still reads as the country code.
+ */
+export function flagEmoji(iso: string): string {
+  const code = iso.toUpperCase();
+  if (!/^[A-Z]{2}$/.test(code)) return "";
+  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+}

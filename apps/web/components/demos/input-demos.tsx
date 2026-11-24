@@ -1,6 +1,7 @@
 import { Field } from "@registry/inputs/field/field";
 import { Input } from "@registry/inputs/input/input";
 import { Label } from "@registry/inputs/label/label";
+import { PhoneInput } from "@registry/inputs/phone-input/phone-input";
 import { Textarea } from "@registry/inputs/textarea/textarea";
 
 const stack = "flex w-full max-w-sm flex-col gap-4";
@@ -9,7 +10,8 @@ export function LabelDefault() {
   return (
     <div className={stack}>
       <Label htmlFor="demo-label">Phone number</Label>
-      <Input id="demo-label" type="tel" autoComplete="tel" placeholder="+255 7XX XXX XXX" />
+      {/* The id goes to the number field, so the label names it and a click on the label focuses it. */}
+      <PhoneInput id="demo-label" placeholder="712 345 678" />
     </div>
   );
 }
@@ -33,7 +35,7 @@ export function LabelLooks() {
         <Label htmlFor="lbl-caps" variant="caps" size="sm">
           Phone number
         </Label>
-        <Input id="lbl-caps" type="tel" autoComplete="tel" />
+        <PhoneInput id="lbl-caps" size="md" />
       </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="lbl-muted" variant="muted">

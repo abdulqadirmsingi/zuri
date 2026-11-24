@@ -82,7 +82,7 @@ export function Marquee({
           type="button"
           aria-pressed={paused}
           onClick={() => setPaused((p) => !p)}
-          className="inline-flex min-h-6 items-center self-end rounded-sm px-2 text-xs text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:hidden"
+          className="inline-flex min-h-6 cursor-pointer items-center self-end rounded-sm px-2 text-xs text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:hidden"
         >
           {paused ? labels.play : labels.pause}
         </button>

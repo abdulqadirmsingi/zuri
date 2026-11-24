@@ -129,7 +129,7 @@ export function BottomNav({
                 aria-current={isActive ? "page" : undefined}
                 onClick={() => select(item.id)}
                 className={cn(
-                  "group flex min-h-12 min-w-12 items-center justify-center rounded-full px-3 text-muted-foreground transition-colors duration-[var(--duration-base)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current=page]:text-primary-foreground",
+                  "group flex min-h-12 min-w-12 cursor-pointer items-center justify-center rounded-full px-3 text-muted-foreground transition-colors duration-[var(--duration-base)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current=page]:text-primary-foreground",
                   // Before the indicator is measured (server render), keep the active item visible.
                   !box && "aria-[current=page]:bg-primary",
                 )}

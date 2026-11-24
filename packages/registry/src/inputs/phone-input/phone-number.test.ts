@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { COUNTRIES } from "./countries";
-import { digitsOf, findByDial, groupDigits, isPlausible, toE164 } from "./phone-number";
+import { digitsOf, findByDial, flagEmoji, groupDigits, isPlausible, toE164 } from "./phone-number";
 
 const tz = COUNTRIES.find((c) => c.iso === "TZ");
 if (!tz) throw new Error("TZ missing");
@@ -62,5 +62,18 @@ describe("phone number helpers", () => {
     expect(isPlausible("+2557")).toBe(false);
     expect(isPlausible("+1234567890123456")).toBe(false);
     expect(isPlausible("")).toBe(false);
+  });
+});
+
+describe("flagEmoji", () => {
+  it("turns an ISO code into two regional-indicator letters", () => {
+    expect(flagEmoji("TZ")).toBe("\u{1F1F9}\u{1F1FF}");
+    expect(flagEmoji("ke")).toBe("\u{1F1F0}\u{1F1EA}");
+  });
+  it("gives nothing for anything that is not two letters", () => {
+    for (const bad of ["", "T", "TZA", "1Z", "T Z"]) expect(flagEmoji(bad)).toBe("");
+  });
+  it("makes one for every built-in country", () => {
+    for (const c of COUNTRIES) expect([...flagEmoji(c.iso)]).toHaveLength(2);
   });
 });

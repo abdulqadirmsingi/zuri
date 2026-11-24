@@ -55,9 +55,9 @@ export function InputGroupDefault() {
         <Input aria-label="Search components" type="search" placeholder="Search components" />
       </InputGroup>
       <div className="flex flex-col gap-2">
-        <Label htmlFor="grp-phone">Phone number</Label>
-        <InputGroup start={<span className="text-sm">+255</span>}>
-          <Input id="grp-phone" type="tel" autoComplete="tel-national" placeholder="7XX XXX XXX" />
+        <Label htmlFor="grp-handle">Username</Label>
+        <InputGroup start={<span className="text-sm">@</span>}>
+          <Input id="grp-handle" autoComplete="username" placeholder="asha" />
         </InputGroup>
       </div>
       <div className="flex flex-col gap-2">

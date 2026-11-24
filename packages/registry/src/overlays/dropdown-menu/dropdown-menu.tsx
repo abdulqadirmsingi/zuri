@@ -56,7 +56,7 @@ export function DropdownMenuContent({
 }
 
 const itemBase =
-  "relative flex min-h-9 cursor-default select-none items-center gap-2 rounded-md px-2.5 py-1.5 outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-muted [&_svg]:size-4 [&_svg]:shrink-0";
+  "relative flex min-h-9 cursor-pointer select-none data-[disabled]:cursor-not-allowed items-center gap-2 rounded-md px-2.5 py-1.5 outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-muted [&_svg]:size-4 [&_svg]:shrink-0";
 
 export interface DropdownMenuItemProps extends ComponentProps<typeof MenuPrimitive.Item> {
   /** Danger styling for actions that delete or cannot be undone. */

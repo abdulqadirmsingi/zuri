@@ -30,7 +30,7 @@ describe("PhoneInput", () => {
   it("starts on Tanzania with the +255 code on the country button", () => {
     render(<PhoneInput aria-label="Phone number" />);
     expect(countryButton().textContent).toContain("+255");
-    expect(countryButton().getAttribute("aria-label")).toBe("Country: TZ +255, Tanzania");
+    expect(countryButton().getAttribute("aria-label")).toBe("Country: +255, Tanzania");
     expect(screen.getByRole("textbox", { name: "Phone number" })).toBeTruthy();
   });
 
@@ -154,6 +154,73 @@ describe("PhoneInput", () => {
     rerender(<PhoneInput aria-label="Phone" layout="chip" />);
     expect(countryButton().textContent?.trim()).toBe("+255");
     expect(countryButton().className).toContain("bg-accent");
+  });
+
+  it("fixed has no dropdown: the code is plain text and the country cannot change", () => {
+    const onValueChange = vi.fn();
+    render(
+      <PhoneInput
+        aria-label="Phone"
+        layout="fixed"
+        defaultCountry="KE"
+        onValueChange={onValueChange}
+      />,
+    );
+    expect(screen.queryByRole("combobox")).toBeNull();
+    expect(screen.getByText("+254")).toBeTruthy();
+    fireEvent.change(number(), { target: { value: "712345678" } });
+    expect(onValueChange).toHaveBeenLastCalledWith(
+      "+254712345678",
+      expect.objectContaining({ country: "KE" }),
+    );
+  });
+
+  it("fixed reads a pasted number for its own country, and leaves another country's alone", () => {
+    render(<PhoneInput aria-label="Phone" layout="fixed" />);
+    fireEvent.paste(number(), { clipboardData: { getData: () => "+255 712 345 678" } });
+    expect(number().value).toBe("712 345 678");
+    const other = fireEvent.paste(number(), {
+      clipboardData: { getData: () => "+254 799 000 111" },
+    });
+    // Not handled here, so the browser's own paste would run.
+    expect(other).toBe(true);
+    expect(screen.queryByRole("combobox")).toBeNull();
+  });
+
+  it("plain is only the number field, and still reports E.164 for the default country", async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(
+      <PhoneInput
+        aria-label="Phone"
+        layout="plain"
+        className="extra"
+        onValueChange={onValueChange}
+      />,
+    );
+    expect(screen.queryByRole("combobox")).toBeNull();
+    expect(container.querySelectorAll("input")).toHaveLength(1);
+    expect(number().className).toContain("extra");
+    await userEvent.type(number(), "712345678");
+    expect(onValueChange).toHaveBeenLastCalledWith(
+      "+255712345678",
+      expect.objectContaining({ valid: true }),
+    );
+  });
+
+  it("draws the flag as an emoji by default, hidden from assistive technology", async () => {
+    render(<PhoneInput aria-label="Phone" />);
+    const flag = countryButton().querySelector("[aria-hidden='true']") as HTMLElement;
+    expect(flag.textContent).toBe("\u{1F1F9}\u{1F1FF}");
+    await userEvent.click(countryButton());
+    expect(screen.getByRole("option", { name: /Kenya/ }).textContent).toContain(
+      "\u{1F1F0}\u{1F1EA}",
+    );
+  });
+
+  it("can show the two-letter code tile instead, and says so in the name", () => {
+    render(<PhoneInput aria-label="Phone" flags="code" />);
+    expect(countryButton().textContent).toContain("TZ");
+    expect(countryButton().getAttribute("aria-label")).toBe("Country: TZ +255, Tanzania");
   });
 
   it("draws a supplied flag instead of the letters", () => {

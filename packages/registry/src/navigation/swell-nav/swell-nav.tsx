@@ -92,7 +92,7 @@ export function SwellNav({
           {items.map((item, i) => {
             const isActive = i === index;
             const itemClass = cn(
-              "flex size-full min-w-0 flex-col items-center justify-end gap-1 pb-2 text-[0.6875rem] font-medium leading-none transition-colors duration-[var(--duration-base)] focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-ring",
+              "flex size-full min-w-0 cursor-pointer flex-col items-center justify-end gap-1 pb-2 text-[0.6875rem] font-medium leading-none transition-colors duration-[var(--duration-base)] focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-ring",
               isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
             );
             const inside = (
