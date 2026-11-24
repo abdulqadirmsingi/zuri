@@ -261,7 +261,7 @@ export function ExpandingButtonGroup({
               setFocused(visible ? action.id : null);
             }}
             className={cn(
-              "group inline-flex shrink-0 items-center justify-center rounded-full font-medium text-muted-foreground transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-out)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none",
+              "group inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full font-medium text-muted-foreground transition-[background-color,color] duration-[var(--duration-base)] ease-[var(--ease-out)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none",
               sizes[size],
               "data-[expanded]:bg-primary data-[expanded]:text-primary-foreground",
               // Scoped to non-danger actions so a danger button keeps its own colour when open.

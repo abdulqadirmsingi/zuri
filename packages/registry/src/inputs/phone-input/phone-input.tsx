@@ -16,7 +16,15 @@ import { InputGroup } from "@/components/ui/input-group";
 import { Picker, type PickerOption } from "@/components/ui/picker";
 import { cn } from "@/lib/utils";
 import { COUNTRIES, type Country } from "./countries";
-import { digitsOf, findByDial, groupDigits, isPlausible, MAX_DIGITS, toE164 } from "./phone-number";
+import {
+  digitsOf,
+  findByDial,
+  flagEmoji,
+  groupDigits,
+  isPlausible,
+  MAX_DIGITS,
+  toE164,
+} from "./phone-number";
 
 export interface PhoneDetails {
   /** ISO code of the chosen country. */
@@ -46,14 +54,21 @@ export interface PhoneInputProps
   preferred?: readonly string[];
   /**
    * "joined": the country button and the number share one control. "split": two separate fields.
-   * "chip": a saffron chip with the dial code sits inside the field.
+   * "chip": a saffron chip with the dial code sits inside the field. These three have a country
+   * dropdown. "fixed" has none: the country is `defaultCountry` and its code shows as plain text.
+   * "plain" is only the number field, for when the country is obvious from the page.
    */
-  layout?: "joined" | "split" | "chip";
+  layout?: "joined" | "split" | "chip" | "fixed" | "plain";
   variant?: InputProps["variant"];
   size?: InputProps["size"];
   /** Also show the country's name next to the code on the button. */
   showName?: boolean;
-  /** Draws a flag, or any mark, for an ISO code. Supply licensed artwork here; none ships by default. */
+  /**
+   * What marks each country. "emoji" (the default) draws the flag as text, with no images or
+   * requests; "code" shows the two-letter code in a small tile instead.
+   */
+  flags?: "emoji" | "code";
+  /** Draws your own mark for an ISO code, such as a flag image. Overrides `flags`. */
   renderFlag?: (iso: string) => ReactNode;
   /** Whether a leading 0 is dropped from the E.164 output. Defaults to true. */
   stripLeadingZero?: boolean;
@@ -106,6 +121,7 @@ export function PhoneInput({
   variant,
   size: sizeProp,
   showName = false,
+  flags = "emoji",
   renderFlag,
   stripLeadingZero = true,
   invalid,
@@ -134,6 +150,7 @@ export function PhoneInput({
   const [iso, setIso] = useState(start.iso);
   const [national, setNational] = useState(start.national);
   const country = byIso.get(iso) ?? fallback;
+  const pickerEnabled = layout !== "fixed" && layout !== "plain";
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const lastEmitted = useRef(toE164(country, national, stripLeadingZero));
@@ -192,6 +209,8 @@ export function PhoneInput({
     const all = digitsOf(text);
     const found = findByDial(text.startsWith("00") ? all.slice(2) : all, countries, iso);
     if (!found) return;
+    // Without a dropdown the country cannot change, so only a number for this country is read.
+    if (!pickerEnabled && found.country.dial !== country.dial) return;
     event.preventDefault();
     commit(found.country, found.national);
   }
@@ -217,6 +236,15 @@ export function PhoneInput({
       <span aria-hidden="true" className="inline-flex shrink-0 items-center">
         {renderFlag(c.iso)}
       </span>
+    ) : flags === "emoji" ? (
+      // Emoji flags are text. The font stack asks for the system's emoji font first, so the
+      // flag draws where the system has one; elsewhere the two letters show, still readable.
+      <span
+        aria-hidden="true"
+        className="inline-flex w-6 shrink-0 items-center justify-center text-lg leading-none [font-family:'Apple_Color_Emoji','Segoe_UI_Emoji','Noto_Color_Emoji',sans-serif]"
+      >
+        {flagEmoji(c.iso)}
+      </span>
     ) : (
       <span
         aria-hidden="true"
@@ -227,7 +255,11 @@ export function PhoneInput({
     );
 
   const chip = layout === "chip";
-  const visibleText = chip ? `+${country.dial}` : `${country.iso} +${country.dial}`;
+  // What is written on the button, so the spoken name always contains it. Flags are decorative.
+  const visibleText =
+    chip || flags === "emoji" || renderFlag
+      ? `+${country.dial}`
+      : `${country.iso} +${country.dial}`;
   const picker = (
     <Picker
       aria-label={`${countryLabel}: ${visibleText}, ${country.name}`}
@@ -294,6 +326,14 @@ export function PhoneInput({
   // Pasting and typing both end here, so the form gets one clean value.
   const hidden = name ? <input type="hidden" name={name} value={e164} /> : null;
 
+  if (layout === "plain") {
+    return (
+      <>
+        <Input {...numberProps} variant={variant} size={size} className={className} />
+        {hidden}
+      </>
+    );
+  }
   if (layout === "split") {
     return (
       <div className={cn("flex w-full items-start gap-2", className)}>
@@ -310,7 +350,15 @@ export function PhoneInput({
       className={className}
       start={
         <>
-          {picker}
+          {layout === "fixed" ? (
+            // No dropdown: the code is plain text, so it is not a control and not in the tab order.
+            <span className="inline-flex items-center gap-2 px-1.5 text-foreground">
+              {mark(country)}
+              <span className="tabular-nums">+{country.dial}</span>
+            </span>
+          ) : (
+            picker
+          )}
           {chip ? null : <span aria-hidden="true" className="h-5 w-px bg-border" />}
         </>
       }

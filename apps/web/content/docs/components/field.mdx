@@ -40,6 +40,16 @@ import { Input } from "@/components/ui/input";
   <Demo name="field-textarea" />
 </Preview>
 
+## With a phone number
+
+For a number that may come from any country, spread the control onto [Phone input](/docs/components/phone-input), which adds a searchable country dropdown.
+
+```tsx
+<Field label="Phone number" hint="Choose your country, then type the number.">
+  {(control) => <PhoneInput {...control} name="phone" />}
+</Field>
+```
+
 ## Props
 
 <PropsTable

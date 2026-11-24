@@ -60,10 +60,49 @@ export function PhoneInputLooks() {
     <div className={stack}>
       <PhoneInput aria-label="Soft" variant="soft" placeholder="Soft" />
       <PhoneInput aria-label="Underline" variant="underline" placeholder="Underline" />
+      <PhoneInput aria-label="Code tile instead of a flag" flags="code" placeholder="Code tile" />
       <PhoneInput aria-label="Large, with country name" size="lg" showName placeholder="Large" />
       <PhoneInput aria-label="Small" size="sm" placeholder="Small" />
       <PhoneInput aria-label="Invalid" invalid defaultValue="+25571" />
       <PhoneInput aria-label="Disabled" disabled defaultValue="+255712345678" />
+    </div>
+  );
+}
+
+export function PhoneInputNoDropdown() {
+  return (
+    <div className={stack}>
+      <div className="flex flex-col gap-2">
+        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+          Fixed code
+        </span>
+        <PhoneInput
+          aria-label="Phone number, fixed code"
+          layout="fixed"
+          placeholder="712 345 678"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+          Fixed, Kenya
+        </span>
+        <PhoneInput
+          aria-label="Phone number, fixed Kenya"
+          layout="fixed"
+          defaultCountry="KE"
+          placeholder="712 345 678"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+          Number only
+        </span>
+        <PhoneInput
+          aria-label="Phone number, number only"
+          layout="plain"
+          placeholder="0712 345 678"
+        />
+      </div>
     </div>
   );
 }

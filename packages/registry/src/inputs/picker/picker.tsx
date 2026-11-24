@@ -231,7 +231,7 @@ export function Picker({
           disabled={disabled}
           className={cn(
             // No ring on a mouse click (the browser decides, via :focus-visible); keyboard users still get one.
-            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50",
+            "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50",
             inline
               ? "inline-flex cursor-pointer items-baseline gap-[0.15em] rounded-[0.15em] border-0 border-b-[0.07em] border-solid border-accent bg-transparent p-0 text-start text-accent-ink [font:inherit]"
               : "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-md border border-control-border bg-background px-3 text-start text-sm aria-[invalid=true]:border-danger",
@@ -323,8 +323,8 @@ export function Picker({
                     onPointerMove={() => !o.disabled && setActive(o.value)}
                     onClick={() => !o.disabled && choose(o.value)}
                     className={cn(
-                      "flex min-h-9 cursor-default select-none items-center justify-between gap-3 rounded-md px-2.5 py-1.5 text-sm",
-                      "data-[active]:bg-muted aria-disabled:opacity-50",
+                      "flex min-h-9 cursor-pointer select-none items-center justify-between gap-3 rounded-md px-2.5 py-1.5 text-sm",
+                      "data-[active]:bg-muted aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
                       o.value === current && "font-medium",
                     )}
                   >

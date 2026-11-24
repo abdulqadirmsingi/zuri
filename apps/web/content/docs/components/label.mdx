@@ -22,6 +22,17 @@ import { Label } from "@/components/ui/label";
 <Input id="phone" />
 ```
 
+## For a phone number
+
+A phone number usually needs a country. The demo at the top pairs a `Label` with [Phone input](/docs/components/phone-input), which has a searchable country dropdown. Give the number field the label's `id`, as with any input.
+
+```tsx
+<Label htmlFor="phone">Phone number</Label>
+<PhoneInput id="phone" name="phone" />
+```
+
+For a plain local number, use a normal [Input](/docs/components/input) with `type="tel"` instead.
+
 ## Looks
 
 <Preview>

@@ -36,7 +36,7 @@ export function InputGroup({
         inputVariants({ variant, size }),
         "flex items-center gap-2 has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50 has-[input:focus-visible:not([aria-invalid=true])]:border-ring has-[input:focus-visible]:ring-4 has-[input:focus-visible]:ring-foreground/10 has-[[aria-invalid=true]]:border-danger",
         // The input inside gives up its own surface so the group's is the only one.
-        "[&_input]:h-full [&_input]:min-h-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:p-0 [&_input]:outline-none [&_input]:placeholder:text-muted-foreground",
+        "[&_input]:h-full [&_input]:min-h-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:p-0 [&_input]:outline-none [&_input]:focus-visible:border-transparent [&_input]:focus-visible:ring-0 [&_input]:placeholder:text-muted-foreground",
         // A halo around a bare underline would look like a box, so that look gets the line only.
         variant === "underline" && "has-[input:focus-visible]:ring-0",
         className,

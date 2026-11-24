@@ -27,6 +27,8 @@ describe("InputGroup", () => {
     const group = container.firstElementChild as HTMLElement;
     expect(group.className).toContain("border");
     expect(group.className).toContain("[&_input]:border-0");
+    // The input inside must not draw its own focus halo, or there would be two borders.
+    expect(group.className).toContain("[&_input]:focus-visible:ring-0");
     expect(group.className).toContain(
       "has-[input:focus-visible:not([aria-invalid=true])]:border-ring",
     );

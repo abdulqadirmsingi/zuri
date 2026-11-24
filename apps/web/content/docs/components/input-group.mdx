@@ -7,7 +7,7 @@ description: Wraps an input with an icon, prefix, suffix or button on either sid
   <Demo name="input-group-default" />
 </Preview>
 
-Use `InputGroup` when a field needs something beside it: a search icon, a country code like +255, a unit like TZS, or a button to show a password or clear the text. The group draws the border and the focus ring, and the input inside is made borderless, so the pieces look like one control.
+Use `InputGroup` when a field needs something beside it: a search icon, an @ for a username, a unit like TZS, or a button to show a password or clear the text. For **phone numbers** use [Phone input](/docs/components/phone-input), which adds a country dropdown. The group draws the border and the focus ring, and the input inside is made borderless, so the pieces look like one control.
 
 ## Installation
 
@@ -77,7 +77,7 @@ It takes the same `variant` and `size` as [Input](/docs/components/input). An in
 
 - The input inside keeps its own label and is the only focusable field. The group is a plain `div` with no role.
 - The focus ring appears around the whole group when the input has focus.
-- Icons are decorative: give them `aria-hidden="true"`. A text prefix or suffix such as "+255" is visible but is not part of the input's name, so say the unit in the label too (for example "Amount in TZS") when it matters.
+- Icons are decorative: give them `aria-hidden="true"`. A text prefix or suffix such as "TZS" is visible but is not part of the input's name, so say the unit in the label too (for example "Amount in TZS") when it matters.
 - Buttons inside need an `aria-label` when they show only an icon, and a toggle needs `aria-pressed`. They are 32 pixels at the smallest size, above the 24-pixel WCAG minimum.
 - Invalid state comes from the input's own `aria-invalid`; the red border is not the only signal when you also show an error message (see [Field](/docs/components/field)).
 
