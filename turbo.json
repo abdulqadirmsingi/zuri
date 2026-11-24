@@ -18,7 +18,7 @@
     },
     "registry:build": {
       "outputs": ["../../apps/web/.registry/**"],
-      "env": ["ZURI_REGISTRY_URL", "ZURI_REGISTRY_OUT"]
+      "env": ["ZURI_REGISTRY_URL", "ZURI_REGISTRY_OUT", "NEXT_PUBLIC_SITE_URL", "VERCEL_ENV"]
     }
   }
 }
