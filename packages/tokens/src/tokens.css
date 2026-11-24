@@ -228,6 +228,40 @@
   }
 }
 
+@keyframes zuri-otp-in {
+  from {
+    opacity: 0;
+    transform: translateY(45%) scale(0.86);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes zuri-otp-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+
+@keyframes zuri-otp-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.93);
+  }
+}
+
 @keyframes zuri-marquee {
   to {
     transform: translateX(-50%);

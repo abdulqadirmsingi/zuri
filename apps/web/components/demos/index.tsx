@@ -56,6 +56,7 @@ import {
   TabsDefault,
   TabsLine,
 } from "./navigation-demos";
+import { OtpInputDefault, OtpInputForm, OtpInputVariants } from "./otp-input-demos";
 import { DialogDefault, DialogGlass, PopoverDefault, TooltipDefault } from "./overlay-demos";
 import { PasswordDefault, PasswordReworded, PasswordWithError } from "./password-demos";
 import {
@@ -190,6 +191,9 @@ const demos: Record<string, () => ReactNode> = {
   "phone-input-layouts": PhoneInputLayouts,
   "phone-input-looks": PhoneInputLooks,
   "phone-input-fixed": PhoneInputNoDropdown,
+  "otp-input-default": OtpInputDefault,
+  "otp-input-variants": OtpInputVariants,
+  "otp-input-form": OtpInputForm,
   "textarea-default": TextareaDefault,
   "textarea-states": TextareaStates,
   "field-default": FieldDefault,

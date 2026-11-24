@@ -1,0 +1,113 @@
+---
+title: One-time code
+description: A verification code field. Digits rise into cells, a full code is checked, and the cells fuse into a Verified capsule, or the row shakes and clears.
+---
+
+<Preview>
+  <Demo name="otp-input-default" />
+</Preview>
+
+Use `OtpInput` to ask for a code sent by text message or email, or from an authenticator app. It is one real input drawn as a row of cells, so **paste, autofill from the message, backspace and screen readers all work** the way they do for any input.
+
+Type six digits above. After a short pause the demo answers, and you choose which answer it gives with the two buttons: **accept** and the cells slide together and fuse into one "Verified" capsule; **reject** and the row shakes, the digits drain away, and it clears for another try. Press the capsule to start over.
+
+<Callout type="warn" title="Presentation only">
+  The component never stores or sends the code. `verify` is your function: call your own server there. Don't log codes, and rate-limit attempts on the server.
+</Callout>
+
+## Installation
+
+<InstallTabs name="otp-input" />
+
+## Usage
+
+```tsx
+import { OtpInput } from "@/components/ui/otp-input";
+
+<OtpInput
+  length={6}
+  verify={async (code) => {
+    const res = await fetch("/api/verify", { method: "POST", body: code });
+    return res.ok; // true: cells fuse into "Verified". false: the row shakes and clears.
+  }}
+  onVerified={() => router.push("/welcome")}
+/>
+```
+
+`verify` resolves `true` or `false`. If it rejects (a network error, say) the code is treated as wrong. While it runs, the cells breathe in a wave.
+
+## What it does
+
+- **Digits rise into their cells**, and a pasted or autofilled code lands one cell after another. Only digits are kept, up to `length`.
+- **A caret and a frame** follow the next cell. They are the visible focus, so there is no extra ring.
+- **A full code is checked** with `verify`, after a short beat so the last digit is seen.
+- **Right:** the cells slide to the middle and fuse, through a blur-and-threshold filter, into a capsule that says "Verified". Press it to enter a new code.
+- **Wrong:** the row shakes, the digits turn red and drain away right to left, then it clears and puts the caret back in the first cell.
+- Without `verify`, a full row just calls `onComplete(code)`, so it works as a plain code field in a form.
+
+## Variants and sizes
+
+<Preview>
+  <Demo name="otp-input-variants" />
+</Preview>
+
+- **`length`**: 3 to 8 digits. Six is the default; many apps use four.
+- **`size`**: `sm`, `md` or `lg`. The row shrinks to fit a narrow screen instead of overflowing.
+- **`tone`**: `soft` (muted cells) or `accent` (saffron cells).
+- **`fuse={false}`**: for people who find the merge too much. The cells stay and get a green outline on success.
+
+## In a form
+
+<Preview>
+  <Demo name="otp-input-form" />
+</Preview>
+
+Give it a `name` and it submits its digits with the form. Without `verify` it only collects them.
+
+```tsx
+<OtpInput name="code" label="Code from the text message" onComplete={(code) => confirm(code)} />
+```
+
+## Props
+
+`OtpInput` extends native `<input>` props (except `value`, `onChange`, `type` and `maxLength`) and puts them on the real input, including `ref`, `id`, `name`, `autoFocus` and `disabled`. `className` goes on the outer wrapper.
+
+<PropsTable
+  rows={[
+    { name: "length", type: "number", default: "6", description: "How many digits, from 3 to 8." },
+    { name: "verify", type: "(code: string) => Promise<boolean>", description: "Checks a full code. true fuses into Verified; false (or a rejection) shakes and clears." },
+    { name: "onComplete", type: "(code: string) => void", description: "Called as soon as the row is full, before verify runs." },
+    { name: "onVerified / onFailed", type: "(code: string) => void", description: "Called after the answer, once the animation starts." },
+    { name: "invalid", type: "boolean", description: "Marks the code as wrong from outside: danger colour and one shake." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Cell size." },
+    { name: "tone", type: '"soft" | "accent"', default: '"soft"', description: "Muted or saffron cells." },
+    { name: "fuse", type: "boolean", default: "true", description: "Merge into a capsule on success, or keep the cells with a green outline." },
+    { name: "messages", type: "{ checking, verified, failed, reopen }", description: "The words for the capsule and for screen readers. Translate them here." },
+    { name: "label", type: "string | null", default: '"N-digit code"', description: "The field's accessible name. Pass null when a visible label is attached with id." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native `<input>` with `inputmode="numeric"` and `autocomplete="one-time-code"`, so phones offer the code from a text message and show a number pad. Nothing is faked with six separate fields, which is what breaks paste and screen readers.
+- The cells and digits are drawn for the eye and hidden from assistive technology. The real input holds the value, so a screen reader hears the digits as you type them.
+- Progress is announced in a polite live region: "Checking the code", "Verified", or the failure message. After a wrong code the field is cleared and focused again.
+- Once verified, the field's name becomes "Verified. Press to enter a new code", and pressing it starts over.
+- The visible focus is the frame around the active cell plus the caret, both in the foreground colour, so it meets 3:1 contrast. Colour is not the only signal for a wrong code: the row shakes, and the live region says so.
+- Under `prefers-reduced-motion`, the rise, breathing, shake and merge are removed. The result still shows: the capsule appears and a wrong code clears.
+- Password managers are told to leave the field alone, since a code box is not a login.
+
+## Tokens used
+
+`--muted`, `--foreground`, `--accent`, `--accent-foreground`, `--danger`, `--success`, `--duration-base`, `--duration-slow`, `--ease-out`. It ships the `zuri-otp-in`, `zuri-otp-out`, `zuri-otp-breathe` and `zuri-shake` keyframes.
+
+## Known limitations
+
+- **Digits only.** Codes with letters are not supported.
+- **The merge is a blur-and-threshold filter.** It is the reason the capsule looks liquid, and it is applied only for the moment of fusing. Very old browsers may draw it rougher; set `fuse={false}` there.
+- It starts over when `length` changes.
+- It is a client component, and checks no code itself.
+
+## Source
+
+<Source name="otp-input" />

@@ -10,6 +10,7 @@
     "input",
     "input-group",
     "phone-input",
+    "otp-input",
     "textarea",
     "field",
     "password-strength",
