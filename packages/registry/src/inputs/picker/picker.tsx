@@ -219,37 +219,37 @@ export function Picker({
   const inline = variant === "inline";
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
-      <PopoverTrigger asChild>
-        <button
-          type="button"
-          role="combobox"
-          id={id}
-          aria-expanded={open}
-          aria-haspopup="listbox"
-          aria-controls={open ? `${base}-list` : undefined}
-          aria-invalid={invalid || undefined}
-          disabled={disabled}
-          className={cn(
-            // No ring on a mouse click (the browser decides, via :focus-visible); keyboard users still get one.
-            "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50",
-            inline
-              ? "inline-flex cursor-pointer items-baseline gap-[0.15em] rounded-[0.15em] border-0 border-b-[0.07em] border-solid border-accent bg-transparent p-0 text-start text-accent-ink [font:inherit]"
-              : "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-md border border-control-border bg-background px-3 text-start text-sm aria-[invalid=true]:border-danger aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)] motion-reduce:animate-none",
-            className,
-          )}
-          {...props}
-        >
-          <span className={cn("truncate", !selected && !inline && "text-muted-foreground")}>
-            {selected ? (renderValue ? renderValue(selected) : selected.label) : placeholder}
+      {/* The trigger is the button itself, not a wrapper (no asChild): the shadcn CLI rewrites asChild
+          for projects on its Base UI styles, and that rewrite does not fit our Radix popover. */}
+      <PopoverTrigger
+        type="button"
+        role="combobox"
+        id={id}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        aria-controls={open ? `${base}-list` : undefined}
+        aria-invalid={invalid || undefined}
+        disabled={disabled}
+        className={cn(
+          // No ring on a mouse click (the browser decides, via :focus-visible); keyboard users still get one.
+          "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50",
+          inline
+            ? "inline-flex cursor-pointer items-baseline gap-[0.15em] rounded-[0.15em] border-0 border-b-[0.07em] border-solid border-accent bg-transparent p-0 text-start text-accent-ink [font:inherit]"
+            : "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-md border border-control-border bg-background px-3 text-start text-sm aria-[invalid=true]:border-danger aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)] motion-reduce:animate-none",
+          className,
+        )}
+        {...props}
+      >
+        <span className={cn("truncate", !selected && !inline && "text-muted-foreground")}>
+          {selected ? (renderValue ? renderValue(selected) : selected.label) : placeholder}
+        </span>
+        {inline ? (
+          <span aria-hidden="true" className="text-[0.28em] text-accent-ink">
+            ▼
           </span>
-          {inline ? (
-            <span aria-hidden="true" className="text-[0.28em] text-accent-ink">
-              ▼
-            </span>
-          ) : (
-            icon
-          )}
-        </button>
+        ) : (
+          icon
+        )}
       </PopoverTrigger>
       {name ? <input type="hidden" name={name} value={current ?? ""} /> : null}
       <PopoverContent

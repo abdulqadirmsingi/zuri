@@ -13,6 +13,26 @@ type Item = {
 };
 const { items } = JSON.parse(readFileSync("registry.json", "utf8")) as { items: Item[] };
 
+// Regression: a fresh `shadcn init` picks a Base UI style, and the CLI then rewrites `asChild` on
+// triggers into Base UI's `render` prop. Zuri ships Radix primitives, so Picker and SiteHeader
+// stopped compiling in those projects. The triggers are the button themselves, with no asChild.
+describe("sources that the shadcn CLI rewrites", () => {
+  const files = [
+    "src/inputs/picker/picker.tsx",
+    "src/blocks/site-header/site-header.tsx",
+    "src/overlays/popover/popover.tsx",
+    "src/overlays/dialog/dialog.tsx",
+    "src/navigation/user-menu/user-menu.tsx",
+  ];
+  for (const file of files) {
+    it(`${file} has no literal asChild on a Dialog or Popover trigger or a DropdownMenu item`, () => {
+      expect(readFileSync(file, "utf8")).not.toMatch(
+        /<(?:(?:Dialog|Popover)Trigger|DropdownMenuItem)\b[^>]*\sasChild\b/,
+      );
+    });
+  }
+});
+
 describe("registry.json", () => {
   it("gives every item a version and tier", () => {
     for (const item of items) {

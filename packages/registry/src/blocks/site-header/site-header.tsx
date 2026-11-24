@@ -90,24 +90,23 @@ export function SiteHeader({
         <div className="ms-auto flex items-center gap-2">
           {actions ? <div className="hidden items-center gap-2 md:flex">{actions}</div> : null}
           <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <button
-                type="button"
-                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden"
+            {/* The trigger is the button itself (no asChild); see the note in picker.tsx. */}
+            <DialogTrigger
+              type="button"
+              className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                className="size-5"
               >
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  className="size-5"
-                >
-                  <path d="M2 4h12M2 8h12M2 12h12" />
-                </svg>
-                <span className="sr-only">{menuLabel}</span>
-              </button>
+                <path d="M2 4h12M2 8h12M2 12h12" />
+              </svg>
+              <span className="sr-only">{menuLabel}</span>
             </DialogTrigger>
             <DialogContent
               closeLabel="Close menu"

@@ -1,9 +1,10 @@
 // Renders registry.json (with __REGISTRY_URL__ placeholders) and runs `shadcn build`.
-// Why: registryDependencies must be absolute URLs, and the site domain is still a placeholder.
+// Why: registryDependencies must be absolute URLs, so the site's address is written in at build time.
 import { spawnSync } from "node:child_process";
 import { readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { resolveRegistryUrl } from "./registry-url.mjs";
 
-const base = (process.env.ZURI_REGISTRY_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const base = resolveRegistryUrl();
 const out = process.env.ZURI_REGISTRY_OUT ?? "../../apps/web/.registry";
 const rendered = "registry.generated.json";
 
