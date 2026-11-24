@@ -56,4 +56,17 @@ describe("Textarea", () => {
     expect(cls).not.toContain("outline-offset");
     expect(cls).not.toContain("focus-visible:outline-2");
   });
+
+  it("shakes when invalid, unless motion is reduced", () => {
+    render(<Textarea aria-label="x" invalid />);
+    const cls = screen.getByRole("textbox").className;
+    expect(cls).toContain("aria-[invalid=true]:animate-[zuri-shake_");
+    expect(cls).toContain("motion-reduce:animate-none");
+  });
+
+  it("can drop the grey halo", () => {
+    render(<Textarea aria-label="x" halo={false} />);
+    expect(screen.getByRole("textbox").className).not.toContain("ring-4");
+    expect(screen.getByRole("textbox").className).toContain("focus-visible:border-ring");
+  });
 });

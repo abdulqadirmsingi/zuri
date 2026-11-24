@@ -34,6 +34,7 @@ import { Textarea } from "@/components/ui/textarea";
 <PropsTable
   rows={[
     { name: "variant", type: '"default" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "halo", type: "boolean", default: "true", description: "The soft grey glow around the focused field. Set false to keep only the border change." },
     { name: "invalid", type: "boolean", description: "Sets aria-invalid and a danger border. Field sets this for you." },
     { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
   ]}

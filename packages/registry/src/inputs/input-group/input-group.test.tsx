@@ -95,4 +95,32 @@ describe("InputGroup", () => {
       "has-[input:disabled]:opacity-50",
     );
   });
+
+  it("shakes the whole group, and the input inside does not shake on its own", () => {
+    const { container } = render(
+      <InputGroup>
+        <Input aria-label="Amount" invalid />
+      </InputGroup>,
+    );
+    const cls = (container.firstElementChild as HTMLElement).className;
+    expect(cls).toContain("has-[[aria-invalid=true]]:animate-[zuri-shake_");
+    expect(cls).toContain("[&_input]:aria-[invalid=true]:animate-none");
+  });
+
+  it("shows the halo around the group by default and can leave it out", () => {
+    const { container, rerender } = render(
+      <InputGroup>
+        <Input aria-label="Amount" />
+      </InputGroup>,
+    );
+    const cls = () => (container.firstElementChild as HTMLElement).className;
+    expect(cls()).toContain("has-[input:focus-visible]:ring-4");
+    rerender(
+      <InputGroup halo={false}>
+        <Input aria-label="Amount" />
+      </InputGroup>,
+    );
+    expect(cls()).not.toContain("ring-4");
+    expect(cls()).toContain("has-[input:focus-visible:not([aria-invalid=true])]:border-ring");
+  });
 });

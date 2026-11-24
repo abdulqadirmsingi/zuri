@@ -3,9 +3,14 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const inputVariants = cva(
-  "w-full min-w-0 border text-foreground placeholder:text-muted-foreground transition-[border-color,background-color,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-out)] focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-foreground/10 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:border-danger motion-reduce:transition-none",
+  "w-full min-w-0 border text-foreground placeholder:text-muted-foreground transition-[border-color,background-color,box-shadow] duration-[var(--duration-base)] ease-[var(--ease-out)] focus-visible:border-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-danger aria-[invalid=true]:focus-visible:border-danger aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none",
   {
     variants: {
+      // The soft grey glow around a focused field. Off for people who prefer just the border.
+      halo: {
+        true: "focus-visible:ring-4 focus-visible:ring-foreground/10",
+        false: "",
+      },
       variant: {
         default: "border-control-border bg-background",
         // A filled field with no visible border, for calm forms.
@@ -22,7 +27,7 @@ const inputVariants = cva(
     },
     // After the sizes, so the square corners and flush padding win over each size's own.
     compoundVariants: [{ variant: "underline", class: "rounded-none px-0 focus-visible:ring-0" }],
-    defaultVariants: { variant: "default", size: "md" },
+    defaultVariants: { variant: "default", size: "md", halo: true },
   },
 );
 
@@ -34,12 +39,20 @@ export interface InputProps
 }
 
 /** A native `<input>`. Pair it with a label (see Field) so it has an accessible name. */
-export function Input({ className, variant, size, invalid, type = "text", ...props }: InputProps) {
+export function Input({
+  className,
+  variant,
+  size,
+  halo,
+  invalid,
+  type = "text",
+  ...props
+}: InputProps) {
   return (
     <input
       type={type}
       aria-invalid={invalid || props["aria-invalid"] || undefined}
-      className={cn(inputVariants({ variant, size }), className)}
+      className={cn(inputVariants({ variant, size, halo }), className)}
       {...props}
     />
   );

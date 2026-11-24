@@ -173,7 +173,26 @@
         "version": "0.2.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     },
     {
       "name": "input-group",
@@ -192,7 +211,26 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/input.json"]
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/input.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     },
     {
       "name": "phone-input",
@@ -243,7 +281,26 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     },
     {
       "name": "field",
@@ -338,7 +395,26 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     },
     {
       "name": "badge",
@@ -1241,7 +1317,29 @@
         "version": "0.1.0",
         "tier": "free"
       },
-      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/popover.json"]
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/popover.json"
+      ],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     }
   ]
 }

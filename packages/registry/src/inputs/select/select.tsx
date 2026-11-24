@@ -5,7 +5,7 @@ import { type ComponentProps, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const selectVariants = cva(
-  "w-full min-w-0 cursor-pointer appearance-none border pe-9 text-foreground transition-[border-color,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-danger motion-reduce:transition-none",
+  "w-full min-w-0 cursor-pointer appearance-none border pe-9 text-foreground transition-[border-color,background-color] duration-[var(--duration-base)] ease-[var(--ease-out)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-danger aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none",
   {
     variants: {
       variant: {

@@ -135,6 +135,7 @@ Where a dial code is shared (the US and Canada both use +1), list each country s
     { name: "flags", type: '"emoji" | "code"', default: '"emoji"', description: "Mark each country with its flag emoji, or with its two-letter code in a tile." },
     { name: "renderFlag", type: "(iso: string) => ReactNode", description: "Draw your own mark for a country, such as a flag image. Overrides `flags`." },
     { name: "stripLeadingZero", type: "boolean", default: "true", description: "Drop one leading 0 from the E.164 value." },
+    { name: "halo", type: "boolean", default: "true", description: "The soft grey glow around the focused field. Set false to keep only the border change." },
     { name: "invalid", type: "boolean", description: "Sets aria-invalid on the number and a danger border. Field sets this for you." },
     { name: "name", type: "string", description: "Adds a hidden field with the E.164 number for form submission." },
     { name: "countryLabel / searchLabel / emptyText", type: "string", description: 'Words for the country button, its search box and the empty list. Translate them here.' },

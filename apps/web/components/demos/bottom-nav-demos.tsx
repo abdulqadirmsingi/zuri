@@ -1,4 +1,5 @@
 import { BottomNav, type BottomNavItem } from "@registry/navigation/bottom-nav/bottom-nav";
+import { GlassBackdrop } from "./glass-backdrop";
 
 const base = {
   viewBox: "0 0 24 24",
@@ -56,8 +57,8 @@ export function BottomNavDefault() {
 
 export function BottomNavGlass() {
   return (
-    <div className="rounded-2xl bg-linear-to-br from-accent to-primary p-6">
+    <GlassBackdrop className="p-6">
       <BottomNav aria-label="Demo glass" items={items} variant="glass" defaultValue="messages" />
-    </div>
+    </GlassBackdrop>
   );
 }
