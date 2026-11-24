@@ -1,7 +1,7 @@
 {
-  "name": "zuri",
+  "name": "@abdulqadirmsingi/zuri",
   "version": "0.1.0",
-  "description": "Install Zuri components into your project: npx zuri add <component>",
+  "description": "Install Zuri components into your project: npx @abdulqadirmsingi/zuri add <component>",
   "keywords": [
     "react",
     "components",
@@ -21,7 +21,7 @@
   },
   "type": "module",
   "bin": {
-    "zuri": "./bin/zuri.js"
+    "zuri": "bin/zuri.js"
   },
   "files": [
     "bin",

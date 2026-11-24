@@ -28,12 +28,12 @@ export function parseArgs(argv) {
 export const HELP = `zuri — beautiful React components you own
 
 Usage
-  npx zuri add <component...> [shadcn flags]   Add components to your project
-  npx zuri list                                 Show what is available
+  npx @abdulqadirmsingi/zuri add <component...> [shadcn flags]   Add components to your project
+  npx @abdulqadirmsingi/zuri list                                 Show what is available
 
 Examples
-  npx zuri add otp-input
-  npx zuri add button card --overwrite
+  npx @abdulqadirmsingi/zuri add otp-input
+  npx @abdulqadirmsingi/zuri add button card --overwrite
 
 Docs: ${DEFAULT_REGISTRY}
 `;

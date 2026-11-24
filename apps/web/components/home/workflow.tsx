@@ -22,7 +22,8 @@ const code = "font-mono text-[0.8rem] leading-7 sm:text-sm";
 
 const terminal = (
   <pre className={`m-0 whitespace-pre-wrap break-words p-6 ${code}`}>
-    <span className="text-muted-foreground">$ </span>npx zuri add password-strength{"\n"}
+    <span className="text-muted-foreground">$ </span>npx @abdulqadirmsingi/zuri add
+    password-strength{"\n"}
     <span className="text-success">✔</span> Checking registry.{"\n"}
     <span className="text-success">✔</span> Installing dependencies.{"\n"}
     <span className="text-success">✔</span> Created 1 file:{"\n"}

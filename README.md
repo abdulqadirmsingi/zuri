@@ -7,7 +7,7 @@ _Zuri_ is Swahili for "beautiful". It's a library of React components I wanted t
 You don't install Zuri as a dependency. You copy a component into your project and it's yours to edit. Same idea as shadcn/ui, and it works with the shadcn CLI because the registry is shadcn-compatible.
 
 ```bash
-npx zuri add otp-input
+npx @abdulqadirmsingi/zuri add otp-input
 ```
 
 That fetches the component, installs the few packages it needs, and drops one readable file into your `components/` folder.
@@ -31,8 +31,8 @@ Browse everything, with live previews and copy-paste code, at **[components.abdu
 With the Zuri CLI (a thin wrapper that calls the shadcn CLI for you):
 
 ```bash
-npx zuri add button card
-npx zuri list
+npx @abdulqadirmsingi/zuri add button card
+npx @abdulqadirmsingi/zuri list
 ```
 
 Or straight through shadcn, no Zuri package involved:

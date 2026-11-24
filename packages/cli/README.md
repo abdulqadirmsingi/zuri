@@ -1,11 +1,11 @@
-# zuri
+# @abdulqadirmsingi/zuri
 
 Install [Zuri](https://components.abdulqadirmsingi.com) components into your project.
 
 ```bash
-npx zuri add otp-input
-npx zuri add button card --overwrite
-npx zuri list
+npx @abdulqadirmsingi/zuri add otp-input
+npx @abdulqadirmsingi/zuri add button card --overwrite
+npx @abdulqadirmsingi/zuri list
 ```
 
 Zuri is a shadcn-compatible registry, so this is a thin wrapper: it builds the component URL and hands it to `npx shadcn@latest add`. The component is copied into your project and the packages it needs are installed. You own the code.
