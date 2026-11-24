@@ -303,7 +303,7 @@ export function Picker({
               {group ? (
                 <div
                   aria-hidden="true"
-                  className="px-2.5 pt-2 pb-1 font-mono text-xs uppercase tracking-wider text-muted-foreground"
+                  className="px-2.5 pt-2 pb-1 text-xs font-medium text-muted-foreground"
                 >
                   {group}
                 </div>

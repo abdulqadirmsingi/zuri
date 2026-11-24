@@ -34,19 +34,19 @@ export function PhoneInputLayouts() {
   return (
     <div className={stack}>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Joined
         </span>
         <PhoneInput aria-label="Phone number, joined" placeholder="712 345 678" />
       </div>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Split
         </span>
         <PhoneInput aria-label="Phone number, split" layout="split" placeholder="712 345 678" />
       </div>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Chip
         </span>
         <PhoneInput aria-label="Phone number, chip" layout="chip" placeholder="712 345 678" />
@@ -73,7 +73,7 @@ export function PhoneInputNoDropdown() {
   return (
     <div className={stack}>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Fixed code
         </span>
         <PhoneInput
@@ -83,7 +83,7 @@ export function PhoneInputNoDropdown() {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Fixed, Kenya
         </span>
         <PhoneInput
@@ -94,7 +94,7 @@ export function PhoneInputNoDropdown() {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Number only
         </span>
         <PhoneInput

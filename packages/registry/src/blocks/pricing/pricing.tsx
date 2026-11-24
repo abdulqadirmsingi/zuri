@@ -55,7 +55,7 @@ export function Pricing({ plans, headingLevel = 3, className, ...props }: Pricin
             <article aria-labelledby={titleId} className="flex flex-1 flex-col gap-6">
               <header className="flex flex-col gap-2">
                 {plan.badge ? (
-                  <p className="m-0 font-mono text-xs uppercase tracking-wider opacity-80">
+                  <p className="m-0 text-xs font-medium uppercase tracking-wider opacity-80">
                     {plan.badge}
                   </p>
                 ) : null}

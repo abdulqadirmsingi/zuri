@@ -66,6 +66,8 @@ describe("Label", () => {
   it("offers caps and muted looks and three sizes", () => {
     const { rerender } = render(<Label variant="caps">A</Label>);
     expect(screen.getByText("A").className).toContain("uppercase");
+    // The look changes the case and spacing only; it never swaps the font.
+    expect(screen.getByText("A").className).not.toContain("font-mono");
     rerender(<Label variant="muted">A</Label>);
     expect(screen.getByText("A").className).toContain("text-muted-foreground");
     rerender(<Label size="lg">A</Label>);
