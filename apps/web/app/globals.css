@@ -43,6 +43,44 @@ html {
   scrollbar-gutter: stable;
 }
 
+/* Anchor links glide instead of jumping; reduced-motion users get the plain jump. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Soft section tints for the landing page. Text on them is always --foreground, which keeps
+ * well above 4.5:1 on all four in both themes. */
+:root {
+  --tint-butter: oklch(0.94 0.07 95);
+  --tint-coral: oklch(0.85 0.09 22);
+  --tint-mint: oklch(0.93 0.08 140);
+  --tint-sky: oklch(0.93 0.04 265);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light) {
+    --tint-butter: oklch(0.32 0.05 95);
+    --tint-coral: oklch(0.36 0.07 22);
+    --tint-mint: oklch(0.31 0.05 140);
+    --tint-sky: oklch(0.31 0.05 265);
+  }
+}
+:root[data-theme="dark"],
+.dark {
+  --tint-butter: oklch(0.32 0.05 95);
+  --tint-coral: oklch(0.36 0.07 22);
+  --tint-mint: oklch(0.31 0.05 140);
+  --tint-sky: oklch(0.31 0.05 265);
+}
+
+@theme inline {
+  --color-tint-butter: var(--tint-butter);
+  --color-tint-coral: var(--tint-coral);
+  --color-tint-mint: var(--tint-mint);
+  --color-tint-sky: var(--tint-sky);
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--background);

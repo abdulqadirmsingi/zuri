@@ -1,12 +1,15 @@
 import { Marquee } from "@registry/blocks/marquee/marquee";
 import { Pricing } from "@registry/blocks/pricing/pricing";
+import { Reveal } from "@registry/blocks/reveal/reveal";
 import Image from "next/image";
 import Link from "next/link";
 import { demoFor } from "@/components/demos";
+import { Bento } from "@/components/home/bento";
 import { Builder, type BuilderItem } from "@/components/home/builder";
 import { HomeFooter } from "@/components/home/home-footer";
 import { InstallCommand } from "@/components/home/install-command";
 import { InstallCount } from "@/components/home/install-count";
+import { NightCta } from "@/components/home/night-cta";
 import { Shelves } from "@/components/home/shelves";
 import { ThemeLab } from "@/components/home/theme-lab";
 import { registryStats } from "@/lib/registry-stats";
@@ -140,37 +143,53 @@ export default function Home() {
             </Marquee>
           </section>
 
+          {/* What you get, in four soft cards */}
+          <section aria-labelledby="bento-title" className={`${wrap} py-24 lg:py-32`}>
+            <Reveal>
+              <h2
+                id="bento-title"
+                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+              >
+                Everything you need to ship.
+              </h2>
+            </Reveal>
+            <Bento count={stats.count} command={`npx shadcn@latest add ${siteUrl}/r/button.json`} />
+          </section>
+
           {/* Page blocks, as pictures */}
           <section aria-labelledby="pages-title" className="overflow-hidden">
             <div className={`${wrap} py-24 lg:py-32`}>
-              <h2
-                id="pages-title"
-                className="m-0 mb-14 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-              >
-                Whole pages, too.
-              </h2>
+              <Reveal>
+                <h2
+                  id="pages-title"
+                  className="m-0 mb-14 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+                >
+                  Whole pages, too.
+                </h2>
+              </Reveal>
               <div className="grid gap-x-8 gap-y-12 lg:grid-cols-12">
                 {shots.map((s) => (
-                  <Link
-                    key={s.title}
-                    href={s.href}
-                    className={`group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring ${s.className}`}
-                  >
-                    <figure className="m-0">
-                      <div className="overflow-hidden rounded-2xl border border-border bg-muted">
-                        <Image
-                          src={s.src}
-                          alt={s.alt}
-                          sizes="(min-width: 1024px) 58vw, 100vw"
-                          className="block h-auto w-full transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                        />
-                      </div>
-                      <figcaption className="mt-4 flex items-center justify-between font-mono text-xs uppercase tracking-wider">
-                        <span>{s.title}</span>
-                        <span aria-hidden="true">→</span>
-                      </figcaption>
-                    </figure>
-                  </Link>
+                  <Reveal key={s.title} className={s.className}>
+                    <Link
+                      href={s.href}
+                      className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                    >
+                      <figure className="m-0">
+                        <div className="overflow-hidden rounded-2xl border border-border bg-muted">
+                          <Image
+                            src={s.src}
+                            alt={s.alt}
+                            sizes="(min-width: 1024px) 58vw, 100vw"
+                            className="block h-auto w-full transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                          />
+                        </div>
+                        <figcaption className="mt-4 flex items-center justify-between font-mono text-xs uppercase tracking-wider">
+                          <span>{s.title}</span>
+                          <span aria-hidden="true">→</span>
+                        </figcaption>
+                      </figure>
+                    </Link>
+                  </Reveal>
                 ))}
               </div>
             </div>
@@ -179,12 +198,14 @@ export default function Home() {
           {/* Everything, by shelf. Counts and links come from the registry. */}
           <section aria-labelledby="shelves-title" className="border-t border-border">
             <div className={`${wrap} py-24 lg:py-32`}>
-              <h2
-                id="shelves-title"
-                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-              >
-                Pick a shelf.
-              </h2>
+              <Reveal>
+                <h2
+                  id="shelves-title"
+                  className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+                >
+                  Pick a shelf.
+                </h2>
+              </Reveal>
               <Shelves shelves={stats.shelves} />
             </div>
           </section>
@@ -192,12 +213,14 @@ export default function Home() {
           {/* Three steps. The commands are the real ones. */}
           <section aria-labelledby="steps-title" className="border-t border-border">
             <div className={`${wrap} py-24 lg:py-32`}>
-              <h2
-                id="steps-title"
-                className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-              >
-                Three steps, then it is yours.
-              </h2>
+              <Reveal>
+                <h2
+                  id="steps-title"
+                  className="m-0 mb-12 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+                >
+                  Three steps, then it is yours.
+                </h2>
+              </Reveal>
               <ol className="m-0 grid list-none gap-10 p-0 lg:grid-cols-3">
                 {[
                   {
@@ -236,12 +259,14 @@ export default function Home() {
           {/* Plans. Free is true today; Pro has no price yet, and none is invented. */}
           <section aria-labelledby="plans-title" className="border-t border-border">
             <div className={`${wrap} py-24 lg:py-32`}>
-              <h2
-                id="plans-title"
-                className="m-0 mb-4 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
-              >
-                Free to copy.
-              </h2>
+              <Reveal>
+                <h2
+                  id="plans-title"
+                  className="m-0 mb-4 max-w-3xl text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-7xl"
+                >
+                  Free to copy.
+                </h2>
+              </Reveal>
               <p className="m-0 mb-12 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
                 Everything here is yours the moment you install it. Pro will add more, once it is
                 ready.
@@ -282,6 +307,7 @@ export default function Home() {
           </section>
         </main>
       </ThemeLab>
+      <NightCta />
       <HomeFooter />
     </>
   );
