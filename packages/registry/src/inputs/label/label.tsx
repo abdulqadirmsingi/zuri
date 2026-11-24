@@ -6,8 +6,8 @@ const labelVariants = cva("font-medium", {
   variants: {
     variant: {
       default: "text-foreground",
-      // Small capitals in the mono face, for dense forms and settings screens.
-      caps: "font-mono uppercase tracking-wider text-foreground",
+      // Small spaced capitals, for dense forms and settings screens. Same font as the rest.
+      caps: "uppercase tracking-wider text-foreground",
       muted: "text-muted-foreground",
     },
     size: {

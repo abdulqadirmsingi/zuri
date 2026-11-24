@@ -207,4 +207,19 @@ describe("Picker", () => {
     await userEvent.click(screen.getByRole("combobox", { name: "Country" }));
     expect(screen.getByText("ke:Kenya")).toBeTruthy();
   });
+
+  it("draws group headings in the page's own font, not a mono face", async () => {
+    render(
+      <Picker
+        aria-label="Fruit"
+        options={[
+          { value: "a", label: "Apple", group: "Common" },
+          { value: "b", label: "Banana", group: "All" },
+        ]}
+      />,
+    );
+    await userEvent.click(screen.getByRole("combobox", { name: "Fruit" }));
+    const heading = (await screen.findByText("Common")) as HTMLElement;
+    expect(heading.className).not.toContain("font-mono");
+  });
 });

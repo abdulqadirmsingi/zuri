@@ -76,7 +76,7 @@ export function SwellNavDefault() {
   return (
     <div className="mx-auto flex h-80 w-full max-w-sm flex-col justify-between overflow-hidden rounded-3xl border border-border bg-muted">
       <div className="p-6">
-        <p className="m-0 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+        <p className="m-0 text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {tab}
         </p>
         <p className="m-0 mt-2 text-2xl font-semibold tracking-tight">{screens[tab]}</p>

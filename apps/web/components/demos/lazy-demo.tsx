@@ -10,7 +10,7 @@ export const LazyDemo = dynamic(() => import("./index").then((m) => ({ default: 
   loading: () => (
     <span
       role="status"
-      className="font-mono text-xs uppercase tracking-wider text-muted-foreground"
+      className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
     >
       Loading…
     </span>
