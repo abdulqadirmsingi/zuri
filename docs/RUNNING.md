@@ -85,7 +85,7 @@ pnpm build
 pnpm --filter web start
 ```
 In production the admin cookie is `Secure`, so use HTTPS (or `localhost`).
-When the registry is served from a real domain, set `ZURI_REGISTRY_URL=https://your.domain` before `pnpm registry:build`, because Pro/dependency URLs in the registry JSON are generated from it (default `http://localhost:3000`).
+When the registry is served from a real domain, set `NEXT_PUBLIC_SITE_URL=https://your.domain` (or `ZURI_REGISTRY_URL`, which wins if both are set) before `pnpm registry:build`, because Pro/dependency URLs in the registry JSON are generated from it (default `http://localhost:3000`; a production Vercel build refuses to use it).
 
 ## 7. Checks
 

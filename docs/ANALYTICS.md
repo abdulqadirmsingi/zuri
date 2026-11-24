@@ -46,7 +46,7 @@ Use a privacy-friendly tool (**Plausible**, **Umami**, or **PostHog** with cooki
 npm shows download counts for `@zuri/*` packages; also pull them from the npm downloads API into the dashboard (cached daily).
 
 ## 8. Optional own CLI (later)
-If a `npx zuri add` wrapper is built: anonymous, opt-out telemetry (`ZURI_TELEMETRY=0`), documented clearly, first-run notice, same hashing rules.
+If a `npx @abdulqadirmsingi/zuri add` wrapper is built: anonymous, opt-out telemetry (`ZURI_TELEMETRY=0`), documented clearly, first-run notice, same hashing rules.
 
 ## 9. Privacy and compliance
 - Publish a **Privacy** page listing exactly what is collected and why.

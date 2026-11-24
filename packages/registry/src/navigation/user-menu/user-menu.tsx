@@ -284,6 +284,14 @@ const rowClass =
   "flex min-h-11 w-full items-center gap-3 rounded-lg px-3 text-start text-sm hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-ring [&_svg]:size-4 [&_svg]:shrink-0";
 
 /**
+ * A link item needs Radix's `asChild`, so the row is the <a> itself rather than a menuitem holding
+ * a link. It is passed as a spread on purpose: the shadcn CLI rewrites a literal `asChild` into
+ * Base UI's `render` prop for projects on its Base UI styles, and that does not fit the Radix
+ * dropdown that Zuri ships.
+ */
+const asChild = { asChild: true } as const;
+
+/**
  * The account menu behind a person's picture in an app's top bar: who they are, a few account
  * destinations, a theme choice, an optional status, and Sign out.
  *
@@ -596,7 +604,7 @@ export function UserMenu({
             </>
           );
           return item.href ? (
-            <DropdownMenuItem key={item.id} asChild onSelect={() => item.onSelect?.()}>
+            <DropdownMenuItem key={item.id} {...asChild} onSelect={() => item.onSelect?.()}>
               <a href={item.href}>{inner}</a>
             </DropdownMenuItem>
           ) : (

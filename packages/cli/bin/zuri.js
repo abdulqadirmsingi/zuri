@@ -13,7 +13,7 @@ async function list() {
 
 function add() {
   if (names.length === 0)
-    throw new Error("Say which component to add, e.g. `npx zuri add button`.");
+    throw new Error("Say which component to add, e.g. `npx @abdulqadirmsingi/zuri add button`.");
   const urls = names.map((n) => itemUrl(n, registryBase()));
   // shell: false, so a component name can never become a shell command.
   const child = spawn("npx", ["--yes", "shadcn@latest", "add", ...urls, ...flags], {
