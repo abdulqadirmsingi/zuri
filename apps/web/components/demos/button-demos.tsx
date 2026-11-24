@@ -1,4 +1,5 @@
 import { Button } from "@registry/actions/button/button";
+import { GlassBackdrop } from "./glass-backdrop";
 
 // Demos render the real registry source, so docs can never drift from what users install.
 export function ButtonDefault() {
@@ -18,9 +19,9 @@ export function ButtonVariants() {
       <Button variant="brutal">Brutal</Button>
       <Button variant="wipe">Wipe</Button>
       {/* Glass needs something behind it to blur. */}
-      <span className="rounded-lg bg-linear-to-br from-accent to-primary p-4">
+      <GlassBackdrop className="w-auto">
         <Button variant="glass">Glass</Button>
-      </span>
+      </GlassBackdrop>
     </>
   );
 }

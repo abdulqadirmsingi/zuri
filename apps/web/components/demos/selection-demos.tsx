@@ -4,6 +4,7 @@ import { Label } from "@registry/inputs/label/label";
 import { Radio, RadioGroup } from "@registry/inputs/radio-group/radio-group";
 import { Select } from "@registry/inputs/select/select";
 import { Switch } from "@registry/inputs/switch/switch";
+import { GlassBackdrop } from "./glass-backdrop";
 
 const row = "flex items-center gap-3";
 const countries = (
@@ -152,11 +153,11 @@ export function SelectVariants() {
         {countries}
       </Select>
       {/* Glass needs something behind it to blur. */}
-      <span className="rounded-lg bg-linear-to-br from-accent to-primary p-4">
+      <GlassBackdrop>
         <Select aria-label="Glass" variant="glass">
           {countries}
         </Select>
-      </span>
+      </GlassBackdrop>
     </div>
   );
 }

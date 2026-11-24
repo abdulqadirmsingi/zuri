@@ -3,6 +3,7 @@ import { Input } from "@registry/inputs/input/input";
 import { Label } from "@registry/inputs/label/label";
 import { PhoneInput } from "@registry/inputs/phone-input/phone-input";
 import { Textarea } from "@registry/inputs/textarea/textarea";
+import { GlassBackdrop } from "./glass-backdrop";
 
 const stack = "flex w-full max-w-sm flex-col gap-4";
 
@@ -64,11 +65,16 @@ export function InputVariants() {
       <Input aria-label="Invalid" placeholder="Invalid" invalid />
       <Input aria-label="Disabled" placeholder="Disabled" disabled />
       <Input variant="soft" aria-label="Soft" placeholder="Soft" />
+      <Input
+        halo={false}
+        aria-label="No halo"
+        placeholder="No halo: click to see just the border"
+      />
       <Input variant="underline" aria-label="Underline" placeholder="Underline" />
       {/* Glass needs something behind it to blur. */}
-      <span className="rounded-lg bg-linear-to-br from-accent to-primary p-4">
+      <GlassBackdrop>
         <Input variant="glass" aria-label="Glass" placeholder="Glass" />
-      </span>
+      </GlassBackdrop>
     </div>
   );
 }

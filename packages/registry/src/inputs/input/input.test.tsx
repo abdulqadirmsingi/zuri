@@ -94,4 +94,22 @@ describe("Input", () => {
     expect(cls).not.toContain("outline-offset");
     expect(cls).not.toContain("focus-visible:outline-2");
   });
+
+  it("shakes once when it turns invalid, and not at all for reduced motion", () => {
+    render(<Input aria-label="x" invalid />);
+    const cls = screen.getByRole("textbox").className;
+    expect(cls).toContain(
+      "aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)]",
+    );
+    expect(cls).toContain("motion-reduce:animate-none");
+  });
+
+  it("can drop the grey halo and keep only the border change", () => {
+    const { rerender } = render(<Input aria-label="x" />);
+    expect(screen.getByRole("textbox").className).toContain("focus-visible:ring-4");
+    rerender(<Input aria-label="x" halo={false} />);
+    const cls = screen.getByRole("textbox").className;
+    expect(cls).not.toContain("ring-4");
+    expect(cls).toContain("focus-visible:border-ring");
+  });
 });

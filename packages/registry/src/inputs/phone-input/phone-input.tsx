@@ -73,6 +73,8 @@ export interface PhoneInputProps
   /** Whether a leading 0 is dropped from the E.164 output. Defaults to true. */
   stripLeadingZero?: boolean;
   invalid?: boolean;
+  /** The soft grey glow around the focused field. Defaults to true; false keeps just the border. */
+  halo?: boolean;
   /** Submitted with a form: a hidden field holds the E.164 number under this name. */
   name?: string;
   /** Names the country button. Defaults to "Country". */
@@ -125,6 +127,7 @@ export function PhoneInput({
   renderFlag,
   stripLeadingZero = true,
   invalid,
+  halo,
   name,
   countryLabel = "Country",
   searchLabel = "Search countries",
@@ -330,7 +333,7 @@ export function PhoneInput({
   if (layout === "plain") {
     return (
       <>
-        <Input {...numberProps} variant={variant} size={size} className={className} />
+        <Input {...numberProps} variant={variant} size={size} halo={halo} className={className} />
         {hidden}
       </>
     );
@@ -339,7 +342,7 @@ export function PhoneInput({
     return (
       <div className={cn("flex w-full items-start gap-2", className)}>
         {picker}
-        <Input {...numberProps} variant={variant} size={size} className="flex-1" />
+        <Input {...numberProps} variant={variant} size={size} halo={halo} className="flex-1" />
         {hidden}
       </div>
     );
@@ -348,6 +351,7 @@ export function PhoneInput({
     <InputGroup
       variant={variant}
       size={size}
+      halo={halo}
       // The segment sits flush against the left edge, so the group gives up its own padding there.
       className={cn(!chip && "ps-0 overflow-hidden", className)}
       start={

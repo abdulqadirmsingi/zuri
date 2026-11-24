@@ -234,7 +234,7 @@ export function Picker({
             "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50",
             inline
               ? "inline-flex cursor-pointer items-baseline gap-[0.15em] rounded-[0.15em] border-0 border-b-[0.07em] border-solid border-accent bg-transparent p-0 text-start text-accent-ink [font:inherit]"
-              : "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-md border border-control-border bg-background px-3 text-start text-sm aria-[invalid=true]:border-danger",
+              : "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-md border border-control-border bg-background px-3 text-start text-sm aria-[invalid=true]:border-danger aria-[invalid=true]:animate-[zuri-shake_var(--duration-slow)_var(--ease-out)] motion-reduce:animate-none",
             className,
           )}
           {...props}

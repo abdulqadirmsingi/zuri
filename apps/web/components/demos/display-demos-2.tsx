@@ -11,6 +11,7 @@ import {
 } from "@registry/display/card/card";
 import { EmptyState } from "@registry/display/empty-state/empty-state";
 import { Stat } from "@registry/display/stat/stat";
+import { GlassBackdrop } from "./glass-backdrop";
 
 const team = [
   "Asha Juma",
@@ -46,11 +47,11 @@ export function CardVariants() {
         <CardTitle as="h4">Outline</CardTitle>
       </Card>
       {/* Glass needs something behind it to blur. */}
-      <div className="rounded-xl bg-linear-to-br from-accent to-primary p-4">
+      <GlassBackdrop>
         <Card variant="glass">
           <CardTitle as="h4">Glass</CardTitle>
         </Card>
-      </div>
+      </GlassBackdrop>
     </div>
   );
 }

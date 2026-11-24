@@ -271,4 +271,13 @@ describe("PhoneInput", () => {
       unmount();
     }
   });
+
+  it("passes halo={false} to every layout", () => {
+    const { container, rerender } = render(<PhoneInput aria-label="Phone" halo={false} />);
+    expect((container.firstElementChild as HTMLElement).className).not.toContain("ring-4");
+    rerender(<PhoneInput aria-label="Phone" layout="split" halo={false} />);
+    expect(number().className).not.toContain("ring-4");
+    rerender(<PhoneInput aria-label="Phone" layout="plain" halo={false} />);
+    expect(number().className).not.toContain("ring-4");
+  });
 });

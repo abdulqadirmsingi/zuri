@@ -4,6 +4,7 @@ import { Progress } from "@registry/display/progress/progress";
 import { Separator } from "@registry/display/separator/separator";
 import { Skeleton } from "@registry/display/skeleton/skeleton";
 import { Spinner } from "@registry/display/spinner/spinner";
+import { GlassBackdrop } from "./glass-backdrop";
 
 export function BadgeVariants() {
   return (
@@ -15,9 +16,9 @@ export function BadgeVariants() {
       <Badge variant="warning">Pending</Badge>
       <Badge variant="danger">Failed</Badge>
       {/* Glass needs something behind it to blur. */}
-      <span className="rounded-lg bg-linear-to-br from-accent to-primary p-3">
+      <GlassBackdrop className="w-auto p-3">
         <Badge variant="glass">Glass</Badge>
-      </span>
+      </GlassBackdrop>
     </>
   );
 }
