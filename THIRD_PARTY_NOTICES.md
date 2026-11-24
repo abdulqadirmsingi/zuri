@@ -165,3 +165,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 ## Components adapted from other sources
 
 _None yet. Add every adapted component here with: name, source, licence, what changed._
+
+## stick-it-up (README header artwork)
+
+The four sticker illustrations inside `docs/assets/hero.svg` (MetalSticker, FlameSticker, PipRocketSticker, NoriCoffeeSticker) were rendered from the `stick-it-up` package, v0.4.0: https://github.com/Sam721166/stick-it-up
+
+MIT License — Copyright (c) 2026 Samiran De (https://github.com/Sam721166)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. (Full text: https://github.com/Sam721166/stick-it-up/blob/main/LICENSE.)
+
+## Night-sky photograph (landing page)
+
+`apps/web/public/home/night-sky.jpg`: "A person on a ridge shining a light into a sky full of stars", photo by Jonah Brown on Unsplash (https://unsplash.com/photos/1nFhIykAw-I), used under the Unsplash licence (https://unsplash.com/license). Copied from the owner's Rafiki Initiative site. The credit is also shown on the page.
