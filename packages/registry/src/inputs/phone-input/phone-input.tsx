@@ -237,11 +237,9 @@ export function PhoneInput({
         {renderFlag(c.iso)}
       </span>
     ) : flags === "emoji" ? (
-      // Emoji flags are text. The font stack asks for the system's emoji font first, so the
-      // flag draws where the system has one; elsewhere the two letters show, still readable.
       <span
         aria-hidden="true"
-        className="inline-flex w-6 shrink-0 items-center justify-center text-lg leading-none [font-family:'Apple_Color_Emoji','Segoe_UI_Emoji','Noto_Color_Emoji',sans-serif]"
+        className="inline-flex w-5 shrink-0 items-center justify-center text-base leading-none [font-family:'Apple_Color_Emoji','Segoe_UI_Emoji','Noto_Color_Emoji',sans-serif]"
       >
         {flagEmoji(c.iso)}
       </span>
@@ -279,14 +277,17 @@ export function PhoneInput({
       className={cn(
         layout === "split"
           ? cn("w-auto min-w-[9.5rem]", triggerHeight[size])
-          : "min-h-0 w-auto border-0 bg-transparent px-1.5 py-1 text-foreground hover:bg-muted",
+          : // joined: a segment flush with the field's edge. It runs the full height, has a clean
+            // divider on its far side, and tints softly on hover. The group clips it to the rounded
+            // corners, so the focus outline is drawn inside it.
+            "h-auto min-h-0 w-auto gap-1.5 self-stretch rounded-none border-0 border-e border-border bg-transparent ps-3 pe-2.5 text-sm text-foreground hover:bg-foreground/5 aria-expanded:bg-foreground/5 focus-visible:outline-offset-[-2px]",
         chip &&
           "rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-accent-foreground hover:bg-accent hover:opacity-90",
       )}
       renderValue={(o) => {
         const c = byIso.get(o.value) as Country;
         return (
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5">
             {chip ? null : mark(c)}
             <span className="tabular-nums">+{c.dial}</span>
             {showName && !chip ? <span className="hidden truncate sm:inline">{c.name}</span> : null}
@@ -347,19 +348,19 @@ export function PhoneInput({
     <InputGroup
       variant={variant}
       size={size}
-      className={className}
+      // The segment sits flush against the left edge, so the group gives up its own padding there.
+      className={cn(!chip && "ps-0 overflow-hidden", className)}
       start={
         <>
           {layout === "fixed" ? (
             // No dropdown: the code is plain text, so it is not a control and not in the tab order.
-            <span className="inline-flex items-center gap-2 px-1.5 text-foreground">
+            <span className="inline-flex items-center gap-1.5 self-stretch border-e border-border ps-3 pe-2.5 text-sm text-foreground">
               {mark(country)}
               <span className="tabular-nums">+{country.dial}</span>
             </span>
           ) : (
             picker
           )}
-          {chip ? null : <span aria-hidden="true" className="h-5 w-px bg-border" />}
         </>
       }
     >
