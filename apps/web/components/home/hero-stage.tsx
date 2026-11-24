@@ -66,7 +66,7 @@ export function HeroStage() {
           {lines.map((segs, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: a fixed listing that never reorders
             <div key={i} className="flex">
-              <span className="w-10 shrink-0 pe-4 text-end text-white/25 select-none">{i + 1}</span>
+              <span className="w-10 shrink-0 pe-4 text-end text-white/50 select-none">{i + 1}</span>
               <span className="whitespace-pre">
                 {segs.map(([text, tone], j) => (
                   // biome-ignore lint/suspicious/noArrayIndexKey: segments of a fixed line
@@ -81,12 +81,6 @@ export function HeroStage() {
       </div>
 
       <div className="zuri-float relative rounded-[1.5rem] border border-black/5 bg-background p-7 shadow-[0_30px_70px_-25px_rgb(0_0_0/0.4)] lg:absolute lg:bottom-0 lg:start-0 lg:w-[25rem]">
-        <span
-          aria-hidden="true"
-          className="mb-6 grid size-10 place-items-center rounded-xl bg-primary font-display text-lg font-semibold text-primary-foreground"
-        >
-          z
-        </span>
         <p className="m-0 font-display text-2xl font-semibold tracking-tight">Enter the code</p>
         <p className="m-0 mt-1 mb-6 text-sm text-muted-foreground">
           Type any six digits. This one is live.

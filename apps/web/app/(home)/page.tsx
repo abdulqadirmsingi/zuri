@@ -61,6 +61,8 @@ const phrase = (id: string, title: string) => {
 const shots: Shot[] = [
   {
     id: "starter",
+    item: "landing-starter",
+    preview: "/starter",
     src: starterShot,
     alt: "A landing page built from Zuri blocks, with a header, a split hero and a headline about learning skills.",
     title: "Landing starter",
@@ -69,6 +71,8 @@ const shots: Shot[] = [
   },
   {
     id: "magazine",
+    item: "magazine-hero",
+    preview: "/starter/heroes/magazine",
     src: magazineShot,
     alt: "The magazine hero: a very large headline beside a tall picture with a saffron block behind it.",
     title: "Magazine hero",
@@ -77,6 +81,8 @@ const shots: Shot[] = [
   },
   {
     id: "split",
+    item: "split-hero",
+    preview: "/starter/heroes/split",
     src: splitShot,
     alt: "The split hero: a headline, two buttons and three figures beside a large picture.",
     title: "Split hero",
@@ -85,6 +91,8 @@ const shots: Shot[] = [
   },
   {
     id: "fan",
+    item: "card-fan-hero",
+    preview: "/starter/heroes/fan",
     src: fanShot,
     alt: "The card fan hero: a centred headline over five cards fanned out in an arc.",
     title: "Card fan hero",
@@ -99,12 +107,23 @@ const h2 =
   "m-0 text-balance font-display text-[clamp(2.5rem,5.5vw,4.75rem)] font-semibold leading-[0.98] tracking-[-0.035em]";
 
 /** A white sheet on the paper background: the page's main content surface. */
-function Sheet({ children, id, label }: { children: ReactNode; id?: string; label: string }) {
+function Sheet({
+  children,
+  id,
+  label,
+  dark,
+}: {
+  children: ReactNode;
+  id?: string;
+  label: string;
+  /** Always dark, whatever the page theme: the `dark` class re-resolves the tokens inside. */
+  dark?: boolean;
+}) {
   return (
     <section
       id={id}
       aria-labelledby={label}
-      className="mx-3 scroll-mt-20 rounded-[2.25rem] bg-background sm:mx-5"
+      className={`mx-3 scroll-mt-20 rounded-[2.25rem] bg-background text-foreground sm:mx-5 ${dark ? "dark" : ""}`}
     >
       <div className={`${wrap} py-24 lg:py-32`}>{children}</div>
     </section>
@@ -173,32 +192,32 @@ export default function Home() {
             </Reveal>
           </section>
 
-          <section aria-labelledby="pages-title" className="py-8">
-            <Reveal className={`${wrap} mb-12 flex flex-col items-center gap-5 text-center`}>
+          <Sheet label="pages-title" dark>
+            <Reveal className="mb-14 grid gap-6 lg:mb-20 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
               <h2 id="pages-title" className={`${h2} max-w-3xl`}>
                 Whole pages, not just parts.
               </h2>
-              <p className="m-0 max-w-xl text-pretty text-lg text-muted-foreground">
-                Blocks are complete sections built from the same components. Install one and edit
-                the words.
+              <p className="m-0 max-w-md text-pretty text-lg text-muted-foreground lg:justify-self-end">
+                Blocks are complete sections built from the same components. These are running live:
+                scroll them, click them, then install one and change the words.
               </p>
             </Reveal>
-            <PagesShowcase shots={shots} />
-          </section>
+            <PagesShowcase shots={shots} command={`npx shadcn@latest add ${siteUrl}/r/`} />
+          </Sheet>
 
           <section aria-label="The registry in numbers" className={`${wrap} py-20`}>
-            <ul className="m-0 grid list-none gap-3 p-0 sm:grid-cols-3">
+            <ul className="m-0 grid list-none grid-cols-3 gap-2 p-0 sm:gap-3">
               {figures.map((f, i) => (
                 <Reveal
                   as="li"
                   key={f.label}
                   delay={i * 80}
-                  className="flex flex-col items-center gap-2 rounded-[1.75rem] bg-background px-6 py-10"
+                  className="flex flex-col items-center gap-2 rounded-[1.25rem] bg-background px-2 py-6 sm:rounded-[1.75rem] sm:px-6 sm:py-10"
                 >
-                  <span className="font-display text-6xl font-semibold tracking-[-0.04em]">
+                  <span className="font-display text-4xl font-semibold tracking-[-0.04em] sm:text-6xl">
                     {f.value}
                   </span>
-                  <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                  <span className="text-center font-mono text-[0.65rem] uppercase tracking-wider text-muted-foreground sm:text-xs">
                     {f.label}
                   </span>
                 </Reveal>

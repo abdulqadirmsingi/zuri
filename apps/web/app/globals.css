@@ -105,6 +105,15 @@ html {
     transform: translateY(-10px);
   }
 }
+/* The timer bar under the playing tab in the pages showcase. */
+@keyframes zuri-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   .zuri-drift {
     animation: zuri-drift 18s ease-in-out infinite;
