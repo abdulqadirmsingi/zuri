@@ -1,5 +1,25 @@
 {
   "extends": "@zuri/config/tsconfig.react.json",
-  "compilerOptions": { "baseUrl": ".", "paths": { "@/*": ["./src/*"] } },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@/components/ui/button": ["./src/actions/button/button"],
+      "@/components/ui/input": ["./src/inputs/input/input"],
+      "@/components/ui/avatar": ["./src/display/avatar/avatar"],
+      "@/components/ui/dialog": ["./src/overlays/dialog/dialog"],
+      "@/components/ui/dropdown-menu": ["./src/overlays/dropdown-menu/dropdown-menu"],
+      "@/components/ui/closing-cta": ["./src/blocks/closing-cta/closing-cta"],
+      "@/components/ui/marquee": ["./src/blocks/marquee/marquee"],
+      "@/components/ui/reveal": ["./src/blocks/reveal/reveal"],
+      "@/components/ui/section-heading": ["./src/blocks/section-heading/section-heading"],
+      "@/components/ui/site-footer": ["./src/blocks/site-footer/site-footer"],
+      "@/components/ui/site-header": ["./src/blocks/site-header/site-header"],
+      "@/components/ui/split-hero": ["./src/blocks/split-hero/split-hero"],
+      "@/components/ui/input-group": ["./src/inputs/input-group/input-group"],
+      "@/components/ui/picker": ["./src/inputs/picker/picker"],
+      "@/components/ui/popover": ["./src/overlays/popover/popover"],
+      "@/*": ["./src/*"]
+    }
+  },
   "include": ["src"]
 }

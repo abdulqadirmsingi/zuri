@@ -1,0 +1,88 @@
+---
+title: Input
+description: A native text input with default, soft, underline and glass looks and an invalid state.
+---
+
+<Preview>
+  <Demo name="input-default" />
+</Preview>
+
+Use `Input` for single-line text. Always give it a name, either with [Field](/docs/components/field) or a `Label`. For multiple lines use [Textarea](/docs/components/textarea).
+
+## Installation
+
+<InstallTabs name="input" />
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input";
+
+<Input type="email" autoComplete="email" name="email" />
+```
+
+## Variants and states
+
+<Preview>
+  <Demo name="input-variants" />
+</Preview>
+
+- `default` is an outlined field.
+- `soft` is a filled field with no visible border.
+- `underline` shows only a line underneath, for minimal and inline forms.
+- `glass` blurs whatever is behind it, so it needs a colourful or image backdrop to look right.
+
+Want an icon, a prefix like +255, a unit like TZS, or a clear or show button beside the field? Use [Input group](/docs/components/input-group).
+
+## Focus: with or without the halo
+
+When a field has focus its border darkens and, by default, a soft grey glow appears around it. Some people prefer only the border: pass `halo={false}`. The border change still shows focus, so the field stays easy to see. Try the "No halo" field above.
+
+```tsx
+<Input halo={false} />
+```
+
+The same `halo` prop is on [Textarea](/docs/components/textarea), [Input group](/docs/components/input-group) and [Phone input](/docs/components/phone-input).
+
+## Sizes
+
+<Preview>
+  <Demo name="input-sizes" />
+</Preview>
+
+## Props
+
+`Input` extends all native `<input>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "soft" | "underline" | "glass"', default: '"default"', description: "Visual style." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Minimum heights of 32, 40 and 48 pixels. This replaces the native numeric size attribute." },
+    { name: "halo", type: "boolean", default: "true", description: "The soft grey glow around a focused field. Set false to keep only the border change." },
+    { name: "invalid", type: "boolean", description: "Sets aria-invalid and a danger border, and makes the field shake once as it turns invalid. Field sets this for you." },
+    { name: "type", type: "string", default: '"text"', description: "Any native input type." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It renders a native `<input>`: keyboard, autofill, mobile keyboards and form submission all work as the browser provides.
+- A visible focus ring appears on keyboard focus only.
+- A field that turns invalid shakes once (a short side-to-side tremor). It is turned off for people who ask for reduced motion, and the red border and your error text carry the message either way. To replay it after a second failed submit, set `invalid` to false and back to true.
+- Invalid state is exposed with `aria-invalid`, and the border change is not the only signal when used inside Field (the error text is too).
+- Use the right `type`, `autoComplete` and `inputMode` for the data; they matter for mobile users and password managers.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted-foreground`, `--control-border`, `--danger`, `--ring`, `--duration-base`, `--ease-out`, and the glass variables.
+
+## Known limitations
+
+- No slots for icons or buttons: wrap it in [Input group](/docs/components/input-group).
+- Glass text contrast has not been measured against worst-case backdrops.
+- It is a plain input. Controlled and uncontrolled use both work through native `value` / `defaultValue`.
+
+## Source
+
+<Source name="input" />

@@ -1,0 +1,37 @@
+---
+title: Theming
+description: Design tokens, dark mode and glass surfaces.
+---
+
+Zuri components read CSS variables. Change the variables and every component follows.
+
+## Colour tokens
+
+| Token | Role |
+| --- | --- |
+| `--background` / `--foreground` | Page surface and text |
+| `--primary` / `--primary-foreground` | Main actions (black in light mode, white in dark mode) |
+| `--muted` / `--muted-foreground` | Quiet surfaces and secondary text |
+| `--accent` / `--accent-foreground` | Saffron highlight fill and the text on it |
+| `--accent-ink` | Saffron as text on the page background |
+| `--border`, `--ring` | Decorative outlines and the focus ring |
+| `--control-border` | Boundary of form controls (at least 3:1 against the background) |
+| `--success`, `--warning`, `--danger` | Status colours |
+
+<Callout type="warn" title="Using the accent">
+  Saffron on a white background has a contrast ratio of about 2.2:1. Use it as a fill with `--accent-foreground` on top, never as the only border or icon colour, and use `--accent-ink` for accent-coloured text.
+</Callout>
+
+Text, primary and status colours were checked against WCAG AA in both themes.
+
+## Glass
+
+The `zuri-glass` class gives a translucent surface with a blur, a thin border and a soft shadow. It falls back to a solid surface when `backdrop-filter` is unsupported or the user prefers reduced transparency.
+
+<Callout type="warn" title="Check your backdrop">
+  Text contrast on glass depends on what sits behind it. Zuri has not measured worst-case backdrops yet. If text becomes hard to read, raise the opacity of `--glass-bg`.
+</Callout>
+
+## Motion
+
+Durations and easing are tokens (`--duration-base`, `--ease-out`). Components animate transform and opacity only, and turn movement off under `prefers-reduced-motion`.

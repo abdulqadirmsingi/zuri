@@ -1,0 +1,97 @@
+---
+title: Copy button
+description: A button that copies text and confirms it visually and to screen readers, in any Button style, with recipes for command boxes and share links.
+---
+
+<Preview>
+  <Demo name="copy-button-default" />
+</Preview>
+
+Use `CopyButton` next to something users will paste elsewhere: a link, an install command, an account number. It says "Copied" when it worked and "Copy failed" when it didn't.
+
+## Installation
+
+<InstallTabs name="copy-button" />
+
+This also installs [Button](/docs/components/button), which it is built on.
+
+## Usage
+
+```tsx
+import { CopyButton } from "@/components/ui/copy-button";
+
+<CopyButton value="https://zuri.dev/r/button.json" label="Copy link" />
+<CopyButton value={command} iconOnly label="Copy command" />
+```
+
+## Styles
+
+It accepts every [Button](/docs/components/button) style, so it can match the rest of your page.
+
+<Preview>
+  <Demo name="copy-button-styles" />
+</Preview>
+
+## Alternatives
+
+Two common shapes built by placing the same `CopyButton` inside other elements. Nothing extra is installed.
+
+<Preview>
+  <Demo name="copy-button-recipes" />
+</Preview>
+
+**Command box.** A shell command with the button at its end. The `$` is decorative, and long commands wrap instead of scrolling sideways.
+
+```tsx
+<div className="flex items-center gap-2 rounded-xl border border-border bg-muted py-2 ps-4 pe-2">
+  <span aria-hidden="true" className="select-none font-mono text-sm text-accent-ink">$</span>
+  <code className="min-w-0 flex-1 break-all font-mono text-sm">{command}</code>
+  <CopyButton value={command} iconOnly label="Copy command" variant="ghost" size="sm" />
+</div>
+```
+
+**Share link.** A read-only field with its own label, and a button beside it.
+
+```tsx
+<div className="flex items-center gap-2">
+  <Input readOnly aria-label="Share link" defaultValue={url} className="flex-1" />
+  <CopyButton value={url} variant="accent" label="Copy link" />
+</div>
+```
+
+## Props
+
+`CopyButton` takes the same props as [Button](/docs/components/button) (variant, size, shape and the rest), except `onClick`, `children` and `loading`.
+
+<PropsTable
+  rows={[
+    { name: "value", type: "string", description: "The text to copy. Required." },
+    { name: "label", type: "string", default: '"Copy"', description: "Text before copying. In icon-only mode it is the accessible name." },
+    { name: "copiedLabel", type: "string", default: '"Copied"', description: "Text after a successful copy." },
+    { name: "failedLabel", type: "string", default: '"Copy failed"', description: "Text when copying was not possible." },
+    { name: "iconOnly", type: "boolean", default: "false", description: "Show only the icon, using the label as its name." },
+    { name: "resetAfter", type: "number", default: "2000", description: "Milliseconds before it goes back to the first label." },
+    { name: "onCopied", type: "(value: string) => void", description: "Called after a successful copy." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native button, so Enter and Space work.
+- The result is announced through a live region (`role="status"`) that is always on the page, so screen readers pick it up. In icon-only mode the accessible name stays the same and only the live region changes.
+- Failure is reported, never hidden. The clipboard needs a secure context (HTTPS or localhost) and a user action.
+- Under `prefers-reduced-motion`, the button's press animation is off.
+
+## Tokens used
+
+The same as Button.
+
+## Known limitations
+
+- It uses the asynchronous Clipboard API only. There is no fallback for old browsers or insecure pages; it reports failure instead.
+- It is a client component, because it holds the copied state.
+- Don't copy secrets such as card numbers or PINs; payment components in Zuri never put those on the clipboard.
+
+## Source
+
+<Source name="copy-button" />

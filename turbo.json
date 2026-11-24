@@ -7,7 +7,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["@zuri/registry#registry:build"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck", "@zuri/registry#registry:build"]
@@ -16,7 +17,8 @@
       "dependsOn": ["^build", "@zuri/registry#registry:build"]
     },
     "registry:build": {
-      "outputs": ["../../apps/web/.registry/**"]
+      "outputs": ["../../apps/web/.registry/**"],
+      "env": ["ZURI_REGISTRY_URL", "ZURI_REGISTRY_OUT"]
     }
   }
 }

@@ -1,0 +1,33 @@
+---
+title: Installation
+description: Add a Zuri component to an existing shadcn project.
+---
+
+## Requirements
+
+- A project set up with the shadcn CLI (it has a `components.json`). If not, run `npx shadcn@latest init -b radix` first.
+- React 19 and Tailwind CSS v4.
+
+<Callout type="warn" title="Choose the Radix base">
+  Zuri components are built on Radix. Recent versions of `shadcn init -d` default to a Base UI style (`base-nova`), and the CLI then rewrites `asChild` into Base UI's `render` prop, which breaks the site header, picker and user menu with type errors. Initialise with `-b radix` (or pick a Radix style such as `radix-nova`) and everything installs cleanly.
+</Callout>
+
+## Add a component
+
+Run the command for your package manager:
+
+<InstallTabs name="button" />
+
+The CLI copies the component into your components folder and adds the packages it needs. It also installs the `zuri-tokens` item, which adds the colour, glass and motion variables to your global CSS.
+
+<Callout type="info" title="Registry URL">
+  The URL in the command above is where this site is currently running. It is a placeholder until a public domain exists.
+</Callout>
+
+## Dark mode
+
+The installed tokens switch on a `.dark` class on a parent element, as in a standard shadcn setup.
+
+## Counting
+
+Each request for a registry item is counted so the maintainer can see which components are used. No IP address is stored and no cookies are set; see the privacy notes in the repository.

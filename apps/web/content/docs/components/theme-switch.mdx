@@ -1,0 +1,149 @@
+---
+title: Theme switch
+description: A light and dark toggle in any Button style, with six ways to change the page and a three-way Light, System and Dark recipe.
+---
+
+<Preview>
+  <Demo name="theme-switch-styles" />
+</Preview>
+
+Use `ThemeSwitch` as a quick light and dark toggle, for example in a header. These demos change **this docs site's real theme**, so pressing one switches the whole page. For a full choice that includes "System", use the theme options in the [User menu](/docs/components/user-menu).
+
+## Installation
+
+<InstallTabs name="theme-switch" />
+
+This also installs [Button](/docs/components/button), which it is built on.
+
+## Usage
+
+The switch only **reports** the theme to switch to; your app applies it. Here it is with `next-themes`:
+
+```tsx
+import { ThemeSwitch } from "@/components/ui/theme-switch";
+import { useTheme } from "next-themes";
+
+function Header() {
+  const { resolvedTheme, setTheme } = useTheme();
+  return (
+    <ThemeSwitch
+      theme={resolvedTheme === "dark" ? "dark" : "light"}
+      onThemeChange={setTheme}
+    />
+  );
+}
+```
+
+`resolvedTheme` is not known until the page has loaded, so the switch starts as light and corrects itself. The icon does not spin when that happens, because it only animates after someone has used the switch.
+
+Without a theme library, apply the theme yourself, synchronously:
+
+```tsx
+<ThemeSwitch
+  onThemeChange={(theme) => document.documentElement.classList.toggle("dark", theme === "dark")}
+/>
+```
+
+## With a visible label
+
+<Preview>
+  <Demo name="theme-switch-labelled" />
+</Preview>
+
+## Looks
+
+It takes every [Button](/docs/components/button) style and size. These change this page's theme too.
+
+<Preview>
+  <Demo name="theme-switch-looks" />
+</Preview>
+
+## Transitions
+
+`transition` picks how the whole page changes: `circle` (spreads outward from the button, the default), `wipe` (sweeps down from the top), `curtain` (opens from the middle sideways), `diagonal` (sweeps from the top corner), `fade` (the browser's cross-fade) or `none`. The first row above shows each one.
+
+- They use the browser's **View Transitions API**. Where it is not available, or when a person has asked for reduced motion, the theme switches at once with no animation.
+- `onThemeChange` must change the page **synchronously**, so the browser can capture the new theme. Theme libraries that apply the class in an effect work, because the switch flushes React's updates inside the transition.
+- Clicks are ignored while a transition is running, so two cannot overlap.
+
+## Alternative: Light, System and Dark
+
+A two-state switch can't offer "System". For a three-way choice, a group of toggle buttons does it. This one is built from [Button](/docs/components/button) and applies the choice with `next-themes`.
+
+<Preview>
+  <Demo name="theme-segmented" />
+</Preview>
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+
+const choices = [
+  { value: "light", label: "Light" },
+  { value: "system", label: "System" },
+  { value: "dark", label: "Dark" },
+] as const;
+
+export function ThemeSegmented() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <fieldset className="m-0 inline-flex gap-1 rounded-full border border-border bg-muted p-1">
+      <legend className="sr-only">Theme</legend>
+      {choices.map((c) => (
+        <Button
+          key={c.value}
+          shape="pill"
+          size="sm"
+          variant={theme === c.value ? "default" : "ghost"}
+          aria-pressed={theme === c.value}
+          onClick={() => setTheme(c.value)}
+        >
+          {c.label}
+        </Button>
+      ))}
+    </fieldset>
+  );
+}
+```
+
+`theme` is not known until the page has loaded, so nothing shows as pressed for a moment. The demo above waits for that; do the same to avoid a hydration mismatch.
+
+## Props
+
+`ThemeSwitch` takes the same props as [Button](/docs/components/button) (variant, size, shape and the rest), except `children`, `onClick`, `loading` and `type`. It forwards `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "theme / defaultTheme", type: '"light" | "dark"', default: '"light"', description: "The current theme, controlled or uncontrolled." },
+    { name: "onThemeChange", type: '(theme: "light" | "dark") => void', description: "Called with the theme to switch to. Apply it here, synchronously." },
+    { name: "transition", type: '"circle" | "wipe" | "curtain" | "diagonal" | "fade" | "none"', default: '"circle"', description: "How the page changes." },
+    { name: "duration", type: "number", default: "500", description: "Milliseconds the circle or wipe runs." },
+    { name: "label", type: "string", default: '"Dark mode"', description: "The setting's name. It stays the same in both states." },
+    { name: "showLabel", type: "boolean", default: "false", description: "Show the label as text beside the icon instead of an icon-only button." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a **toggle button** (`aria-pressed`): "Dark mode, toggle button, pressed". The name describes the setting and stays the same, and the pressed state says whether it is on. The name is deliberately not "Switch to dark mode", because a changing name together with `aria-pressed` would announce the state twice.
+- With `showLabel`, the name comes from the visible text, so what is on screen and the spoken name cannot disagree. Icon-only, it uses `aria-label`.
+- Enter and Space work. The button is at least 40 pixels square.
+- The icons are decorative and hidden from assistive technology. Both turn the same way when swapping, so it reads as one rotation. Under `prefers-reduced-motion` they swap without turning.
+- Page transitions are skipped for people who ask for reduced motion.
+
+## Tokens used
+
+The same as Button, plus `--duration-slow` and `--ease-out` for the icon turn.
+
+## Known limitations
+
+- It switches between **light and dark only**. For "System" as a third choice, see the [User menu](/docs/components/user-menu).
+- Page transitions need a browser with the View Transitions API (current Chromium-based browsers and recent Safari). Elsewhere the theme still changes, just without the animation.
+- The icon animates only after use. If an app changes the theme from elsewhere (a saved preference, or the operating system), the icon swaps in place.
+- **Theme libraries that switch transitions off.** Some, such as `next-themes` with `disableTransitionOnChange` (which this docs site uses), turn every CSS transition off for a moment while the theme changes, so colours do not flash. That also stops the icon from turning, and it simply swaps. The page transition is not affected, because it uses the View Transitions API, not CSS transitions. If you want the icon to turn too, leave that option off.
+- It does not remember the choice. Saving it is up to your theme library or app.
+- It is a client component.
+
+## Source
+
+<Source name="theme-switch" />

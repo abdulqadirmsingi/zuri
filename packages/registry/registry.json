@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "zuri",
-  "homepage": "https://zuri.dev",
+  "homepage": "https://components.abdulqadirmsingi.com",
   "items": [
     {
       "name": "zuri-tokens",
@@ -16,58 +16,79 @@
           "color-muted-foreground": "var(--muted-foreground)",
           "color-primary": "var(--primary)",
           "color-primary-foreground": "var(--primary-foreground)",
+          "color-accent": "var(--accent)",
+          "color-accent-foreground": "var(--accent-foreground)",
+          "color-accent-ink": "var(--accent-ink)",
           "color-border": "var(--border)",
           "color-ring": "var(--ring)",
           "color-success": "var(--success)",
           "color-warning": "var(--warning)",
-          "color-danger": "var(--danger)"
+          "color-danger": "var(--danger)",
+          "color-control-border": "var(--control-border)"
         },
         "light": {
-          "background": "oklch(0.99 0.003 260)",
-          "foreground": "oklch(0.2 0.02 260)",
-          "muted": "oklch(0.96 0.006 260)",
-          "muted-foreground": "oklch(0.45 0.02 260)",
-          "primary": "oklch(0.52 0.19 275)",
+          "background": "oklch(0.99 0 0)",
+          "foreground": "oklch(0.16 0 0)",
+          "muted": "oklch(0.96 0 0)",
+          "muted-foreground": "oklch(0.45 0 0)",
+          "primary": "oklch(0.18 0 0)",
           "primary-foreground": "oklch(0.99 0 0)",
-          "border": "oklch(0.9 0.008 260)",
-          "ring": "oklch(0.55 0.2 275)",
+          "accent": "oklch(0.76 0.16 60)",
+          "accent-foreground": "oklch(0.18 0 0)",
+          "accent-ink": "oklch(0.52 0.14 50)",
+          "border": "oklch(0.9 0 0)",
+          "ring": "oklch(0.18 0 0)",
           "success": "oklch(0.5 0.14 155)",
-          "warning": "oklch(0.55 0.14 75)",
-          "danger": "oklch(0.52 0.2 25)"
+          "warning": "oklch(0.52 0.12 70)",
+          "danger": "oklch(0.52 0.2 25)",
+          "control-border": "oklch(0.6 0 0)"
         },
         "dark": {
-          "background": "oklch(0.16 0.015 260)",
-          "foreground": "oklch(0.96 0.005 260)",
-          "muted": "oklch(0.22 0.015 260)",
-          "muted-foreground": "oklch(0.72 0.015 260)",
-          "primary": "oklch(0.7 0.16 275)",
-          "primary-foreground": "oklch(0.16 0.015 260)",
-          "border": "oklch(0.3 0.015 260)",
-          "ring": "oklch(0.72 0.16 275)",
+          "background": "oklch(0.14 0 0)",
+          "foreground": "oklch(0.97 0 0)",
+          "muted": "oklch(0.2 0 0)",
+          "muted-foreground": "oklch(0.72 0 0)",
+          "primary": "oklch(0.97 0 0)",
+          "primary-foreground": "oklch(0.14 0 0)",
+          "accent": "oklch(0.78 0.15 62)",
+          "accent-foreground": "oklch(0.18 0 0)",
+          "accent-ink": "oklch(0.8 0.14 62)",
+          "border": "oklch(0.3 0 0)",
+          "ring": "oklch(0.97 0 0)",
           "success": "oklch(0.75 0.15 155)",
           "warning": "oklch(0.8 0.14 80)",
-          "danger": "oklch(0.72 0.17 25)"
+          "danger": "oklch(0.72 0.17 25)",
+          "control-border": "oklch(0.55 0 0)"
         }
       },
       "css": {
         ":root": {
           "--glass-blur": "16px",
           "--glass-bg": "oklch(1 0 0 / 0.72)",
-          "--glass-border": "oklch(0.2 0.02 260 / 0.12)",
-          "--glass-solid": "oklch(0.98 0.004 260)",
+          "--glass-border": "oklch(0 0 0 / 0.12)",
+          "--glass-solid": "oklch(0.98 0 0)",
           "--duration-base": "200ms",
-          "--ease-out": "cubic-bezier(0.23, 1, 0.32, 1)"
+          "--ease-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+          "--duration-fast": "120ms",
+          "--duration-slow": "300ms",
+          "--ease-in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+          "--z-dropdown": "1000",
+          "--z-sticky": "1100",
+          "--z-overlay": "1200",
+          "--z-modal": "1300",
+          "--z-toast": "1400",
+          "--z-tooltip": "1500"
         },
         ".dark": {
-          "--glass-bg": "oklch(0.22 0.015 260 / 0.72)",
+          "--glass-bg": "oklch(0.2 0 0 / 0.72)",
           "--glass-border": "oklch(1 0 0 / 0.14)",
-          "--glass-solid": "oklch(0.2 0.015 260)"
+          "--glass-solid": "oklch(0.2 0 0)"
         },
         "@layer components": {
           ".zuri-glass": {
             "background": "var(--glass-bg)",
             "border": "1px solid var(--glass-border)",
-            "box-shadow": "0 16px 40px oklch(0.2 0.02 260 / 0.12)",
+            "box-shadow": "0 16px 40px oklch(0 0 0 / 0.12)",
             "-webkit-backdrop-filter": "blur(var(--glass-blur))",
             "backdrop-filter": "blur(var(--glass-blur))"
           }
@@ -83,6 +104,13 @@
             "-webkit-backdrop-filter": "none",
             "backdrop-filter": "none"
           }
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          ":root": {
+            "--duration-fast": "0.01ms",
+            "--duration-base": "0.01ms",
+            "--duration-slow": "0.01ms"
+          }
         }
       },
       "meta": {
@@ -94,7 +122,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "An accessible button with default, outline, ghost and glass variants.",
+      "description": "An accessible button with ten styles (default, accent, outline, soft, ghost, link, destructive, brutal, wipe and glass), sizes and a loading state.",
       "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
       "files": [
         {
@@ -104,10 +132,1282 @@
       ],
       "categories": ["actions"],
       "meta": {
+        "version": "0.3.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A native label.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/label/label.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.2.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A native text input with default, soft, underline and glass looks and an invalid state.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/input/input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.2.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input group",
+      "description": "Wraps an input with an icon, prefix, suffix or button on either side.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/input-group/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/input.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "title": "Phone input",
+      "description": "A phone number field with a searchable country picker, grouped digits, paste detection and E.164 output.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/phone-input/phone-input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/inputs/phone-input/phone-number.ts",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/inputs/phone-input/countries.ts",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/input.json",
+        "__REGISTRY_URL__/input-group.json",
+        "__REGISTRY_URL__/picker.json"
+      ]
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "title": "Verification code",
+      "description": "A verification code field: digits rise into cells, a full code is checked, and the cells fuse into a Verified capsule or the row shakes and clears.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/otp-input/otp-input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        },
+        "@keyframes zuri-otp-in": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateY(45%) scale(0.86)",
+            "filter": "blur(3px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none",
+            "filter": "none"
+          }
+        },
+        "@keyframes zuri-otp-out": {
+          "from": {
+            "opacity": "1",
+            "transform": "none"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "translateY(0.5rem)"
+          }
+        },
+        "@keyframes zuri-otp-breathe": {
+          "0%, 100%": {
+            "transform": "scale(1)"
+          },
+          "50%": {
+            "transform": "scale(0.93)"
+          }
+        }
+      },
+      "meta": {
         "version": "0.1.0",
         "tier": "free"
       },
       "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A native multi-line input with an invalid state.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/textarea/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Label, control, hint and error wired together with ids.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/field/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A native checkbox, restyled, with an invalid state.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/checkbox/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio group",
+      "description": "A fieldset with native radios, a legend, a hint and an error.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/radio-group/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A native checkbox exposed as a switch.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/switch/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A native select with a custom chevron and an invalid state.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/select/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A short status label with solid, outline, semantic and glass variants.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/badge/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A thin divider, decorative by default.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/separator/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "An indeterminate loading indicator with an accessible label.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/spinner/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A pulsing placeholder block for loading content.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/skeleton/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A keyboard key for shortcuts.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/kbd/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "A determinate or indeterminate progress bar.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/progress/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A surface with header, title, description, content and footer parts.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/card/card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A person's picture with an initials fallback, plus an overlapping group.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/avatar/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty state",
+      "description": "A message with an icon and a next step for when there is no content.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/empty-state/empty-state.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "Stat",
+      "description": "A key figure with a label and an accessible change indicator.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/stat/stat.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy button",
+      "description": "A button that copies text and confirms it visually and to screen readers.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/actions/copy-button/copy-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
+    },
+    {
+      "name": "bottom-nav",
+      "type": "registry:ui",
+      "title": "Bottom nav",
+      "description": "A pill-shaped bottom navigation with a liquid sliding indicator, expanding labels and badges.",
+      "dependencies": ["class-variance-authority", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/bottom-nav/bottom-nav.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal dialog with focus trapping, scroll lock and a glass option, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/dialog/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A panel anchored to its trigger that can hold interactive content, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/popover/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A short label on hover and focus, built on Radix.",
+      "dependencies": ["@radix-ui/react-tooltip", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/overlays/tooltip/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert dialog",
+      "description": "A confirmation that demands a choice, focusing the safe option first, built on Radix.",
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "clsx",
+        "tailwind-merge",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/overlays/alert-dialog/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/button.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "A menu of actions with checkbox and radio items and full keyboard support, built on Radix.",
+      "dependencies": ["@radix-ui/react-dropdown-menu", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/overlays/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["overlays"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs with a sliding indicator, pill and line styles and full keyboard support, built on Radix.",
+      "dependencies": ["@radix-ui/react-tabs", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/tabs/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Expandable sections with an animated height, built on Radix.",
+      "dependencies": ["@radix-ui/react-accordion", "clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/accordion/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-accordion-down": {
+          "from": {
+            "height": "0"
+          },
+          "to": {
+            "height": "var(--radix-accordion-content-height)"
+          }
+        },
+        "@keyframes zuri-accordion-up": {
+          "from": {
+            "height": "var(--radix-accordion-content-height)"
+          },
+          "to": {
+            "height": "0"
+          }
+        }
+      }
+    },
+    {
+      "name": "breadcrumbs",
+      "type": "registry:ui",
+      "title": "Breadcrumbs",
+      "description": "A breadcrumb trail with the current page marked for assistive technology.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/breadcrumbs/breadcrumbs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "password-strength",
+      "type": "registry:ui",
+      "title": "Password strength",
+      "description": "A new-password field with a strength meter, requirements that tick off, a show/hide toggle and translatable messages.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/password-strength/password-strength.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/button.json",
+        "__REGISTRY_URL__/input.json"
+      ],
+      "css": {
+        "@keyframes zuri-rise": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateY(0.3em)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
+    },
+    {
+      "name": "expanding-button-group",
+      "type": "registry:ui",
+      "title": "Expanding button group",
+      "description": "A pill of icon buttons where one shows its label, with in-place confirmation and a two-tap flow on touch.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/actions/expanding-button-group/expanding-button-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.2.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "user-menu",
+      "type": "registry:ui",
+      "title": "User menu",
+      "description": "An account menu with identity, links, theme and status choices and sign out; a bottom sheet on narrow screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/user-menu/user-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/avatar.json",
+        "__REGISTRY_URL__/dropdown-menu.json",
+        "__REGISTRY_URL__/dialog.json",
+        "__REGISTRY_URL__/focus-modality.json"
+      ]
+    },
+    {
+      "name": "theme-switch",
+      "type": "registry:ui",
+      "title": "Theme switch",
+      "description": "A light and dark toggle with an optional animated page change using the View Transitions API.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/actions/theme-switch/theme-switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["actions"],
+      "meta": {
+        "version": "0.2.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/button.json"]
+    },
+    {
+      "name": "progressive-blur",
+      "type": "registry:ui",
+      "title": "Progressive blur",
+      "description": "A blur that grows toward the edge of a scroller, so content softens as it leaves the view.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/display/progressive-blur/progressive-blur.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["display"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))": {
+          ".zuri-pblur > [data-pblur-layer]": {
+            "display": "none"
+          }
+        },
+        "@media (prefers-reduced-transparency: reduce)": {
+          ".zuri-pblur > [data-pblur-layer]": {
+            "display": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "split-hero",
+      "type": "registry:block",
+      "title": "Split hero",
+      "description": "A hero with text on one side and a visual on the other, stacking on narrow screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/split-hero/split-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "magazine-hero",
+      "type": "registry:block",
+      "title": "Magazine hero",
+      "description": "An editorial hero with a very large headline beside a tall, offset visual and a corner badge.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/magazine-hero/magazine-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "card-fan-hero",
+      "type": "registry:block",
+      "title": "Card fan hero",
+      "description": "A centred hero with a row of cards fanned out in an arc beneath it.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/card-fan-hero/card-fan-hero.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "section-heading",
+      "type": "registry:block",
+      "title": "Section heading",
+      "description": "The title block that opens a page section: eyebrow, heading and description.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/section-heading/section-heading.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "closing-cta",
+      "type": "registry:block",
+      "title": "Closing call to action",
+      "description": "A panel at the foot of a page with a heading, a line of text and actions.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/closing-cta/closing-cta.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "pricing",
+      "type": "registry:block",
+      "title": "Pricing",
+      "description": "Plans side by side. Every name, price and link comes from you.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/pricing/pricing.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "testimonials",
+      "type": "registry:block",
+      "title": "Testimonials",
+      "description": "Short attributed quotes in a staggered grid.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/testimonials/testimonials.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "site-footer",
+      "type": "registry:block",
+      "title": "Site footer",
+      "description": "A page footer with a brand, labelled link columns and a legal line.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/site-footer/site-footer.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "site-header",
+      "type": "registry:block",
+      "title": "Site header",
+      "description": "A header with brand, links and actions, that turns into a modal menu on small screens.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/site-header/site-header.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json", "__REGISTRY_URL__/dialog.json"]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:block",
+      "title": "Marquee",
+      "description": "A row of logos or quotes that scrolls sideways forever, with a pause button.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/marquee/marquee.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["motion"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-marquee": {
+          "to": {
+            "transform": "translateX(-50%)"
+          }
+        },
+        "@keyframes zuri-marquee-rtl": {
+          "to": {
+            "transform": "translateX(50%)"
+          }
+        }
+      }
+    },
+    {
+      "name": "reveal",
+      "type": "registry:block",
+      "title": "Reveal",
+      "description": "Fades content in as it scrolls into view, and never hides what is already on screen.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/reveal/reveal.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["motion"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
+      "name": "landing-starter",
+      "type": "registry:block",
+      "title": "Landing page starter",
+      "description": "A complete landing page built from Zuri blocks: header, hero, partners, features, steps, call to action and footer.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/blocks/landing-starter/landing-starter.tsx",
+          "type": "registry:block"
+        }
+      ],
+      "categories": ["blocks"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/closing-cta.json",
+        "__REGISTRY_URL__/marquee.json",
+        "__REGISTRY_URL__/reveal.json",
+        "__REGISTRY_URL__/section-heading.json",
+        "__REGISTRY_URL__/site-footer.json",
+        "__REGISTRY_URL__/site-header.json",
+        "__REGISTRY_URL__/split-hero.json"
+      ]
+    },
+    {
+      "name": "swell-nav",
+      "type": "registry:ui",
+      "title": "Swell nav",
+      "description": "A bottom bar whose surface swells into a dome under the active item, with a saffron bubble that slides like liquid.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/navigation/swell-nav/swell-nav.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["navigation"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"],
+      "css": {
+        "@keyframes zuri-swell-stretch": {
+          "0%": {
+            "transform": "scale(1)"
+          },
+          "35%": {
+            "transform": "scale(1.28, 0.82)"
+          },
+          "70%": {
+            "transform": "scale(0.94, 1.06)"
+          },
+          "100%": {
+            "transform": "scale(1)"
+          }
+        },
+        "@keyframes zuri-swell-pop": {
+          "from": {
+            "opacity": "0",
+            "transform": "scale(0.4) rotate(-40deg)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none"
+          }
+        }
+      }
+    },
+    {
+      "name": "focus-modality",
+      "type": "registry:lib",
+      "title": "Focus modality",
+      "description": "Returns focus quietly after a mouse click, so closing a menu or dialog does not leave a stray focus ring.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/lib/focus-modality.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "categories": ["lib"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      }
+    },
+    {
+      "name": "picker",
+      "type": "registry:ui",
+      "title": "Picker",
+      "description": "A dropdown made of our own parts instead of the operating system's, with search, groups and full keyboard support.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/picker/picker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": [
+        "__REGISTRY_URL__/zuri-tokens.json",
+        "__REGISTRY_URL__/popover.json"
+      ],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        }
+      }
     }
   ]
 }

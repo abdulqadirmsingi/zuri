@@ -1,8 +1,166 @@
 @import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
 @import "@zuri/tokens/tokens.css";
 @import "@zuri/tokens/theme.css";
 
+/* Tailwind only scans this app by default; registry components are rendered in live previews. */
+@source "../../../packages/registry/src";
+
+@theme inline {
+  --font-sans: var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-display-loaded), var(--font-sans-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-loaded), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Bridge Fumadocs' palette to Zuri tokens so the docs look like the components.
+ * Only neutral roles are mapped: our --accent is saffron (a loud fill), so it must not
+ * become Fumadocs' subtle hover colour. Declared per theme class so values re-resolve. */
+:root,
+.light,
+.dark {
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-popover: var(--background);
+  --color-fd-popover-foreground: var(--foreground);
+  /* Slightly lighter than --muted: Shiki's comment colour needs >= 4.5:1 on code blocks. */
+  --color-fd-card: color-mix(in oklab, var(--muted) 45%, var(--background));
+  --color-fd-card-foreground: var(--foreground);
+  --color-fd-border: var(--border);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--muted);
+  --color-fd-secondary-foreground: var(--foreground);
+  --color-fd-accent: var(--muted);
+  --color-fd-accent-foreground: var(--foreground);
+  --color-fd-ring: var(--ring);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Anchor links glide instead of jumping; reduced-motion users get the plain jump. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Landing page surfaces. The page sits on warm "paper"; content lives on --background sheets.
+ * The --glow-* stops colour the hero and the frames around product shots: they are decoration,
+ * and no text is ever set directly on them without a sheet in between. */
+:root {
+  --paper: oklch(0.968 0.007 75);
+  --glow-1: oklch(0.86 0.13 65);
+  --glow-2: oklch(0.8 0.15 25);
+  --glow-3: oklch(0.78 0.13 330);
+  --glow-4: oklch(0.8 0.1 250);
+  --glow-5: oklch(0.88 0.12 150);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light) {
+    --paper: oklch(0.1 0 0);
+    --glow-1: oklch(0.55 0.13 65);
+    --glow-2: oklch(0.5 0.15 25);
+    --glow-3: oklch(0.48 0.14 330);
+    --glow-4: oklch(0.5 0.12 250);
+    --glow-5: oklch(0.55 0.11 150);
+  }
+}
+:root[data-theme="dark"],
+.dark {
+  --paper: oklch(0.1 0 0);
+  --glow-1: oklch(0.55 0.13 65);
+  --glow-2: oklch(0.5 0.15 25);
+  --glow-3: oklch(0.48 0.14 330);
+  --glow-4: oklch(0.5 0.12 250);
+  --glow-5: oklch(0.55 0.11 150);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+}
+
+/* The hero's colour field: soft blobs that drift slowly. Only transform moves, and nothing moves
+ * for people who prefer reduced motion. */
+@keyframes zuri-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+}
+@keyframes zuri-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+/* The timer bar under the playing tab in the pages showcase. */
+@keyframes zuri-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .zuri-drift {
+    animation: zuri-drift 18s ease-in-out infinite;
+  }
+  .zuri-float {
+    animation: zuri-float 7s ease-in-out infinite;
+  }
+}
+
 body {
+  font-family: var(--font-sans);
   background: var(--background);
   color: var(--foreground);
+}
+
+.prose :where(h1, h2, h3) {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* The docs sidebar must stay put however the page is scrolled or pulled.
+ *
+ * 1. Trackpads "rubber-band" when you pull the page past its top or bottom. The whole page moves,
+ *    and a sticky element such as the sidebar moves with it ("it moves up a little"). Turning
+ *    overscroll off for the page stops the bounce. (The sidebar's own list keeps its own
+ *    scrolling; it already contains its overscroll.)
+ * 2. During momentum scrolling a sticky element can lag a frame behind the page and then snap.
+ *    Giving the sticky column its own compositing layer keeps it steady. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Desktop only: a transformed ancestor becomes the containing block for position: fixed
+ * descendants, and on phones the sidebar is a fixed drawer that must keep covering the screen. */
+@media (min-width: 768px) {
+  div:has(> #nd-sidebar) {
+    will-change: transform;
+  }
+}
+
+/* Callouts: no coloured accent line down the left side. The line is a decorative 2px element, and
+ * the box reserves a little extra padding for it, so that padding is reset to match the others. */
+div[role="none"][class*="callout-color"] {
+  display: none;
+}
+
+div:has(> div[role="none"][class*="callout-color"]) {
+  padding-inline-start: 0.75rem;
 }

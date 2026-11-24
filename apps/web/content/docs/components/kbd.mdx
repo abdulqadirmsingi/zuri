@@ -1,0 +1,45 @@
+---
+title: Kbd
+description: A keyboard key for showing shortcuts.
+---
+
+<Preview>
+  <Demo name="kbd-default" />
+</Preview>
+
+Use `Kbd` to show a key or a shortcut in text, such as in a command palette hint or in help.
+
+## Installation
+
+<InstallTabs name="kbd" />
+
+## Usage
+
+```tsx
+import { Kbd } from "@/components/ui/kbd";
+
+<p>Press <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd> to search.</p>
+```
+
+## Props
+
+`Kbd` extends all native `<kbd>` props and spreads them onto the element, including `ref` (React 19).
+
+## Accessibility
+
+- It is a native `<kbd>`, which marks the text as keyboard input.
+- Symbols such as ⌘ are read inconsistently by screen readers. Where it matters, write the key name (Command) or add a visually hidden label.
+- Show Ctrl on Windows and Linux and Command on macOS, or both; the component does not detect the platform.
+- Each key is at least 24 pixels square, to match the other controls.
+
+## Tokens used
+
+`--control-border`, `--muted`, `--foreground`.
+
+## Known limitations
+
+- It is display only: it does not register shortcuts.
+
+## Source
+
+<Source name="kbd" />

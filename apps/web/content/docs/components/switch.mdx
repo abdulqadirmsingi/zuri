@@ -1,0 +1,61 @@
+---
+title: Switch
+description: A native checkbox exposed as an on/off switch.
+---
+
+<Preview>
+  <Demo name="switch-default" />
+</Preview>
+
+Use `Switch` for a setting that takes effect immediately, such as turning notifications on. If the choice is submitted later with a form, a [Checkbox](/docs/components/checkbox) is the better fit.
+
+## Installation
+
+<InstallTabs name="switch" />
+
+## Usage
+
+```tsx
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+
+<Switch id="notify" name="notify" defaultChecked />
+<Label htmlFor="notify">Payment notifications</Label>
+```
+
+## States
+
+<Preview>
+  <Demo name="switch-states" />
+</Preview>
+
+## Props
+
+`Switch` extends all native `<input>` props (except `type` and `role`) and spreads them onto the input, including `ref` (React 19). Use `checked` with `onChange`, or `defaultChecked`.
+
+<PropsTable
+  rows={[
+    { name: "className", type: "string", description: "Merged onto the input; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native checkbox with `role="switch"`: Tab focuses it, Space toggles it, and screen readers announce it as a switch that is on or off.
+- The track is 44 × 24 pixels.
+- The thumb moves and changes colour, so state is not shown by colour alone. In right-to-left layouts the thumb moves the other way.
+- Under `prefers-reduced-motion`, the thumb jumps with no transition.
+- The label should describe the setting, not the state ("Notifications", not "Turn notifications on").
+
+## Tokens used
+
+`--muted`, `--muted-foreground`, `--control-border`, `--primary`, `--primary-foreground`, `--ring`, `--duration-base`, `--ease-out`.
+
+## Known limitations
+
+- No loading or pending state, so for slow saves disable the switch while you wait.
+- Windows forced-colours mode has not been checked.
+
+## Source
+
+<Source name="switch" />

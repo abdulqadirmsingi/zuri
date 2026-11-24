@@ -1,0 +1,93 @@
+---
+title: User menu
+description: An account menu with identity, links, theme and status choices and sign out; a bottom sheet on narrow screens.
+---
+
+<Preview>
+  <Demo name="user-menu-default" />
+</Preview>
+
+Use `UserMenu` for the account control in an app's top bar: a person's picture that opens who they are, a few account destinations, a theme choice, an optional status, and Sign out. It is not for navigating the whole app: keep it to three or four destinations.
+
+## Installation
+
+<InstallTabs name="user-menu" />
+
+This also installs [Avatar](/docs/components/avatar), [Dropdown menu](/docs/components/dropdown-menu) and [Dialog](/docs/components/dialog), which it is built from.
+
+## Usage
+
+```tsx
+import { UserMenu } from "@/components/ui/user-menu";
+
+<UserMenu
+  user={{ name: "Asha Juma", email: "asha@example.com", plan: "Pro" }}
+  items={[
+    { id: "profile", label: "Profile", href: "/profile", shortcut: "Ctrl P" },
+    { id: "settings", label: "Settings", onSelect: openSettings },
+  ]}
+  theme={theme}
+  onThemeChange={setTheme}
+  onSignOut={signOut}
+/>
+```
+
+The menu only **reports** the theme choice. Applying it to the page (a class on `<html>`, a cookie, your theme library) is up to your app. The status choice appears when you pass `status` or `onStatusChange`.
+
+## With the name shown
+
+<Preview>
+  <Demo name="user-menu-name" />
+</Preview>
+
+## Narrow screens
+
+Under 640 pixels wide the same content opens as a **bottom sheet** instead of a menu, which is easier to reach with a thumb. Pull the **handle or the header** down to dismiss it: the sheet follows your finger, then slides away if you pulled it more than about a third of its height or flicked it quickly, and springs back otherwise. Escape and the close button work too, so dragging is never the only way out. Resize your browser window narrower than 640 pixels to see it (the preview's width buttons only change the frame, not the window).
+
+## Signing out
+
+Return a promise from `onSignOut` and the item shows "Signing out…" and ignores repeat presses until it settles, then the menu closes. This happens even if the promise rejects: the menu stops waiting, and showing the error is up to your app.
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "user", type: "{ name; email; plan?; avatarSrc? }", description: "Who is signed in. Initials are shown when there is no picture or it fails to load." },
+    { name: "items", type: "UserMenuItem[]", description: "Account destinations. Each has id, label, and optionally icon, shortcut, href and onSelect. With an href it is a link." },
+    { name: "theme / defaultTheme / onThemeChange", type: '"light" | "dark" | "system"', default: '"system"', description: "The theme choice. Reports changes; does not apply them." },
+    { name: "showTheme", type: "boolean", default: "true", description: "Shows the Light, Dark and System choice." },
+    { name: "status / defaultStatus / onStatusChange", type: '"available" | "busy" | "away"', description: "Passing status or onStatusChange shows the status choice and a presence dot." },
+    { name: "onSignOut", type: "() => unknown", description: "Runs on Sign out. Return a promise to show a busy state." },
+    { name: "align", type: '"start" | "center" | "end"', default: '"end"', description: "How the menu lines up with the trigger." },
+    { name: "showName", type: "boolean", default: "false", description: "Shows the name beside the picture from 640 pixels up." },
+    { name: "open / defaultOpen / onOpenChange", type: "boolean", description: "Controlled and uncontrolled use." },
+    { name: "messages", type: "Partial<UserMenuMessages>", description: "Reworded or translated text. Anything left out keeps its English default." },
+  ]}
+/>
+
+## Accessibility
+
+- **Wide screens:** the trigger is a button with `aria-haspopup="menu"`. The popup is a real `role="menu"` built on [Dropdown menu](/docs/components/dropdown-menu), so arrow keys, Home and End, typing a letter, Enter and Escape all work, and focus returns to the trigger on close. Theme and status are menu radio items with their checked state announced, and choosing one keeps the menu open so the change is visible.
+- **Dragging** is an extra gesture for pointer and touch users, not the only way out. The handle is decorative and hidden from assistive technology. Keyboard and screen reader users close the sheet with Escape or the close button, and focus returns to the trigger either way. The release animation uses the `--duration-*` tokens, so it is near-instant under `prefers-reduced-motion`.
+- **Narrow screens:** the sheet is a `role="dialog"` named by the person's name and described by their email, built on [Dialog](/docs/components/dialog). Focus moves in, is trapped there, and returns to the trigger on close. Theme and status are labelled groups of pressed buttons. Escape and the close button dismiss it.
+- The trigger's name says who the account is and, when shown, the status ("Account menu, Asha Juma, Busy"). The presence dot differs by **shape** as well as colour: solid for available, barred for busy, hollow for away.
+- The picture in the identity header is decorative, since the name beside it says the same thing, and is hidden from assistive technology. Shortcut text is read as part of the item ("Profile Ctrl P"), so what is on screen matches the spoken name, but it only shows the shortcut: it does not bind any keys.
+- The trigger and every row are at least 44 pixels tall. If the screen is too short for the whole menu, the menu scrolls inside itself so every item stays reachable.
+- A spinner on the busy Sign out item pulses instead of rotating under `prefers-reduced-motion`.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted`, `--muted-foreground`, `--border`, `--control-border`, `--primary`, `--primary-foreground`, `--success`, `--danger`, `--warning`, `--ring`, and what Avatar, Dropdown menu and Dialog use.
+
+## Known limitations
+
+- The highlight does not glide between rows; it jumps, as in [Dropdown menu](/docs/components/dropdown-menu).
+- Only the handle and header are the drag area, so the rows below stay clickable and the sheet's own list can scroll. Dragging from further down the sheet does nothing.
+- Whether it shows the menu or the sheet is decided by the window width, not by whether the device is a phone.
+- Theme and status are reported, not applied or saved. Your app owns both.
+- No translations are bundled; pass your own through `messages`.
+- It is a client component.
+
+## Source
+
+<Source name="user-menu" />

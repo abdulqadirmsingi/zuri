@@ -1,0 +1,46 @@
+---
+title: Skeleton
+description: A pulsing placeholder block for loading content.
+---
+
+<Preview>
+  <Demo name="skeleton-card" />
+</Preview>
+
+Use `Skeleton` to hold the shape of content that is loading, so the page does not jump when it arrives. Shape each block with `className` to match the real content.
+
+## Installation
+
+<InstallTabs name="skeleton" />
+
+## Usage
+
+```tsx
+import { Skeleton } from "@/components/ui/skeleton";
+
+<section aria-busy="true" aria-label="Loading transaction">
+  <Skeleton className="h-4 w-3/4" />
+</section>
+```
+
+## Props
+
+`Skeleton` extends all native `<div>` props and spreads them onto the element, including `ref` (React 19). It has no props of its own: size and shape come from `className`.
+
+## Accessibility
+
+- Skeleton blocks are hidden from assistive technology, because they carry no information.
+- Announce the loading state on the container (`aria-busy`, with a label) or with a [Spinner](/docs/components/spinner) label, and update it when content arrives.
+- Under `prefers-reduced-motion` the pulse is turned off.
+
+## Tokens used
+
+`--muted`.
+
+## Known limitations
+
+- It is only a block. There are no pre-built text, avatar or card skeletons yet.
+
+## Source
+
+<Source name="skeleton" />

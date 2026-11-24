@@ -1,0 +1,53 @@
+---
+title: Progress
+description: A determinate or indeterminate progress bar.
+---
+
+<Preview>
+  <Demo name="progress-default" />
+</Preview>
+
+Use `Progress` when you can say how far along something is, such as an upload or a step in a flow. When you can't, leave out `value` for an indeterminate bar, or use a [Spinner](/docs/components/spinner).
+
+## Installation
+
+<InstallTabs name="progress" />
+
+## Usage
+
+```tsx
+import { Progress } from "@/components/ui/progress";
+
+<Progress aria-label="Uploading receipt" value={35} />
+```
+
+## Props
+
+`Progress` extends native `<div>` props (except `children`) and spreads them onto the track, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "value", type: "number", description: "Current value from 0 to max. Out-of-range values are clamped. Omit (or pass NaN) for indeterminate." },
+    { name: "max", type: "number", default: "100", description: "The value that means complete." },
+    { name: "aria-label", type: "string", description: "Required unless you use aria-labelledby: the bar needs a name." },
+  ]}
+/>
+
+## Accessibility
+
+- It has `role="progressbar"` with `aria-valuemin`, `aria-valuemax` and `aria-valuenow`. When indeterminate, `aria-valuenow` is left out, which is how assistive technology knows the length is unknown.
+- It does not announce every change. For long tasks, also announce milestones in a live region.
+- The bar slides with a transform and mirrors in right-to-left layouts. Indeterminate pulses rather than moves, so there is nothing to turn off for reduced motion.
+
+## Tokens used
+
+`--muted`, `--primary`, `--duration-base`, `--ease-out`.
+
+## Known limitations
+
+- No label or percentage text is drawn for you.
+- Indeterminate state is a pulse, not a travelling stripe.
+
+## Source
+
+<Source name="progress" />

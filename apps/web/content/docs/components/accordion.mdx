@@ -1,0 +1,72 @@
+---
+title: Accordion
+description: Expandable sections with an animated height, built on Radix.
+---
+
+<Preview>
+  <Demo name="accordion-default" />
+</Preview>
+
+Use `Accordion` for content people scan and open one piece at a time, such as frequently asked questions. Don't hide anything essential inside one.
+
+## Installation
+
+<InstallTabs name="accordion" />
+
+This adds `@radix-ui/react-accordion` and two small keyframes (`zuri-accordion-down` and `-up`) to your CSS, which animate the height.
+
+## Usage
+
+```tsx
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="fees">
+    <AccordionTrigger>What are the fees?</AccordionTrigger>
+    <AccordionContent>Sending to another wallet is free.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+`type="single"` keeps one section open (add `collapsible` so it can also be closed), and `type="multiple"` lets several stay open.
+
+## Several open at once
+
+<Preview>
+  <Demo name="accordion-multiple" />
+</Preview>
+
+## Props
+
+`Accordion` takes the Radix root props. The other parts take the Radix props and native element props.
+
+<PropsTable
+  rows={[
+    { name: "type", type: '"single" | "multiple"', description: "On Accordion. Required." },
+    { name: "collapsible", type: "boolean", description: "On Accordion with type single. Lets the open section be closed." },
+    { name: "value / defaultValue / onValueChange", type: "string or string[]", description: "On Accordion. Controlled and uncontrolled use." },
+    { name: "headingLevel", type: "2 | 3 | 4 | 5 | 6", default: "3", description: "On AccordionTrigger. The heading around the button, to fit your page outline." },
+    { name: "disabled", type: "boolean", description: "On AccordionItem. Skipped by the keyboard and not openable." },
+  ]}
+/>
+
+## Accessibility
+
+- Each trigger is a real `<button>` inside a heading with `aria-expanded`, and the open panel is a `region` named by its trigger.
+- Enter and Space toggle a section. Arrow Down and Up move between triggers, Home and End jump to the first and last, and disabled sections are skipped.
+- The chevron is decorative and hidden from screen readers; the state is announced through `aria-expanded`.
+- The height animates using the `--duration-base` token, which is almost zero under `prefers-reduced-motion`.
+- Each trigger is at least 44 pixels tall.
+
+## Tokens used
+
+`--border`, `--muted-foreground`, `--ring`, `--duration-base`, `--ease-out`.
+
+## Known limitations
+
+- The animation changes the panel's height, which is layout. That is cheap for short text but avoid very large panels.
+- If you copy the component by hand, remember the two keyframes, or the panels open without animation.
+
+## Source
+
+<Source name="accordion" />

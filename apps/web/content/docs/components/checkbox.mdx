@@ -1,0 +1,62 @@
+---
+title: Checkbox
+description: A native checkbox, restyled, with an invalid state.
+---
+
+<Preview>
+  <Demo name="checkbox-default" />
+</Preview>
+
+Use `Checkbox` for an independent yes/no choice that is submitted with a form, or for picking several items from a list. For a setting that applies immediately, use [Switch](/docs/components/switch). For choosing one of several options, use [Radio group](/docs/components/radio-group).
+
+## Installation
+
+<InstallTabs name="checkbox" />
+
+## Usage
+
+It has no built-in label. Pair it with a [Label](/docs/components/label) using `htmlFor`, or wrap both in a `<label>`.
+
+```tsx
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+
+<Checkbox id="terms" name="terms" />
+<Label htmlFor="terms">I accept the terms</Label>
+```
+
+## States
+
+<Preview>
+  <Demo name="checkbox-states" />
+</Preview>
+
+## Props
+
+`Checkbox` extends all native `<input>` props (except `type`) and spreads them onto the input, including `ref` (React 19). Use `checked` with `onChange` to control it, or `defaultChecked` to leave it uncontrolled.
+
+<PropsTable
+  rows={[
+    { name: "invalid", type: "boolean", description: "Sets aria-invalid and a danger border." },
+    { name: "className", type: "string", description: "Merged onto the input; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native checkbox: Tab focuses it, Space toggles it, and screen readers announce name and state.
+- The box is 24 × 24 pixels, the WCAG 2.2 minimum target size. A label next to it makes the click target larger.
+- The tick is a graphic added on top, hidden from screen readers; the checked state is conveyed by the input itself, not by colour alone.
+
+## Tokens used
+
+`--background`, `--control-border`, `--primary`, `--primary-foreground`, `--danger`, `--ring`, `--duration-base`, `--ease-out`.
+
+## Known limitations
+
+- No indeterminate (mixed) state yet: it needs the DOM property to be set from JavaScript.
+- Windows forced-colours mode has not been checked.
+
+## Source
+
+<Source name="checkbox" />

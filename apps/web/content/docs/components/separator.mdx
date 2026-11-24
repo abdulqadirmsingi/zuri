@@ -1,0 +1,58 @@
+---
+title: Separator
+description: A thin divider, decorative by default.
+---
+
+<Preview>
+  <Demo name="separator-default" />
+</Preview>
+
+Use `Separator` to divide groups of content. If the division is already clear from headings or spacing, you don't need one.
+
+## Installation
+
+<InstallTabs name="separator" />
+
+## Usage
+
+```tsx
+import { Separator } from "@/components/ui/separator";
+
+<Separator className="my-4" />
+
+<div className="flex h-5 items-center gap-3">
+  Docs <Separator orientation="vertical" /> Source
+</div>
+```
+
+A vertical separator stretches to its parent's height, so the parent needs one.
+
+## Props
+
+`Separator` extends all native `<div>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "orientation", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "Direction of the line." },
+    { name: "decorative", type: "boolean", default: "true", description: "When true it is hidden from assistive technology. Set false if it marks a real boundary between sections." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- By default it has `role="none"`, so screen readers skip it.
+- With `decorative={false}` it is a `separator`, and a vertical one also reports `aria-orientation="vertical"` (horizontal is the default).
+- It is a hairline, not an interactive control, so it is not held to the 3:1 contrast rule for control boundaries.
+
+## Tokens used
+
+`--border`.
+
+## Known limitations
+
+- It is a `div`, not an `<hr>`, so it does not appear in "thematic break" navigation unless `decorative={false}`.
+
+## Source
+
+<Source name="separator" />
