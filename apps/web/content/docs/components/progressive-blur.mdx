@@ -1,0 +1,92 @@
+---
+title: Progressive blur
+description: A blur that grows toward the edge of a scroller, so content softens as it leaves the view.
+---
+
+<Preview>
+  <Demo name="blur-bottom" />
+</Preview>
+
+Use `ProgressiveBlur` at the edge of a scrolling area, such as a list of transactions, so rows soften as they scroll out of view instead of being cut off by a hard line. It hints that there is more to scroll to. It needs no JavaScript.
+
+## Installation
+
+<InstallTabs name="progressive-blur" />
+
+This also adds two small CSS rules (the fallbacks described below) to your CSS.
+
+## Usage
+
+Put it inside a `relative` container, **over** the scrolling content, and give the content bottom padding at least as tall as the blur, so the last item can scroll clear of it.
+
+```tsx
+import { ProgressiveBlur } from "@/components/ui/progressive-blur";
+
+<div className="relative h-72 overflow-hidden">
+  <section aria-label="Recent transactions" tabIndex={0} className="h-full overflow-y-auto p-4 pb-28">
+    …
+  </section>
+  <ProgressiveBlur />
+</div>
+```
+
+The scrolling element needs `tabIndex={0}` and a name, so keyboard users can scroll it; the blur itself is decorative.
+
+## Top and bottom, with a fade
+
+`fade` also fades the content to the page background colour, so it disappears completely at the edge. Use it when the background is a plain colour.
+
+<Preview>
+  <Demo name="blur-both" />
+</Preview>
+
+## A side
+
+<Preview>
+  <Demo name="blur-side" />
+</Preview>
+
+## How it works
+
+It stacks a few blur layers, each confined by a mask to its own band, and the strength doubles from one layer to the next (0.75, 1.5, 3, 6 and 12 pixels with the defaults). The bands overlap, so the layers blend into one smooth ramp that is strongest at the edge.
+
+## Props
+
+`ProgressiveBlur` extends native `<div>` props (except `children`) and spreads them onto the element, including `ref` (React 19). It is a Server Component.
+
+<PropsTable
+  rows={[
+    { name: "side", type: '"top" | "bottom" | "left" | "right"', default: '"bottom"', description: "The edge it sits on. These are physical edges: it is the visible side of the scroller that content disappears past." },
+    { name: "size", type: "number | string", default: '"6rem"', description: "How far it reaches in from the edge. A number is pixels; a string is any CSS length." },
+    { name: "strength", type: "number", default: "12", description: "The strongest blur, in pixels, at the very edge." },
+    { name: "steps", type: "number", default: "5", description: "How many stacked layers, from 1 to 6. More is smoother but costs more to paint." },
+    { name: "fade", type: "boolean", default: "false", description: "Also fade the content to the page background colour." },
+  ]}
+/>
+
+## Accessibility
+
+- It is purely decorative: it is hidden from assistive technology, and it never takes a click, tap or text selection, because it ignores pointer events.
+- **Text under the blur is only blurred visually.** Screen readers still read it. Don't leave anything essential permanently under the blur: give the content end padding so the last item scrolls clear, as in the examples.
+- Make the scrolling area keyboard-reachable (`tabIndex={0}`, a name, a visible focus ring).
+- It never animates. There is no motion to turn off for `prefers-reduced-motion`.
+- If someone prefers **reduced transparency**, or the browser has no `backdrop-filter`, the blur layers are dropped. With `fade` on, the content still fades out, so it degrades to a plain fade rather than a hard edge.
+
+## Performance
+
+Every layer is a real backdrop blur, and they are expensive to paint, so the Zuri glass rules apply: keep the count low (the default is 5, the cap is 6), don't animate the strength, and use it on one or two edges at a time, not on many elements in a long list.
+
+## Tokens used
+
+`--background` (only with `fade`).
+
+## Known limitations
+
+- The blur is stacked bands, so with very large `strength` and very few `steps` you may see faint steps. Raise `steps` or lower `strength`.
+- It blurs whatever is behind it, including anything else you place there, not just the scrolling content.
+- Edges are physical (left and right do not flip in right-to-left layouts), because the scroller's visible edge does not flip.
+- Not tested on every browser: backdrop blur with masks is well supported in current browsers, but old ones fall back to no blur.
+
+## Source
+
+<Source name="progressive-blur" />

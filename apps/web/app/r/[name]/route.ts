@@ -3,7 +3,9 @@ import { loaders } from "@/.registry/manifest";
 import { buildInstallEvent } from "@/lib/analytics/build-event";
 import { getDb } from "@/lib/analytics/db";
 import { recordInstall } from "@/lib/analytics/install-events";
+import { canAccess } from "@/lib/licence/access";
 import { parseItemName, readRegistryItem } from "@/lib/registry-files";
+import { checkRegistryRate } from "@/lib/registry-rate-limit";
 
 // Served by a function (never from public/) so every request can be counted.
 // No CDN caching for now: an edge hit would skip the function and swallow the count.
@@ -14,12 +16,27 @@ const headers = {
 };
 
 export async function GET(request: Request, ctx: { params: Promise<{ name: string }> }) {
+  const rate = checkRegistryRate(request.headers);
+  if (!rate.ok) {
+    return Response.json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfterSec) } },
+    );
+  }
+
   const { name: param } = await ctx.params;
   const name = parseItemName(param);
   if (!name) return Response.json({ error: "Invalid name" }, { status: 400 });
 
   const item = await readRegistryItem(name, loaders);
   if (!item) return Response.json({ error: "Not found" }, { status: 404 });
+
+  if (!(await canAccess(item.tier, request.headers, getDb()))) {
+    return Response.json(
+      { error: "A valid licence key is required" },
+      { status: 401, headers: { "WWW-Authenticate": "Bearer", "Cache-Control": "no-store" } },
+    );
+  }
 
   // The index is a listing, not an install. after() runs once the response is sent,
   // so counting never delays the response, and recordInstall never throws.

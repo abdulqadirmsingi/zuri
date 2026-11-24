@@ -1,0 +1,64 @@
+---
+title: Magazine hero
+description: An editorial hero with a very large headline beside a tall, offset visual and a corner badge.
+---
+
+<Preview>
+  <Demo name="hero-magazine" />
+</Preview>
+
+Use `MagazineHero` for a bold, editorial first impression, such as a publication, a campaign or a portfolio. The headline scales with the screen, and the visual sits in a tall frame with a solid saffron block offset behind it.
+
+## Installation
+
+<InstallTabs name="magazine-hero" />
+
+## Usage
+
+```tsx
+import { MagazineHero } from "@/components/ui/magazine-hero";
+
+<MagazineHero
+  eyebrow="Issue 04"
+  title={<>Stories from<br />the coast</>}
+  tags={["Essays", "Photography"]}
+  badge="New issue"
+  caption="Photo: A. Photographer"
+  media={<img src="/cover.jpg" alt="A dhow at sunrise" className="size-full object-cover" />}
+/>
+```
+
+
+## Props
+
+It extends the native `<section>` props (except `title`) and spreads them onto the section, including `ref` (React 19). It is a Server Component: it has no state and needs no JavaScript.
+
+<PropsTable
+  rows={[
+    { name: "eyebrow", type: "ReactNode", description: "A short line above the headline." },
+    { name: "title", type: "ReactNode", description: "The headline. Required." },
+    { name: "description", type: "ReactNode", description: "A short paragraph under the headline." },
+    { name: "actions", type: "ReactNode", description: "Buttons or links shown under the text." },
+    { name: "headingLevel", type: "1 | 2", default: "1", description: "The heading level for the headline." },
+    { name: "tags", type: "string[]", description: "Short labels shown as a list." },
+    { name: "media", type: "ReactNode", description: "The visual, shown in a 4:5 frame. Required." },
+    { name: "caption", type: "ReactNode", description: "A caption under the visual, such as a credit." },
+    { name: "badge", type: "ReactNode", description: "A small pill overlapping a corner of the visual." },
+  ]}
+/>
+
+## Accessibility
+
+- The section is a landmark named by its headline (`aria-labelledby`). The headline is an `h1` by default; pass `headingLevel={2}` if the page already has one.
+- Text never sits on top of an image, so its contrast does not depend on the picture you choose.
+- Give each image its own `alt` text, or `alt=""` if it is purely decorative.
+- Make the buttons or links you pass as `actions` at least 24px tall (these examples use 44px).
+
+## Tokens used
+
+`--accent`, `--accent-foreground`, `--accent-ink`, `--primary`, `--primary-foreground`, `--control-border`, `--border`, `--muted`.
+
+## Known limitations
+
+- It lays out the content you give it; it does not choose or crop images for you. Use a ratio-friendly image, and `object-cover` on it.
+- The demos use plain shapes as stand-in artwork. Bring your own pictures.

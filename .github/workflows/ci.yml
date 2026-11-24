@@ -1,8 +1,14 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
+
+# A newer push to the same branch makes an older, still-running check pointless, so cancel it and
+# save minutes. Runs on main are never cancelled.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions:
   contents: read
@@ -25,8 +31,55 @@ jobs:
       - run: pnpm build
       - run: pnpm audit --prod --audit-level=high
 
+  # The same audit run by hand with `pnpm --filter web a11y`: a real Chromium and axe over every
+  # docs page, in light and dark, at desktop width and 320px, for WCAG 2.2 AA. It catches what
+  # unit tests cannot (real layout, real contrast, real focus), so it is its own job and shows up
+  # as its own status.
+  a11y:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Cache the browser
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Chromium
+        run: pnpm --filter web exec playwright install --with-deps chromium
+      - name: Audit accessibility in a real browser
+        run: |
+          # Start, wait for and stop the site inside this one step, so nothing depends on a
+          # background process surviving between steps.
+          pnpm --filter web exec next start -p 3101 > "$RUNNER_TEMP/site.log" 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          ready=""
+          for _ in $(seq 1 60); do
+            if curl -sf http://localhost:3101/docs > /dev/null; then ready=1; break; fi
+            sleep 1
+          done
+          if [ -z "$ready" ]; then
+            echo "The site did not start. Its log:"
+            cat "$RUNNER_TEMP/site.log"
+            exit 1
+          fi
+          BASE_URL=http://localhost:3101 pnpm --filter web a11y
+
   secrets:
     runs-on: ubuntu-latest
+    # gitleaks lists a pull request's commits through the API, which needs pull-requests: read.
+    # With only contents: read it fails with 403 on every pull request, before scanning anything.
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@v4
         with:

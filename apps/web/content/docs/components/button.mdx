@@ -1,0 +1,175 @@
+---
+title: Button
+description: A native button with ten styles to choose from, icon sizes and a loading state, plus copyable recipes for more.
+---
+
+<Preview>
+  <Demo name="button-default" />
+</Preview>
+
+Use `Button` for actions: submitting a form, opening a dialog, confirming a choice. For navigation use a link instead, because a link is announced and behaves differently.
+
+## Installation
+
+<InstallTabs name="button" />
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+
+export function Example() {
+  return <Button variant="outline">Continue</Button>;
+}
+```
+
+## Variants
+
+<Preview>
+  <Demo name="button-variants" />
+</Preview>
+
+Pick the one that fits the job:
+
+| Variant | Use it for |
+| --- | --- |
+| `default` | The main action on a page. Black in light mode, white in dark. |
+| `accent` | A brand-coloured main action, in saffron. |
+| `outline` | A secondary action next to a main one. |
+| `soft` | A quiet filled button when an outline feels too light. |
+| `ghost` | Toolbars and dense rows, where a border would add noise. |
+| `link` | A low-emphasis action that reads like a link but still acts like a button. |
+| `destructive` | Deleting or removing, shown in the danger colour. |
+| `brutal` | A bold, flat style: a hard shadow that the button presses into. |
+| `wipe` | A fill that sweeps in from the start edge on hover. |
+| `glass` | Over images or colour. It blurs what is behind it, so it needs a colourful backdrop. |
+
+## Alternatives
+
+You are not limited to the built-in styles. These are built by passing `className` to the same `Button`, so each one is a few classes you can paste and change. Nothing extra is installed.
+
+<Preview>
+  <Demo name="button-alternatives" />
+</Preview>
+
+**Arrow slide.** The arrow nudges forward on hover and flips for right-to-left languages.
+
+```tsx
+<Button variant="accent" shape="pill" size="lg" className="group">
+  Get started
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 16 16"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="transition-transform duration-[var(--duration-base)] group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
+  >
+    <path d="M3 8h10M9 4l4 4-4 4" />
+  </svg>
+</Button>
+```
+
+**Glow.** A soft saffron ring that widens on hover.
+
+```tsx
+<Button
+  variant="accent"
+  shape="pill"
+  className="shadow-[0_0_0_4px_color-mix(in_oklab,var(--accent)_35%,transparent)] hover:shadow-[0_0_0_8px_color-mix(in_oklab,var(--accent)_35%,transparent)]"
+>
+  Glow
+</Button>
+```
+
+**Status dot.** A dot that pulses only for people who have not asked for reduced motion. The dot is decorative, so the words carry the meaning.
+
+```tsx
+<Button variant="outline" shape="pill">
+  <span aria-hidden="true" className="size-2 rounded-full bg-success motion-safe:animate-pulse" />
+  Live now
+</Button>
+```
+
+**Count.** A small number beside the label. Put the number in the text too, so it is read out.
+
+```tsx
+<Button variant="soft" shape="pill">
+  Messages
+  <span className="rounded-full bg-foreground px-2 text-xs text-background">3</span>
+</Button>
+```
+
+## Sizes
+
+<Preview>
+  <Demo name="button-sizes" />
+</Preview>
+
+For a square icon-only button use `size="icon-sm"`, `"icon"` or `"icon-lg"` (32, 40 and 48 pixels) and give it an `aria-label`.
+
+## Icons and shape
+
+Put an inline SVG before or after the text. Icons are sized to 16 pixels automatically and are not clickable on their own. `shape="pill"` makes the ends fully round.
+
+<Preview>
+  <Demo name="button-icons" />
+</Preview>
+
+## Loading
+
+`loading` shows a spinner and disables the button, so a second click can't submit a payment twice.
+
+<Preview>
+  <Demo name="button-loading" />
+</Preview>
+
+Also show a status message somewhere on the page. `aria-busy` on its own is not announced by every screen reader.
+
+## States
+
+<Preview>
+  <Demo name="button-states" />
+</Preview>
+
+## Props
+
+`Button` extends all native `<button>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "variant", type: '"default" | "accent" | "outline" | "soft" | "ghost" | "link" | "destructive" | "brutal" | "wipe" | "glass"', default: '"default"', description: "Visual style; see the table above. Destructive is danger-coloured text on a light surface." },
+    { name: "size", type: '"sm" | "md" | "lg" | "icon-sm" | "icon" | "icon-lg"', default: '"md"', description: "Heights of 32, 40 and 48 pixels. The icon sizes are square and need an aria-label." },
+    { name: "shape", type: '"default" | "pill"', default: '"default"', description: "Pill makes the ends fully round." },
+    { name: "loading", type: "boolean", default: "false", description: "Shows a spinner, sets aria-busy and disables the button." },
+    { name: "type", type: '"button" | "submit" | "reset"', default: '"button"', description: "Defaults to button so it never submits a form by accident." },
+    { name: "className", type: "string", description: "Merged with the built-in classes; yours win on conflicts." },
+  ]}
+/>
+
+## Accessibility
+
+- It renders a native `<button>`, so Enter and Space activate it and screen readers announce it as a button.
+- A visible focus ring appears on keyboard focus only (`:focus-visible`).
+- Disabled buttons are removed from pointer interaction and dimmed.
+- Under `prefers-reduced-motion`, the press animation and transitions are turned off, and the loading spinner pulses instead of rotating.
+- Icon-only buttons have no visible text, so they must have an `aria-label`.
+- `link` is still a `<button>`: use a real link for navigation. `wipe` also flips its label colour on keyboard focus, not only on hover.
+- `brutal` and `wipe` keep their shape and colours under reduced motion; only the movement and the sweep are removed.
+- The smallest size is 32 pixels high, above the 24-pixel WCAG 2.2 minimum but below the 44-pixel touch target we prefer. Use `lg` for primary touch actions.
+
+## Tokens used
+
+`--primary`, `--primary-foreground`, `--accent`, `--accent-foreground`, `--accent-ink`, `--background`, `--foreground`, `--border`, `--muted`, `--danger`, `--ring`, `--duration-base`, `--ease-out`, and the glass variables.
+
+## Known limitations
+
+- Loading disables the button, so it leaves the tab order while it waits.
+- Nothing checks that an icon-only button has an aria-label; that is up to you.
+- Glass text contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="button" />

@@ -1,0 +1,70 @@
+---
+title: Site header
+description: A header with brand, links and actions, that turns into a modal menu on small screens.
+---
+
+<Preview>
+  <Demo name="shell-header" />
+</Preview>
+
+Use `SiteHeader` at the top of every page. From the `md` breakpoint (768px) it is a row of links; below that, the links move into a menu opened by a button. It builds on the [dialog](/docs/components/dialog), so it installs that too.
+
+The docs preview is narrower than your browser, but the switch happens at the **window** width. Make your window narrow to see the menu.
+
+## Installation
+
+<InstallTabs name="site-header" />
+
+## Usage
+
+```tsx
+import { SiteHeader } from "@/components/ui/site-header";
+
+<SiteHeader
+  brand={<a href="/">Kilele</a>}
+  links={[{ label: "Courses", href: "/courses" }, { label: "About", href: "/about" }]}
+  current="/courses"
+  actions={<a href="/start">Get started</a>}
+  sticky
+/>
+```
+
+## With next/link
+
+```tsx
+import Link from "next/link";
+
+<SiteHeader linkAs={Link} brand={<Link href="/">Kilele</Link>} links={links} />
+```
+
+## Props
+
+<PropsTable
+  rows={[
+    { name: "brand", type: "ReactNode", description: "Your logo or name, usually a link home. Required." },
+    { name: "links", type: "{ label: string; href: string }[]", description: "The navigation links. Required." },
+    { name: "current", type: "string", description: "The href of the current page; its link gets aria-current=\"page\"." },
+    { name: "actions", type: "ReactNode", description: "Buttons at the end. They also appear in the mobile menu." },
+    { name: "sticky", type: "boolean", default: "false", description: "Keep the header at the top while scrolling." },
+    { name: "navLabel", type: "string", default: '"Main"', description: "Name of the navigation landmark." },
+    { name: "menuLabel", type: "string", default: '"Menu"', description: "Name of the button that opens the menu. Translate it for other languages." },
+    { name: "linkAs", type: "ElementType", default: '"a"', description: "Render links with another component, such as next/link." },
+  ]}
+/>
+
+## Accessibility
+
+- A `<header>` (banner) with a named `<nav>`. The current page's link has `aria-current="page"`.
+- The menu button is named by its text ("Menu"), not by an icon. The menu is a modal dialog: focus is trapped, **Esc** closes it, and focus returns to the button. It also closes when you choose a link.
+- Links are at least 44px tall on phones and 36px on larger screens.
+- Only one of the desktop links and the menu is shown at a time, so screen readers never hear the links twice.
+
+## Tokens used
+
+`--background`, `--border`, `--foreground`, `--muted`, `--muted-foreground`, `--ring`, `--z-sticky`.
+
+## Known limitations
+
+- The breakpoint is fixed at `md`. To change it, edit the `md:` classes.
+- A very long list of links does not fit in the desktop row. Keep to about six, or group the rest.
+- It has no search box or dropdown submenus. Pass those as `actions`, or build a custom header.

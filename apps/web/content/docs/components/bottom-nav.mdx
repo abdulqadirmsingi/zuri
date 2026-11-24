@@ -1,0 +1,83 @@
+---
+title: Bottom nav
+description: A pill-shaped bottom navigation with a liquid sliding indicator, expanding labels and badges.
+---
+
+<Preview>
+  <Demo name="bottom-nav-default" />
+</Preview>
+
+Use `BottomNav` for the main destinations of a mobile-first app, usually three to five. The active item grows to show its label, and a pill slides to it with a springy overshoot. For more destinations or a desktop layout, use a sidebar or a top navbar instead.
+
+## Installation
+
+<InstallTabs name="bottom-nav" />
+
+## Usage
+
+Each item is a real link (give it an `href`) or a button. Use links for page navigation and keep the active id in sync with your router; use buttons for in-page tabs.
+
+```tsx
+import { BottomNav } from "@/components/ui/bottom-nav";
+
+<BottomNav
+  aria-label="Main"
+  fixed
+  value={pathname}
+  onValueChange={(id) => router.push(`/${id}`)}
+  items={[
+    { id: "home", label: "Home", icon: <HomeIcon /> },
+    { id: "messages", label: "Messages", icon: <ChatIcon />, badge: 2 },
+  ]}
+/>
+```
+
+`fixed` floats the bar at the bottom centre, above the phone's home indicator (`safe-area-inset-bottom`). Leave it off to place the bar yourself. Add bottom padding to your page so the bar does not cover content.
+
+## Glass variant
+
+<Preview>
+  <Demo name="bottom-nav-glass" />
+</Preview>
+
+The `glass` variant blurs the content behind the bar, so it needs something behind it.
+
+## Props
+
+`BottomNav` extends native `<nav>` props and spreads them onto the element, including `ref` (React 19). Give it an `aria-label`.
+
+<PropsTable
+  rows={[
+    { name: "items", type: "BottomNavItem[]", description: "The destinations. Each has id, label, icon, and optionally href and badge." },
+    { name: "value", type: "string", description: "Controlled active item id." },
+    { name: "defaultValue", type: "string", description: "Initial active item id when uncontrolled. Defaults to the first." },
+    { name: "onValueChange", type: "(id: string) => void", description: "Called when an item is chosen." },
+    { name: "variant", type: '"solid" | "glass"', default: '"solid"', description: "Visual style." },
+    { name: "fixed", type: "boolean", default: "false", description: "Float at the bottom centre of the screen." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a `<nav>` landmark containing a list of real links or buttons, so Tab, Enter and Space work with no extra handling. There is no arrow-key roving, because this is navigation, not a tab widget.
+- The active item has `aria-current="page"`.
+- Every item keeps its text label in the accessibility tree. It is only visually collapsed on inactive items, so icon-only items still have a name.
+- A badge is read after the label ("Messages, 2 new"). Counts above 99 show "99+" and are read as "more than 99".
+- Icons are decorative and hidden. Each item is at least 48 pixels tall.
+- Motion uses the `--duration-*` tokens, which drop to almost zero under `prefers-reduced-motion`, so the indicator simply jumps.
+
+## Tokens used
+
+`--primary`, `--primary-foreground`, `--muted-foreground`, `--background`, `--border`, `--ring`, `--duration-base`, `--duration-slow`, `--ease-out`, `--z-sticky`, and the glass variables.
+
+## Known limitations
+
+- It is a client component: it measures the active item to place the indicator. Before the page hydrates, the active item paints its own background.
+- Animating the label's width changes layout inside this small bar. It is cheap here, but don't copy the technique to large trees.
+- It does not hide itself when the on-screen keyboard opens.
+- It does not integrate with a router. Link `href`s navigate normally; for client-side routing handle `onValueChange`.
+- Glass contrast has not been measured against worst-case backdrops.
+
+## Source
+
+<Source name="bottom-nav" />

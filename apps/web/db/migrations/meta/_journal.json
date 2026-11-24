@@ -8,6 +8,13 @@
       "when": 1794922023712,
       "tag": "0000_install_events",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794987261023,
+      "tag": "0001_licence_keys",
+      "breakpoints": true
     }
   ]
 }

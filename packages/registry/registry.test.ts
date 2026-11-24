@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 type Item = {
@@ -36,5 +36,69 @@ describe("registry.json", () => {
     for (const item of items)
       for (const dep of item.registryDependencies ?? [])
         expect(dep).toMatch(/^__REGISTRY_URL__\/[a-z0-9-]+\.json$/);
+  });
+
+  // Regression guard: a component that animates with a zuri keyframe must ship it, or the
+  // animation silently does nothing in a user's project.
+  it("ships every zuri keyframe its component source uses", () => {
+    for (const item of items as (Item & {
+      files?: { path: string }[];
+      css?: Record<string, unknown>;
+    })[]) {
+      for (const file of item.files ?? []) {
+        const source = readFileSync(file.path, "utf8");
+        for (const m of source.matchAll(/animate-\[(zuri-[a-z-]+)_/g)) {
+          expect(Object.keys(item.css ?? {}), `${item.name} uses ${m[1]}`).toContain(
+            `@keyframes ${m[1]}`,
+          );
+        }
+      }
+    }
+  });
+
+  // Regression guard: Tailwind v4's translate-*, scale-* and rotate-* utilities set the standalone
+  // `translate`, `scale` and `rotate` CSS properties, not `transform`. A `transition-[transform,...]`
+  // list therefore does NOT animate them, and the motion silently does nothing (it happened to the
+  // button press, the switch thumb, the strength meter and every overlay's entrance). jsdom cannot
+  // see it, so the source is checked instead.
+  it("lists translate, scale and rotate wherever a transition lists transform", () => {
+    const sources = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+        const full = `${dir}/${e.name}`;
+        if (e.isDirectory()) return sources(full);
+        return /\.tsx$/.test(e.name) && !/\.test\./.test(e.name) ? [full] : [];
+      });
+    for (const file of sources("src")) {
+      for (const m of readFileSync(file, "utf8").matchAll(/transition-\[([^\]]*)\]/g)) {
+        const props = (m[1] ?? "").split(",");
+        if (!props.includes("transform")) continue;
+        for (const needed of ["translate", "scale", "rotate"])
+          expect(props, `${file}: ${m[0]} is missing ${needed}`).toContain(needed);
+      }
+    }
+  });
+
+  // Regression guard: a component that relies on a zuri-* class for a fallback (such as
+  // .zuri-pblur hiding its blur layers) must ship that class's CSS, or the fallback silently
+  // does nothing in a user's project.
+  it("ships the CSS for every zuri-* class its component source relies on", () => {
+    const tokens = items.find((i) => i.name === "zuri-tokens") as
+      | { css?: Record<string, unknown> }
+      | undefined;
+    const defined = (css: Record<string, unknown> | undefined) => JSON.stringify(css ?? {});
+    for (const item of items as (Item & {
+      files?: { path: string }[];
+      css?: Record<string, unknown>;
+    })[]) {
+      for (const file of item.files ?? []) {
+        const source = readFileSync(file.path, "utf8");
+        for (const m of source.matchAll(/["' ](zuri-[a-z-]+)["' ]/g)) {
+          const cls = `.${m[1]}`;
+          if (/^zuri-(rise|shake|accordion-up|accordion-down)$/.test(m[1] ?? "")) continue; // keyframe names
+          const found = defined(item.css).includes(cls) || defined(tokens?.css).includes(cls);
+          expect(found, `${item.name} uses ${cls} but no CSS defines it`).toBe(true);
+        }
+      }
+    }
   });
 });

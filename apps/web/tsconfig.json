@@ -4,9 +4,41 @@
     "plugins": [{ "name": "next" }],
     "allowJs": false,
     "incremental": true,
-    "baseUrl": ".",
-    "paths": { "@/*": ["./*"] }
+    "paths": {
+      "@/components/ui/button": ["../../packages/registry/src/actions/button/button"],
+      "@/components/ui/input": ["../../packages/registry/src/inputs/input/input"],
+      "@/components/ui/avatar": ["../../packages/registry/src/display/avatar/avatar"],
+      "@/components/ui/dialog": ["../../packages/registry/src/overlays/dialog/dialog"],
+      "@/components/ui/dropdown-menu": [
+        "../../packages/registry/src/overlays/dropdown-menu/dropdown-menu"
+      ],
+      "@/components/ui/closing-cta": ["../../packages/registry/src/blocks/closing-cta/closing-cta"],
+      "@/components/ui/pricing": ["../../packages/registry/src/blocks/pricing/pricing"],
+      "@/components/ui/testimonials": [
+        "../../packages/registry/src/blocks/testimonials/testimonials"
+      ],
+      "@/components/ui/input-group": ["../../packages/registry/src/inputs/input-group/input-group"],
+      "@/components/ui/picker": ["../../packages/registry/src/inputs/picker/picker"],
+      "@/components/ui/marquee": ["../../packages/registry/src/blocks/marquee/marquee"],
+      "@/components/ui/reveal": ["../../packages/registry/src/blocks/reveal/reveal"],
+      "@/components/ui/section-heading": [
+        "../../packages/registry/src/blocks/section-heading/section-heading"
+      ],
+      "@/components/ui/site-footer": ["../../packages/registry/src/blocks/site-footer/site-footer"],
+      "@/components/ui/site-header": ["../../packages/registry/src/blocks/site-header/site-header"],
+      "@/components/ui/split-hero": ["../../packages/registry/src/blocks/split-hero/split-hero"],
+      "@/components/ui/popover": ["../../packages/registry/src/overlays/popover/popover"],
+      "@/lib/focus-modality": ["../../packages/registry/src/lib/focus-modality"],
+      "@/*": ["./*"],
+      "@registry/*": ["../../packages/registry/src/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }

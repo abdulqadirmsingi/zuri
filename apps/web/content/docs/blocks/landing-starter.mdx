@@ -1,0 +1,51 @@
+---
+title: Landing page starter
+description: A complete landing page built from Zuri blocks, ready to copy and change.
+---
+
+A whole page, assembled from the other blocks: a sticky header with a mobile menu, a hero, a strip of partners, a features section, a steps section, a closing call to action and a footer.
+
+<a href="/starter" target="_blank" rel="noopener">Open the full-page preview</a> (opens in a new tab, outside the docs, so you can see it as a real site, at any width).
+
+## Installation
+
+<InstallTabs name="landing-starter" />
+
+This installs the starter and every block it uses: [site header](/docs/blocks/site-header), [split hero](/docs/blocks/split-hero), [marquee](/docs/blocks/marquee), [section heading](/docs/blocks/section-heading), [reveal](/docs/blocks/reveal), [closing call to action](/docs/blocks/closing-cta) and [site footer](/docs/blocks/site-footer).
+
+## Make it yours
+
+The starter is a **starting point, not a library**: copy it, then edit it. The words (brand, links, partners, features, steps) are plain data at the top of the file, so a first edit is only text.
+
+```tsx
+// components/landing-starter.tsx
+const brand = "Your name";
+const features = [{ title: "…", body: "…" }];
+```
+
+Then use it in a page:
+
+```tsx
+import { LandingStarter } from "@/components/ui/landing-starter";
+
+export default function Home() {
+  return <LandingStarter />;
+}
+```
+
+To change the structure, swap a block for another: use the [magazine hero](/docs/blocks/magazine-hero) or the [card fan hero](/docs/blocks/card-fan-hero) instead of the split hero, or add another section.
+
+Replace the placeholder image in the hero with your own, with proper `alt` text. Replace the partner names with licensed logos, and the example email address in the closing call to action with your own.
+
+## Accessibility
+
+- One `h1` (the hero headline), then `h2` for each section and `h3` inside them, with no skipped levels. A test checks this.
+- Landmarks: a banner (header), one `main` and a content-info footer. Each section is named by its own heading.
+- Every in-page link points at an element that exists. The header is sticky, and sections have a scroll margin so it never covers a heading you jumped to.
+- Moving content is pausable, and motion is removed under `prefers-reduced-motion`. See [marquee](/docs/blocks/marquee) and [reveal](/docs/blocks/reveal).
+
+## Known limitations
+
+- The links are plain `<a href="#…">` anchors on one page. For a multi-page site, pass `linkAs` (for example `next/link`) to the header and footer, and change the hrefs.
+- The text is in English only, and there is no language picker.
+- It uses placeholder content. Nothing in it is a real company, price, statistic or testimonial.

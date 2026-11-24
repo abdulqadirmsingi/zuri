@@ -1,0 +1,53 @@
+---
+title: Spinner
+description: An indeterminate loading indicator with an accessible label.
+---
+
+<Preview>
+  <Demo name="spinner-sizes" />
+</Preview>
+
+Use `Spinner` for a wait of unknown length, such as a payment being confirmed. If you know the progress, use [Progress](/docs/components/progress). For content-shaped loading, use [Skeleton](/docs/components/skeleton).
+
+## Installation
+
+<InstallTabs name="spinner" />
+
+## Usage
+
+```tsx
+import { Spinner } from "@/components/ui/spinner";
+
+<Spinner label="Confirming payment" />
+```
+
+It uses the current text colour, so it follows whatever it sits in, for example inside a button.
+
+## Props
+
+`Spinner` extends native `<span>` props (except `children`) and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "16, 24 and 40 pixels." },
+    { name: "label", type: "string", default: '"Loading"', description: "Announced to screen readers. Say what is loading." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a `role="status"` live region containing the label as visually hidden text, so it is announced politely when it appears.
+- The spinning graphic is hidden from screen readers.
+- Under `prefers-reduced-motion` it pulses (a fade) instead of rotating.
+
+## Tokens used
+
+None of its own: it inherits `currentColor`.
+
+## Known limitations
+
+- A spinner on screen for less than a moment can flash; delay showing it if your waits are usually short.
+
+## Source
+
+<Source name="spinner" />

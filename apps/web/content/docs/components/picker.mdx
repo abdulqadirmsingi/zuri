@@ -1,0 +1,91 @@
+---
+title: Picker
+description: A dropdown made of our own parts instead of the operating system's, with search, groups and full keyboard support.
+---
+
+<Preview>
+  <Demo name="picker-default" />
+</Preview>
+
+Use `Picker` when you want a dropdown that looks and behaves the same on every device. Unlike the [Select](/docs/components/select), which uses the browser's own menu, the Picker draws its list itself, so it matches your theme, can group options, and adds a search box when the list is long.
+
+Choose the **Select** when the native menu is what you want, for example for very short lists on phones. Choose the **Picker** for everything else.
+
+## Installation
+
+<InstallTabs name="picker" />
+
+This also installs the [Popover](/docs/components/popover), which it is built on.
+
+## Usage
+
+```tsx
+import { Picker } from "@/components/ui/picker";
+
+<Picker
+  options={[
+    { value: "starter", label: "Starter" },
+    { value: "team", label: "Team" },
+  ]}
+  defaultValue="team"
+  onValueChange={(plan) => console.log(plan)}
+/>
+```
+
+Give it a visible `<label htmlFor>` and an `id`, or an `aria-label`. Pass `name` to submit the value with a form.
+
+## Search and groups
+
+From 8 options up it adds a search box automatically. Options can have a `group` (listed under a heading) and `keywords` (extra words the search matches, such as a currency code).
+
+<Preview>
+  <Demo name="picker-search" />
+</Preview>
+
+## Inside a sentence
+
+`variant="inline"` removes the field styling, so the picker is just underlined text in the font around it. The home page's hero is built with it.
+
+<Preview>
+  <Demo name="picker-inline" />
+</Preview>
+
+## Props
+
+It extends the native `<button>` props (except `value`, `defaultValue`, `onChange` and `children`) and spreads them onto the trigger button, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "options", type: "{ value: string; label: string; group?: string; disabled?: boolean; keywords?: string[] }[]", description: "The choices. Required." },
+    { name: "value", type: "string", description: "The chosen value, when controlled." },
+    { name: "defaultValue", type: "string", description: "The initial value when uncontrolled." },
+    { name: "onValueChange", type: "(value: string) => void", description: "Called when an option is chosen." },
+    { name: "placeholder", type: "string", default: '"Choose…"', description: "Shown when nothing is chosen." },
+    { name: "searchable", type: 'boolean | "auto"', default: '"auto"', description: "Show a search box. \"auto\" shows it from 8 options up." },
+    { name: "searchLabel", type: "string", default: '"Search"', description: "Names the search box and the list. Translate it." },
+    { name: "emptyText", type: "string", default: '"No matches"', description: "Shown when the search matches nothing." },
+    { name: "panelLabel", type: "string", default: '"Options"', description: "Names the panel that holds the list." },
+    { name: "variant", type: '"field" | "inline"', default: '"field"', description: "An input-like field, or bare underlined text." },
+    { name: "invalid", type: "boolean", description: "Marks the field as invalid (aria-invalid and a danger border)." },
+    { name: "name", type: "string", description: "Submit the value with a form under this name." },
+    { name: "disabled", type: "boolean", description: "Disable the picker." },
+  ]}
+/>
+
+## Accessibility
+
+- The trigger is a real `<button>` with `role="combobox"`, `aria-haspopup="listbox"` and `aria-expanded`. It is named by a label, or by `aria-label`.
+- The list is a `listbox` of `option`s with `aria-selected`; the highlighted option is announced through `aria-activedescendant`, so focus stays in one place.
+- **Keys:** Enter, Space or the click opens it. Arrow keys move (skipping disabled options), **Home** and **End** jump to the ends, **Enter** chooses, **Esc** closes, and typing jumps to a match. With a search box, type to filter.
+- Focus returns to the button when it closes. After a mouse click it returns **without** drawing a focus ring, so no stray border is left behind; after a key press the ring shows as normal.
+- Targets are at least 36px tall. The panel is limited to the space available and scrolls.
+
+## Tokens used
+
+`--background`, `--foreground`, `--muted`, `--muted-foreground`, `--border`, `--control-border`, `--danger`, `--ring`, `--accent`, `--accent-ink` (inline variant), `--z-dropdown`, `--duration-fast`, `--ease-out`.
+
+## Known limitations
+
+- Single choice only. There is no multiple selection and no way to create new options.
+- The whole list is rendered at once. That is fine for a few hundred options; for thousands, filter on the server and pass in the matches.
+- Not tested with a real screen reader or on a real phone; only in a desktop browser and with an automated checker.

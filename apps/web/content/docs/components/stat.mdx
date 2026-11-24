@@ -1,0 +1,63 @@
+---
+title: Stat
+description: A key figure with a label and an accessible change indicator.
+---
+
+<Preview>
+  <Demo name="stat-default" />
+</Preview>
+
+Use `Stat` to show one important number, such as revenue or failed payments, with how it changed.
+
+## Installation
+
+<InstallTabs name="stat" />
+
+## Usage
+
+Pass the value already formatted. For money, keep amounts as integer minor units and format them with `Intl.NumberFormat` using an explicit currency; never do floating-point maths on amounts.
+
+```tsx
+import { Stat } from "@/components/ui/stat";
+
+<Stat
+  label="Revenue"
+  value={new Intl.NumberFormat("en-TZ", { style: "currency", currency: "TZS" }).format(1240000)}
+  change="12%"
+  trend="up"
+  changeLabel="vs last month"
+/>
+```
+
+## Props
+
+`Stat` extends native `<dl>` props (except `children`) and spreads them on, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "label", type: "ReactNode", description: "What is measured. Required." },
+    { name: "value", type: "ReactNode", description: "The figure, already formatted. Required." },
+    { name: "change", type: "ReactNode", description: "The change, already formatted, e.g. 12%." },
+    { name: "trend", type: '"up" | "down" | "neutral"', default: '"neutral"', description: "Direction of the change. Whether up is good is up to you: this only sets the arrow and wording." },
+    { name: "changeLabel", type: "ReactNode", description: "Context, e.g. vs last month." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a description list: the label is the term and the value is its description, read in order.
+- The change has an arrow and a hidden word ("Increase of 12%"), so it is never colour alone.
+- Colour does not say good or bad. A falling failure count is "down" but good news, so say that in your own text if it matters.
+
+## Tokens used
+
+`--muted-foreground`, `--success`, `--danger`.
+
+## Known limitations
+
+- Success and danger colours follow the trend direction only, not whether it is good.
+- No sparkline or loading state yet.
+
+## Source
+
+<Source name="stat" />

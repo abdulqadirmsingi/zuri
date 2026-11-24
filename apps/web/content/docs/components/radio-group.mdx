@@ -1,0 +1,79 @@
+---
+title: Radio group
+description: A fieldset of native radios with a legend, a hint and an error.
+---
+
+<Preview>
+  <Demo name="radio-group-default" />
+</Preview>
+
+Use `RadioGroup` when the user must pick exactly one option from a short list that is best seen all at once. For long lists use [Select](/docs/components/select).
+
+## Installation
+
+<InstallTabs name="radio-group" />
+
+This installs both `RadioGroup` and `Radio`.
+
+## Usage
+
+Give every `Radio` the same `name`. The browser then provides single selection and arrow-key movement.
+
+```tsx
+import { Radio, RadioGroup } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+
+<RadioGroup legend="Payment method">
+  <Radio id="mobile" name="pm" value="mobile" defaultChecked />
+  <Label htmlFor="mobile">Mobile money</Label>
+  <Radio id="card" name="pm" value="card" />
+  <Label htmlFor="card">Card</Label>
+</RadioGroup>
+```
+
+## Horizontal with an error
+
+<Preview>
+  <Demo name="radio-group-error" />
+</Preview>
+
+## Disabled
+
+<Preview>
+  <Demo name="radio-group-disabled" />
+</Preview>
+
+## Props
+
+`RadioGroup` extends native `<fieldset>` props. `Radio` extends native `<input>` props (except `type`) and spreads them onto the input, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "legend", type: "ReactNode", description: "Visible name of the group. Required." },
+    { name: "hint", type: "ReactNode", description: "Helper text; linked with aria-describedby." },
+    { name: "error", type: "ReactNode", description: "Error message, announced when it appears (role=alert) and linked with aria-describedby." },
+    { name: "orientation", type: '"vertical" | "horizontal"', default: '"vertical"', description: "Layout of the options." },
+    { name: "disabled", type: "boolean", description: "Native fieldset behaviour: disables every option." },
+  ]}
+/>
+
+## Accessibility
+
+- It is a native `<fieldset>` with a `<legend>`, which screen readers announce as a group with that name.
+- Radios with the same `name` are one Tab stop. Arrow keys move and select, Tab leaves the group.
+- Each option is 24 × 24 pixels and needs its own label.
+- Errors are text and linked to the group, never colour alone.
+
+## Tokens used
+
+`--background`, `--control-border`, `--primary`, `--primary-foreground`, `--foreground`, `--muted-foreground`, `--danger`, `--ring`, `--duration-base`, `--ease-out`.
+
+## Known limitations
+
+- It is uncontrolled by the browser's own rules. For a controlled value, set `checked` and `onChange` on each `Radio` yourself.
+- There is no card-style option yet.
+- Windows forced-colours mode has not been checked.
+
+## Source
+
+<Source name="radio-group" />

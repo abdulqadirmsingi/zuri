@@ -1,0 +1,71 @@
+---
+title: Reveal
+description: Fades content in as it scrolls into view, and never hides what is already on screen.
+---
+
+<Preview>
+  <Demo name="reveal-stagger" />
+</Preview>
+
+Use `Reveal` to bring page sections in as people scroll to them. Press **Replay** above to watch the cards arrive. In your own page they play as the content scrolls into view. If your system is set to reduce motion, nothing animates and the content just appears.
+
+Content is fully visible until the page has loaded, so it works without JavaScript and search engines see everything. Anything already on screen when the page loads is left alone, so there is no flash.
+
+## Installation
+
+<InstallTabs name="reveal" />
+
+## Usage
+
+```tsx
+import { Reveal } from "@/components/ui/reveal";
+
+<Reveal>
+  <h2>Our courses</h2>
+</Reveal>
+
+{/* Stagger siblings with small delays */}
+{items.map((item, i) => (
+  <Reveal key={item.id} delay={i * 80}>…</Reveal>
+))}
+```
+
+## Directions
+
+`from` can be `"up"` (the default), `"fade"`, `"start"` or `"end"`. The last two slide sideways and flip in right-to-left layouts.
+
+<Preview>
+  <Demo name="reveal-directions" />
+</Preview>
+
+## Props
+
+It extends the native `<div>` props and spreads them onto the element, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "from", type: '"up" | "fade" | "start" | "end"', default: '"up"', description: "How it arrives." },
+    { name: "delay", type: "number", default: "0", description: "Milliseconds to wait before starting. Use steps of 60 to 120 to stagger siblings." },
+    { name: "threshold", type: "number", default: "0.15", description: "The fraction of the element that must be visible before it reveals, from 0 to 1." },
+    { name: "animateOnScreen", type: "boolean", default: "false", description: "Also animate content that is already on screen at mount. Off by default, so the page doesn't flash on load. The demos on this page turn it on." },
+    { name: "once", type: "boolean", default: "true", description: "Reveal once, or hide again when it scrolls out of view." },
+    { name: "as", type: "ElementType", default: '"div"', description: 'The element to render, for example "li" or "section".' },
+  ]}
+/>
+
+## Accessibility
+
+- It is only a visual effect. The content is in the page the whole time, in reading order, and screen readers read it whether or not it has appeared.
+- It does nothing under `prefers-reduced-motion`: the content just shows.
+- It only moves `opacity` and `translate`, using the `--duration-slow` and `--ease-out` tokens.
+- Never put the only copy of something important, such as an error message, inside a `Reveal`: it can be invisible for a moment while off screen.
+
+## Tokens used
+
+`--duration-slow`, `--ease-out`.
+
+## Known limitations
+
+- It watches the browser window, not a scrolling container inside the page.
+- If the browser has no `IntersectionObserver`, the content just shows.
+- Jumping past a section (the End key, an anchor link further down) shows it straight away, so nothing is left invisible behind you.

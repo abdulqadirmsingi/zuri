@@ -1,0 +1,65 @@
+---
+title: Avatar
+description: A person's picture with an initials fallback, plus an overlapping group.
+---
+
+<Preview>
+  <Demo name="avatar-sizes" />
+</Preview>
+
+Use `Avatar` to show who someone is. It shows their image when there is one and initials when there isn't, or when the image fails to load. `AvatarGroup` stacks several and collapses the rest into a "+N" count.
+
+## Installation
+
+<InstallTabs name="avatar" />
+
+This installs both `Avatar` and `AvatarGroup`.
+
+## Usage
+
+```tsx
+import { Avatar, AvatarGroup } from "@/components/ui/avatar";
+
+<Avatar name="Asha Juma" src="/asha.jpg" />
+<AvatarGroup people={[{ name: "Asha Juma" }, { name: "Baraka Mushi" }]} max={4} />
+```
+
+## Group
+
+<Preview>
+  <Demo name="avatar-group" />
+</Preview>
+
+## Props
+
+`Avatar` extends native `<span>` props (except `children`) and spreads them on, including `ref` (React 19).
+
+<PropsTable
+  rows={[
+    { name: "name", type: "string", description: "The person's name. Used for the initials and as the accessible name. Required." },
+    { name: "src", type: "string", description: "Image URL. If missing or broken, initials are shown." },
+    { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "32, 40 and 56 pixels." },
+    { name: "people", type: "{ name: string; src?: string }[]", description: "On AvatarGroup. The people to show." },
+    { name: "max", type: "number", default: "4", description: "On AvatarGroup. How many to show before collapsing into +N." },
+  ]}
+/>
+
+## Accessibility
+
+- Each avatar is a `role="img"` named by the person, so screen readers say "Asha Juma, image". The picture and the initials inside are hidden so the name is not read twice.
+- `AvatarGroup` is a labelled group ("6 people" by default; pass `aria-label` to say more). The "+N" is announced as "N more".
+- Initials are not a unique identifier, so don't rely on them alone where two people could look alike.
+
+## Tokens used
+
+`--muted`, `--foreground`, `--background` (the separating ring).
+
+## Known limitations
+
+- It is a client component, because it has to notice when the image fails to load.
+- It uses a plain `<img>`, with no `next/image` optimisation, so the component works in any framework.
+- No presence or status dot yet.
+
+## Source
+
+<Source name="avatar" />
