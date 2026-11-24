@@ -50,35 +50,68 @@ html {
   }
 }
 
-/* Soft section tints for the landing page. Text on them is always --foreground, which keeps
- * well above 4.5:1 on all four in both themes. */
+/* Landing page surfaces. The page sits on warm "paper"; content lives on --background sheets.
+ * The --glow-* stops colour the hero and the frames around product shots: they are decoration,
+ * and no text is ever set directly on them without a sheet in between. */
 :root {
-  --tint-butter: oklch(0.94 0.07 95);
-  --tint-coral: oklch(0.85 0.09 22);
-  --tint-mint: oklch(0.93 0.08 140);
-  --tint-sky: oklch(0.93 0.04 265);
+  --paper: oklch(0.968 0.007 75);
+  --glow-1: oklch(0.86 0.13 65);
+  --glow-2: oklch(0.8 0.15 25);
+  --glow-3: oklch(0.78 0.13 330);
+  --glow-4: oklch(0.8 0.1 250);
+  --glow-5: oklch(0.88 0.12 150);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not(.light) {
-    --tint-butter: oklch(0.32 0.05 95);
-    --tint-coral: oklch(0.36 0.07 22);
-    --tint-mint: oklch(0.31 0.05 140);
-    --tint-sky: oklch(0.31 0.05 265);
+    --paper: oklch(0.1 0 0);
+    --glow-1: oklch(0.55 0.13 65);
+    --glow-2: oklch(0.5 0.15 25);
+    --glow-3: oklch(0.48 0.14 330);
+    --glow-4: oklch(0.5 0.12 250);
+    --glow-5: oklch(0.55 0.11 150);
   }
 }
 :root[data-theme="dark"],
 .dark {
-  --tint-butter: oklch(0.32 0.05 95);
-  --tint-coral: oklch(0.36 0.07 22);
-  --tint-mint: oklch(0.31 0.05 140);
-  --tint-sky: oklch(0.31 0.05 265);
+  --paper: oklch(0.1 0 0);
+  --glow-1: oklch(0.55 0.13 65);
+  --glow-2: oklch(0.5 0.15 25);
+  --glow-3: oklch(0.48 0.14 330);
+  --glow-4: oklch(0.5 0.12 250);
+  --glow-5: oklch(0.55 0.11 150);
 }
 
 @theme inline {
-  --color-tint-butter: var(--tint-butter);
-  --color-tint-coral: var(--tint-coral);
-  --color-tint-mint: var(--tint-mint);
-  --color-tint-sky: var(--tint-sky);
+  --color-paper: var(--paper);
+}
+
+/* The hero's colour field: soft blobs that drift slowly. Only transform moves, and nothing moves
+ * for people who prefer reduced motion. */
+@keyframes zuri-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+}
+@keyframes zuri-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .zuri-drift {
+    animation: zuri-drift 18s ease-in-out infinite;
+  }
+  .zuri-float {
+    animation: zuri-float 7s ease-in-out infinite;
+  }
 }
 
 body {

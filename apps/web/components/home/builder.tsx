@@ -98,12 +98,6 @@ export function Builder({ items, initialId }: { items: BuilderItem[]; initialId?
         >
           <LazyDemo name={item.demo} />
         </div>
-        <span
-          aria-hidden="true"
-          className="absolute bottom-4 start-5 font-mono text-xs uppercase tracking-wider text-muted-foreground"
-        >
-          Live. Try it.
-        </span>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
