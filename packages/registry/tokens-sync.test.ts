@@ -119,6 +119,10 @@ describe("zuri-tokens registry item matches packages/tokens", () => {
       "--zuri-swell-n",
       "--zuri-swell-i",
       "--zuri-swell-dir",
+      "--zuri-otp-n",
+      "--zuri-otp-w",
+      "--zuri-otp-gap",
+      "--zuri-otp-goo",
     ]);
     const used = new Map<string, string>();
     for (const file of listSources("src"))

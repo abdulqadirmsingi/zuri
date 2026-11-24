@@ -355,17 +355,15 @@ export function PhoneInput({
       // The segment sits flush against the left edge, so the group gives up its own padding there.
       className={cn(!chip && "ps-0 overflow-hidden", className)}
       start={
-        <>
-          {layout === "fixed" ? (
-            // No dropdown: the code is plain text, so it is not a control and not in the tab order.
-            <span className="inline-flex items-center gap-1.5 self-stretch border-e border-border ps-3 pe-2.5 text-sm text-foreground">
-              {mark(country)}
-              <span className="tabular-nums">+{country.dial}</span>
-            </span>
-          ) : (
-            picker
-          )}
-        </>
+        layout === "fixed" ? (
+          // No dropdown: the code is plain text, so it is not a control and not in the tab order.
+          <span className="inline-flex items-center gap-1.5 self-stretch border-e border-border ps-3 pe-2.5 text-sm text-foreground">
+            {mark(country)}
+            <span className="tabular-nums">+{country.dial}</span>
+          </span>
+        ) : (
+          picker
+        )
       }
     >
       <input {...numberProps} />

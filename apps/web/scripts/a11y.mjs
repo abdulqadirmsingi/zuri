@@ -35,6 +35,7 @@ const pages = [
   "/docs/components/input",
   "/docs/components/input-group",
   "/docs/components/phone-input",
+  "/docs/components/otp-input",
   "/docs/components/textarea",
   "/docs/components/field",
   "/docs/components/password-strength",

@@ -265,6 +265,74 @@
       ]
     },
     {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "title": "Verification code",
+      "description": "A verification code field: digits rise into cells, a full code is checked, and the cells fuse into a Verified capsule or the row shakes and clears.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "src/inputs/otp-input/otp-input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": ["inputs"],
+      "css": {
+        "@keyframes zuri-shake": {
+          "0%, 100%": {
+            "transform": "translateX(0)"
+          },
+          "20%": {
+            "transform": "translateX(-0.4rem)"
+          },
+          "40%": {
+            "transform": "translateX(0.4rem)"
+          },
+          "60%": {
+            "transform": "translateX(-0.25rem)"
+          },
+          "80%": {
+            "transform": "translateX(0.2rem)"
+          }
+        },
+        "@keyframes zuri-otp-in": {
+          "from": {
+            "opacity": "0",
+            "transform": "translateY(45%) scale(0.86)",
+            "filter": "blur(3px)"
+          },
+          "to": {
+            "opacity": "1",
+            "transform": "none",
+            "filter": "none"
+          }
+        },
+        "@keyframes zuri-otp-out": {
+          "from": {
+            "opacity": "1",
+            "transform": "none"
+          },
+          "to": {
+            "opacity": "0",
+            "transform": "translateY(0.5rem)"
+          }
+        },
+        "@keyframes zuri-otp-breathe": {
+          "0%, 100%": {
+            "transform": "scale(1)"
+          },
+          "50%": {
+            "transform": "scale(0.93)"
+          }
+        }
+      },
+      "meta": {
+        "version": "0.1.0",
+        "tier": "free"
+      },
+      "registryDependencies": ["__REGISTRY_URL__/zuri-tokens.json"]
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",

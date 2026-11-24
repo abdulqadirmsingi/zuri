@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- One-time code 0.1.0 (`otp-input`): a verification code field. One real input over drawn cells; digits rise in, a full code is checked with `verify`, and the cells fuse into a Verified capsule or the row shakes and clears.
 - Input, Textarea, Select, Picker, Input group and Phone input shake once when they turn invalid (off for reduced motion).
 - Phone input: flags as emoji by default (`flags="code"` for the tile, `renderFlag` for images). Dropdown triggers and items, and Button, now show a pointer cursor.
 - Phone input 0.1.0: searchable country picker, grouped digits, paste detection, E.164 output; joined, split and chip layouts. Picker 0.2.0 gains `renderValue` and `renderOption`.
